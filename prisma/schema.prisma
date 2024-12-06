@@ -15,10 +15,54 @@ datasource db {
 }
 
 model Product {
-  id          String   @id @default(uuid())
-  model       String?  @unique
+  id            String          @id @default(uuid())
+  model         String          @unique
+  title         String
+  price         Float
+  description   String?
+  images        String[]
+  Category      Category        @relation(fields: [categoryId], references: [id])
+  categoryId    String          @map("category_id")
+  ProductMedia  ProductMedia[]
+  ProductReview ProductReview[]
+
+  @@index(model)
+}
+
+model Category {
+  id          String    @id @default(uuid())
   title       String
-  price       Float
-  description String?
-  images      String[]
+  title_en    String    @unique
+  description String
+  Product     Product[]
+}
+
+model ProductMedia {
+  id        String  @id @default(uuid())
+  title     String
+  subtitle  String
+  media_url String
+  style     Style   @default(IMAGE_BOTTOM)
+  Product   Product @relation(fields: [productId], references: [id])
+  productId String  @map("product_id")
+}
+
+model ProductReview {
+  id         String   @id @default(uuid())
+  rating     Int
+  comment    String
+  image      String
+  author     String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  Product    Product  @relation(fields: [productId], references: [id])
+  productId  String   @map("product_id")
+}
+
+enum Style {
+  VIDEO
+  IMAGE_ONLY
+  IMAGE_LEFT
+  IMAGE_RIGHT
+  IMAGE_BOTTOM
 }
