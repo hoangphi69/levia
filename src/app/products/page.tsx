@@ -65,7 +65,7 @@ export default async function Products() {
         <h1 className="font-bold text-4xl">{title}</h1>
         <p>{subtitle}</p>
       </div>
-      <div className="gap-10 grid grid-cols-5">
+      <div className="gap-10 grid grid-cols-5 mt-6">
         {products.map(({ id, title, price, images }) => (
           <Link key={id} href={`/products/${id}`}>
             <ProductCard image={images[0]} title={title} price={price} />
