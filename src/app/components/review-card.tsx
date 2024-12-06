@@ -1,5 +1,3 @@
-import { ProductReview } from '../products/[id]/page';
-
 export default function ReviewCard({
   author,
   comment,
