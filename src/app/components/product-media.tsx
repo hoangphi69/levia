@@ -1,30 +1,32 @@
+import { Prisma } from '@prisma/client';
+
+type productMediaAttributes = Pick<
+  Prisma.ProductMediaCreateInput,
+  'title' | 'subtitle' | 'media_url' | 'style'
+>;
+
 export default function ProductMedia({
   title,
   subtitle,
-  media,
+  media_url,
   style,
-}: {
-  title: string;
-  subtitle: string;
-  media: string;
-  style: 'video' | 'image-only' | 'image-left' | 'image-right' | 'image-bottom';
-}) {
+}: productMediaAttributes) {
   return (
     <div
       className={`grid md:gap-12 gap-5 text-center
         ${
-          style === 'image-right'
+          style === 'image_right'
             ? 'md:grid-cols-2 md:text-left'
-            : style === 'image-left'
+            : style === 'image_left'
             ? 'md:grid-cols-2 md:text-right'
-            : style === 'image-only'
+            : style === 'image_only'
             ? ''
             : '!gap-0'
         }`}
     >
       <div
         className={`max-w-[55ch] place-self-center space-y-1 md:space-y-4 ${
-          style === 'image-left' ? 'md:order-2' : ''
+          style === 'image_left' ? 'md:order-2' : ''
         }`}
       >
         <h3 className="font-extrabold text-h3">{title}</h3>
@@ -34,7 +36,7 @@ export default function ProductMedia({
       <div className="h-40 md:h-[25rem]">
         <img
           className="block w-full h-full object-center object-cover"
-          src={media}
+          src={media_url}
           alt=""
         />
       </div>

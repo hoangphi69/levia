@@ -4,27 +4,17 @@ import ReviewCard from '@/app/components/review-card';
 import ReviewStats from '@/app/components/review-stats';
 import SectionTitle from '@/app/components/section-title';
 import prisma from '@/app/lib/prisma';
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb';
 import { buttonVariants } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Link from 'next/link';
-
-export type ProductMedia = {
-  id: string;
-  title: string;
-  subtitle: string;
-  media: string;
-  style: 'video' | 'image-only' | 'image-left' | 'image-right' | 'image-bottom';
-};
-
-export type ProductReview = {
-  id: string;
-  author: string;
-  comment: string;
-  image: string;
-  rating: number;
-  created_at: Date;
-  updated_at: Date;
-};
 
 export default async function ProductDetails({
   params,
@@ -34,73 +24,42 @@ export default async function ProductDetails({
   const { id } = await params;
   const product = await prisma.product.findFirst({
     where: { id },
+    include: {
+      media: true,
+      reviews: true,
+    },
   });
 
-  const product_media: ProductMedia[] = [
-    {
-      id: 'u8923ur8923',
-      title: 'Thiết kế hiện đại, tinh tế',
-      subtitle:
-        'Mô tả ngắn một đoạn văn ngắn gọn, nổi bật những điểm mạnh chính của sản phẩm. Mô tả ngắn một đoạn văn ngắn gọn,',
-      media: 'https://picsum.photos/1100/500',
-      style: 'image-left',
-    },
-    {
-      id: 'u8923ur8923',
-      title: 'Thiết kế hiện đại, tinh tế',
-      subtitle:
-        'Mô tả ngắn một đoạn văn ngắn gọn, nổi bật những điểm mạnh chính của sản phẩm. Mô tả ngắn một đoạn văn ngắn gọn,',
-      media: 'https://picsum.photos/1100/500',
-      style: 'image-right',
-    },
-    {
-      id: 'u8923ur8923',
-      title: 'Thiết kế hiện đại, tinh tế',
-      subtitle:
-        'Mô tả ngắn một đoạn văn ngắn gọn, nổi bật những điểm mạnh chính của sản phẩm. Mô tả ngắn một đoạn văn ngắn gọn,',
-      media: 'https://picsum.photos/1100/500',
-      style: 'image-bottom',
-    },
-    {
-      id: 'u8923ur8923',
-      title: 'Thiết kế hiện đại, tinh tế',
-      subtitle:
-        'Mô tả ngắn một đoạn văn ngắn gọn, nổi bật những điểm mạnh chính của sản phẩm. Mô tả ngắn một đoạn văn ngắn gọn,',
-      media: 'https://picsum.photos/1100/500',
-      style: 'image-only',
-    },
-  ];
-
-  const product_suggests = await prisma.product.findMany();
-
-  const product_reviews: ProductReview[] = [
-    {
-      id: 'i09234jdsf',
-      author: 'HoangPhi',
-      comment:
-        'Chưa bao giờ trong đời tôi đc sử dụng sản phẩm đỉnh cao ntn. Tôi chắc chắn sẽ mua cái nữa cho bà già nhà tôi.',
-      rating: 5,
-      image: 'https://picsum.photos/200',
-      created_at: new Date('12/11/2024'),
-      updated_at: new Date('12/12/2024'),
-    },
-    {
-      id: 'i09234dsf',
-      author: 'TrvankWan',
-      comment:
-        'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos, eaque odio velit modi animi enim ipsum, ipsam sit, vero error iusto repellat blanditiis sint. Quas nesciunt aut recusandae error nulla.',
-      rating: 4,
-      image: 'https://picsum.photos/200',
-      created_at: new Date('12/12/2024'),
-      updated_at: new Date('12/12/2024'),
-    },
-  ];
+  const recommendations: {
+    id: string;
+    title: string;
+    images: string[];
+    price: number;
+  }[] = await prisma.$queryRaw`
+    SELECT id, title, images, price
+    FROM "Product"
+    WHERE id != ${product?.id} AND category_id = ${product?.category_id}
+    ORDER BY RANDOM()
+    LIMIT 5;
+  `;
 
   return (
     <div className="p-6">
-      <section className="mb-4 border">
-        <span>Trang chủ - Sản phẩm - Máy hút mùi</span>
-      </section>
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/">Trang chủ</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/products">Sản phẩm</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>{product?.title}</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
 
       <section className="gap-4 grid grid-cols-2">
         <div className="gap-4 grid grid-cols-3 border">
@@ -127,17 +86,32 @@ export default async function ProductDetails({
 
         <Tabs defaultValue="features" className="col-span-2">
           <TabsList>
-            <TabsTrigger value="features">Tính năng nổi bật</TabsTrigger>
-            <TabsTrigger value="specs">Thông số kỹ thuật</TabsTrigger>
+            {product?.features && (
+              <TabsTrigger value="features">Tính năng nổi bật</TabsTrigger>
+            )}
+            {product?.specs && (
+              <TabsTrigger value="specs">Thông số kỹ thuật</TabsTrigger>
+            )}
             <TabsTrigger value="installation">Hướng dẫn lắp đặt</TabsTrigger>
             <TabsTrigger value="user">Hướng dẫn sử dụng</TabsTrigger>
           </TabsList>
-          <TabsContent
-            className="content-center border min-h-20 text-center"
-            value="features"
-          >
-            Nổi bật vl
-          </TabsContent>
+          {product?.features && (
+            <TabsContent
+              className="content-center border min-h-20 text-center"
+              value="features"
+            >
+              <div className="grid grid-cols-4">
+                {Object.entries(product.features).map(
+                  ([label, value], index) => (
+                    <div key={index} className="flex flex-col items-start">
+                      <span>{label}</span>
+                      <span className="font-bold text-lg">{value}</span>
+                    </div>
+                  )
+                )}
+              </div>
+            </TabsContent>
+          )}
           <TabsContent
             className="content-center border min-h-20 text-center"
             value="specs"
@@ -159,22 +133,24 @@ export default async function ProductDetails({
         </Tabs>
       </section>
 
-      <section className="space-y-4">
-        <SectionTitle
-          title1=""
-          title2="Về sản phẩm"
-          subtitle="Thiết kế bởi đội ngũ sáng tạo tài năng, kết hợp công nghệ đỉnh cao để đem lại sự tiện nghi và sang trọng cho người dùng"
-        />
-        {product_media.map((media, index) => (
-          <ProductMedia
-            key={index}
-            style={media.style}
-            title={media.title}
-            subtitle={media.subtitle}
-            media={media.media}
+      {product?.media?.length && (
+        <section className="space-y-4">
+          <SectionTitle
+            title1=""
+            title2="Về sản phẩm"
+            subtitle="Thiết kế bởi đội ngũ sáng tạo tài năng, kết hợp công nghệ đỉnh cao để đem lại sự tiện nghi và sang trọng cho người dùng"
           />
-        ))}
-      </section>
+          {product.media.map((media, index) => (
+            <ProductMedia
+              key={index}
+              style={media.style}
+              title={media.title}
+              subtitle={media.subtitle}
+              media_url={media.media_url}
+            />
+          ))}
+        </section>
+      )}
 
       <section className="space-y-4">
         <SectionTitle
@@ -184,37 +160,40 @@ export default async function ProductDetails({
         />
 
         <div className="flex gap-4 *:w-[250px]">
-          {product_suggests.map((product, index) => (
-            <ProductCard
-              key={index}
-              title={product.title}
-              image={product.images[0]}
-              price={product.price}
-            />
+          {recommendations.map((product) => (
+            <Link key={product.id} href={`/products/${product.id}`}>
+              <ProductCard
+                title={product.title}
+                image={product.images[0]}
+                price={product.price}
+              />
+            </Link>
           ))}
         </div>
       </section>
 
-      <section className="space-y-4">
-        <div className="flex md:flex-row flex-col *:flex-1 justify-between gap-6">
-          <SectionTitle title1="" title2="Review & đánh giá" subtitle="" />
-          <ReviewStats
-            ratings={product_reviews.map((review) => review.rating)}
-          />
-        </div>
-        <div className="gap-4 grid grid-cols-3">
-          {product_reviews.map((review, index) => (
-            <ReviewCard
-              key={index}
-              rating={review.rating}
-              author={review.author}
-              comment={review.comment}
-              image={review.image}
-              created_at={review.created_at}
+      {product?.reviews?.length && (
+        <section className="space-y-4">
+          <div className="flex md:flex-row flex-col *:flex-1 justify-between gap-6">
+            <SectionTitle title1="" title2="Review & đánh giá" subtitle="" />
+            <ReviewStats
+              ratings={product.reviews.map((review) => review.rating)}
             />
-          ))}
-        </div>
-      </section>
+          </div>
+          <div className="gap-4 grid grid-cols-3">
+            {product.reviews.map((review, index) => (
+              <ReviewCard
+                key={index}
+                rating={review.rating}
+                author={review.author}
+                comment={review.comment}
+                image={review.image}
+                created_at={review.created_at}
+              />
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   );
 }
