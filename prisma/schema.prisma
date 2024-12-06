@@ -15,16 +15,18 @@ datasource db {
 }
 
 model Product {
-  id            String          @id @default(uuid())
-  model         String          @unique
-  title         String
-  price         Float
-  description   String?
-  images        String[]
-  Category      Category        @relation(fields: [categoryId], references: [id])
-  categoryId    String          @map("category_id")
-  ProductMedia  ProductMedia[]
-  ProductReview ProductReview[]
+  id          String          @id @default(uuid())
+  model       String          @unique
+  title       String
+  price       Float
+  description String?
+  images      String[]
+  features    Json?
+  specs       Json?
+  Category    Category        @relation(fields: [category_id], references: [id])
+  category_id String
+  media       ProductMedia[]
+  reviews     ProductReview[]
 
   @@index(model)
 }
@@ -34,17 +36,17 @@ model Category {
   title       String
   title_en    String    @unique
   description String
-  Product     Product[]
+  products    Product[]
 }
 
 model ProductMedia {
-  id        String  @id @default(uuid())
-  title     String
-  subtitle  String
-  media_url String
-  style     Style   @default(IMAGE_BOTTOM)
-  Product   Product @relation(fields: [productId], references: [id])
-  productId String  @map("product_id")
+  id         String  @id @default(uuid())
+  title      String
+  subtitle   String
+  media_url  String
+  style      Style   @default(image_bottom)
+  Product    Product @relation(fields: [product_id], references: [id])
+  product_id String
 }
 
 model ProductReview {
@@ -55,14 +57,14 @@ model ProductReview {
   author     String
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
-  Product    Product  @relation(fields: [productId], references: [id])
-  productId  String   @map("product_id")
+  Product    Product  @relation(fields: [product_id], references: [id])
+  product_id String
 }
 
 enum Style {
-  VIDEO
-  IMAGE_ONLY
-  IMAGE_LEFT
-  IMAGE_RIGHT
-  IMAGE_BOTTOM
+  video
+  image_only
+  image_left
+  image_right
+  image_bottom
 }

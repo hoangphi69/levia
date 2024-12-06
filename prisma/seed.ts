@@ -25,6 +25,9 @@ const categories: Prisma.CategoryCreateInput[] = [
 const products: Prisma.ProductCreateInput[] = [
   {
     model: 'LV298',
+    images: ['https://picsum.photos/500', 'https://picsum.photos/450'],
+    description:
+      'Thiết kế bởi đội ngũ sáng tạo tài năng, để đem lại sự tiện nghi và sang trọng cho người dùng. Một đoạn text thể hiện các tính năng nổi bật của sản phẩm khiến cho họ ngay lập tức mua về cho vợ sử dụng.',
     title: 'Bếp từ đơn âm Levia LV298',
     price: 3990000,
     Category: {
@@ -32,7 +35,7 @@ const products: Prisma.ProductCreateInput[] = [
         title_en: categories[0].title_en,
       },
     },
-    ProductMedia: {
+    media: {
       create: {
         title: 'Thiết kế hiện đại, tinh tế',
         subtitle:
@@ -40,7 +43,7 @@ const products: Prisma.ProductCreateInput[] = [
         media_url: 'https://picsum.photos/400',
       },
     },
-    ProductReview: {
+    reviews: {
       createMany: {
         data: [
           {
@@ -63,6 +66,7 @@ const products: Prisma.ProductCreateInput[] = [
   },
   {
     model: 'LV397',
+    images: ['https://picsum.photos/500', 'https://picsum.photos/450'],
     title: 'Bếp từ đơn âm Levia LV397',
     price: 2990000,
     Category: {
@@ -73,6 +77,7 @@ const products: Prisma.ProductCreateInput[] = [
   },
   {
     model: 'LV379',
+    images: ['https://picsum.photos/500', 'https://picsum.photos/450'],
     title: 'Bếp từ đôi Levia LV379',
     price: 2990000,
     Category: {
@@ -83,6 +88,7 @@ const products: Prisma.ProductCreateInput[] = [
   },
   {
     model: 'LV99',
+    images: ['https://picsum.photos/500', 'https://picsum.photos/450'],
     title: 'Bếp từ đôi Levia LV99',
     price: 2990000,
     Category: {
@@ -93,6 +99,7 @@ const products: Prisma.ProductCreateInput[] = [
   },
   {
     model: 'LV68PRO',
+    images: ['https://picsum.photos/500', 'https://picsum.photos/450'],
     title: 'Bếp từ đôi Levia LV68PRO',
     price: 2990000,
     Category: {
@@ -103,6 +110,7 @@ const products: Prisma.ProductCreateInput[] = [
   },
   {
     model: 'LV368PRO',
+    images: ['https://picsum.photos/500', 'https://picsum.photos/450'],
     title: 'Bếp từ đôi Levia LV368PRO',
     price: 2990000,
     Category: {
@@ -113,6 +121,7 @@ const products: Prisma.ProductCreateInput[] = [
   },
   {
     model: 'LV29',
+    images: ['https://picsum.photos/500', 'https://picsum.photos/450'],
     title: 'Bếp từ đôi Levia LV29',
     price: 2990000,
     Category: {
@@ -123,6 +132,7 @@ const products: Prisma.ProductCreateInput[] = [
   },
   {
     model: 'LV269PRO',
+    images: ['https://picsum.photos/500', 'https://picsum.photos/450'],
     title: 'Bếp từ đôi Levia LV269PRO',
     price: 2990000,
     Category: {
@@ -133,6 +143,7 @@ const products: Prisma.ProductCreateInput[] = [
   },
   {
     model: 'LV79DI',
+    images: ['https://picsum.photos/500', 'https://picsum.photos/450'],
     title: 'Bếp từ đôi Levia LV79DI A.I',
     price: 2990000,
     Category: {
@@ -143,6 +154,7 @@ const products: Prisma.ProductCreateInput[] = [
   },
   {
     model: 'LV66',
+    images: ['https://picsum.photos/500', 'https://picsum.photos/450'],
     title: 'Máy hút mùi Levia LV66',
     price: 2990000,
     Category: {
@@ -153,6 +165,7 @@ const products: Prisma.ProductCreateInput[] = [
   },
   {
     model: 'LV88',
+    images: ['https://picsum.photos/500', 'https://picsum.photos/450'],
     title: 'Máy hút mùi Levia LV88',
     price: 2990000,
     Category: {
@@ -163,6 +176,7 @@ const products: Prisma.ProductCreateInput[] = [
   },
   {
     model: 'LV99',
+    images: ['https://picsum.photos/500', 'https://picsum.photos/450'],
     title: 'Máy hút mùi Levia LV88',
     price: 2990000,
     Category: {
@@ -173,6 +187,7 @@ const products: Prisma.ProductCreateInput[] = [
   },
   {
     model: 'CW',
+    images: ['https://picsum.photos/500', 'https://picsum.photos/450'],
     title: 'Nồi từ Levia',
     price: 2990000,
     Category: {
@@ -189,7 +204,7 @@ async function main() {
   for (const category of categories) {
     const newCategory = await prisma.category.upsert({
       where: { title_en: category.title_en },
-      update: {},
+      update: category,
       create: category,
     });
     console.log(`Created category with id: ${newCategory.id}`);
@@ -198,7 +213,7 @@ async function main() {
   for (const product of products) {
     const newProduct = await prisma.product.upsert({
       where: { model: product.model },
-      update: {},
+      update: product,
       create: product,
     });
     console.log(`Created product with id: ${newProduct.id}`);
