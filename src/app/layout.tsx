@@ -16,7 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`antialiased font-modern`}>
+      <body className={`antialiased font-modern dark`}>
         <Navigation />
         {children}
         <FAQ />
