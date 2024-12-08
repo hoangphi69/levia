@@ -18,13 +18,13 @@ model Product {
   id          String          @id @default(uuid())
   model       String          @unique
   title       String
-  price       Float
+  price       Float?
   description String?
   images      String[]
   features    Json?
   specs       Json?
-  Category    Category        @relation(fields: [category_id], references: [id])
-  category_id String
+  Category    Category?       @relation(fields: [category_id], references: [id], onDelete: SetNull)
+  category_id String?
   media       ProductMedia[]
   reviews     ProductReview[]
 
@@ -34,30 +34,30 @@ model Product {
 model Category {
   id          String    @id @default(uuid())
   title       String
-  title_en    String    @unique
-  description String
+  title_en    String?   @unique
+  description String?
   products    Product[]
 }
 
 model ProductMedia {
   id         String  @id @default(uuid())
   title      String
-  subtitle   String
-  media_url  String
+  subtitle   String?
+  media_url  String  @default("")
   style      Style   @default(image_bottom)
-  Product    Product @relation(fields: [product_id], references: [id])
+  Product    Product @relation(fields: [product_id], references: [id], onDelete: Cascade)
   product_id String
 }
 
 model ProductReview {
   id         String   @id @default(uuid())
   rating     Int
-  comment    String
-  image      String
-  author     String
+  comment    String?
+  image      String   @default("")
+  author     String   @default("Ẩn danh")
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
-  Product    Product  @relation(fields: [product_id], references: [id])
+  Product    Product  @relation(fields: [product_id], references: [id], onDelete: Cascade)
   product_id String
 }
 

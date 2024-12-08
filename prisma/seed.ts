@@ -25,11 +25,23 @@ const categories: Prisma.CategoryCreateInput[] = [
 const products: Prisma.ProductCreateInput[] = [
   {
     model: 'LV298',
-    images: ['https://picsum.photos/500', 'https://picsum.photos/450'],
+    images: ['https://picsum.photos/501', 'https://picsum.photos/502'],
     description:
       'Thiết kế bởi đội ngũ sáng tạo tài năng, để đem lại sự tiện nghi và sang trọng cho người dùng. Một đoạn text thể hiện các tính năng nổi bật của sản phẩm khiến cho họ ngay lập tức mua về cho vợ sử dụng.',
     title: 'Bếp từ đơn âm Levia LV298',
     price: 3990000,
+    features: {
+      'tính năng 1': 'con số hầm hố',
+      'tính năng 2': 'chức năng nổi bật',
+      'tính năng 3': 'ưu điểm vượt trội',
+      'tính năng 4': 'tính năng hấp dẫn',
+    },
+    specs: {
+      'thông số 1': 'con số hầm hố',
+      'thông số 2': 'số nguyên nổi bật',
+      'thông số 3': 'hằng số hấp dẫn',
+      'thông số 4': 'số ảo tung chảo',
+    },
     Category: {
       connect: {
         title_en: categories[0].title_en,
@@ -199,6 +211,11 @@ const products: Prisma.ProductCreateInput[] = [
 ];
 
 async function main() {
+  console.log('Empty database...');
+
+  await prisma.category.deleteMany();
+  await prisma.product.deleteMany();
+
   console.log('Start seeding...');
 
   for (const category of categories) {
