@@ -1,7 +1,7 @@
-import { Prisma } from '@prisma/client';
+import type { ProductMedia } from '@prisma/client';
 
-type productMediaAttributes = Pick<
-  Prisma.ProductMediaCreateInput,
+type ProductMediaComponent = Pick<
+  ProductMedia,
   'title' | 'subtitle' | 'media_url' | 'style'
 >;
 
@@ -10,7 +10,7 @@ export default function ProductMedia({
   subtitle,
   media_url,
   style,
-}: productMediaAttributes) {
+}: ProductMediaComponent) {
   return (
     <div
       className={`grid md:gap-12 gap-5 text-center

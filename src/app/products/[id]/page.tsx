@@ -112,12 +112,21 @@ export default async function ProductDetails({
               </div>
             </TabsContent>
           )}
-          <TabsContent
-            className="content-center border min-h-20 text-center"
-            value="specs"
-          >
-            Thông số kỹ thuật ở vl
-          </TabsContent>
+          {product?.specs && (
+            <TabsContent
+              className="content-center border min-h-20 text-center"
+              value="specs"
+            >
+              <div className="grid grid-cols-4">
+                {Object.entries(product.specs).map(([label, value], index) => (
+                  <div key={index} className="flex flex-col items-start">
+                    <span>{label}</span>
+                    <span className="font-bold text-lg">{value}</span>
+                  </div>
+                ))}
+              </div>
+            </TabsContent>
+          )}
           <TabsContent
             className="content-center border min-h-20 text-center"
             value="installation"

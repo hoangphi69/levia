@@ -1,16 +1,17 @@
+import type { ProductReview } from '@prisma/client';
+
+type ReviewCard = Pick<
+  ProductReview,
+  'author' | 'comment' | 'rating' | 'image' | 'created_at'
+>;
+
 export default function ReviewCard({
   author,
   comment,
   rating,
   image,
   created_at,
-}: {
-  author: string;
-  comment: string;
-  rating: number;
-  image: string;
-  created_at: Date;
-}) {
+}: ReviewCard) {
   return (
     <div className="hover:shadow-lg transition-shadow">
       <img className="block w-full max-h-40 object-cover" src={image} alt="" />
@@ -20,7 +21,7 @@ export default function ReviewCard({
         <div className="flex justify-between">
           <span className="font-bold text-h6">{author}</span>
           <span className="font-light text-gray-1 text-h6">
-            {created_at.getUTCDate()}
+            {created_at.toISOString()}
           </span>
         </div>
       </div>
