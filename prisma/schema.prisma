@@ -14,13 +14,14 @@ datasource db {
   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
+// MARK: PRODUCTS
 model Product {
   id          String          @id @default(uuid())
   model       String          @unique
   title       String
   price       Float?
   description String?
-  images      String[]
+  images      String[]        @default(["https://picsum.photos/100"])
   features    Json?
   specs       Json?
   Category    Category?       @relation(fields: [category_id], references: [id], onDelete: SetNull)
@@ -33,8 +34,8 @@ model Product {
 
 model Category {
   id          String    @id @default(uuid())
-  title       String
-  title_en    String?   @unique
+  title       String    @unique
+  title_en    String?
   description String?
   products    Product[]
 }
@@ -43,7 +44,7 @@ model ProductMedia {
   id         String  @id @default(uuid())
   title      String
   subtitle   String?
-  media_url  String  @default("")
+  media_url  String  @default("https://picsum.photos/100")
   style      Style   @default(image_bottom)
   Product    Product @relation(fields: [product_id], references: [id], onDelete: Cascade)
   product_id String
@@ -67,4 +68,23 @@ enum Style {
   image_left
   image_right
   image_bottom
+}
+
+// MARK: ARTICLES
+model Topic {
+  id       String    @id @default(uuid())
+  title    String    @unique
+  articles Article[]
+}
+
+model Article {
+  id         String   @id @default(uuid())
+  title      String
+  author     String   @default("Ẩn danh")
+  banner     String   @default("https://picsum.photos/200")
+  content    Json?
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  Topic      Topic?   @relation(fields: [topic_id], references: [id], onDelete: SetNull)
+  topic_id   String?
 }

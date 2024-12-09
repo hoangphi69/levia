@@ -44,7 +44,7 @@ const products: Prisma.ProductCreateInput[] = [
     },
     Category: {
       connect: {
-        title_en: categories[0].title_en,
+        title: categories[0].title,
       },
     },
     media: {
@@ -83,7 +83,7 @@ const products: Prisma.ProductCreateInput[] = [
     price: 2990000,
     Category: {
       connect: {
-        title_en: categories[0].title_en,
+        title: categories[0].title,
       },
     },
   },
@@ -94,7 +94,7 @@ const products: Prisma.ProductCreateInput[] = [
     price: 2990000,
     Category: {
       connect: {
-        title_en: categories[0].title_en,
+        title: categories[0].title,
       },
     },
   },
@@ -105,7 +105,7 @@ const products: Prisma.ProductCreateInput[] = [
     price: 2990000,
     Category: {
       connect: {
-        title_en: categories[0].title_en,
+        title: categories[0].title,
       },
     },
   },
@@ -116,7 +116,7 @@ const products: Prisma.ProductCreateInput[] = [
     price: 2990000,
     Category: {
       connect: {
-        title_en: categories[0].title_en,
+        title: categories[0].title,
       },
     },
   },
@@ -127,7 +127,7 @@ const products: Prisma.ProductCreateInput[] = [
     price: 2990000,
     Category: {
       connect: {
-        title_en: categories[0].title_en,
+        title: categories[0].title,
       },
     },
   },
@@ -138,7 +138,7 @@ const products: Prisma.ProductCreateInput[] = [
     price: 2990000,
     Category: {
       connect: {
-        title_en: categories[0].title_en,
+        title: categories[0].title,
       },
     },
   },
@@ -149,7 +149,7 @@ const products: Prisma.ProductCreateInput[] = [
     price: 2990000,
     Category: {
       connect: {
-        title_en: categories[0].title_en,
+        title: categories[0].title,
       },
     },
   },
@@ -160,7 +160,7 @@ const products: Prisma.ProductCreateInput[] = [
     price: 2990000,
     Category: {
       connect: {
-        title_en: categories[0].title_en,
+        title: categories[0].title,
       },
     },
   },
@@ -171,7 +171,7 @@ const products: Prisma.ProductCreateInput[] = [
     price: 2990000,
     Category: {
       connect: {
-        title_en: categories[1].title_en,
+        title: categories[1].title,
       },
     },
   },
@@ -182,7 +182,7 @@ const products: Prisma.ProductCreateInput[] = [
     price: 2990000,
     Category: {
       connect: {
-        title_en: categories[1].title_en,
+        title: categories[1].title,
       },
     },
   },
@@ -193,7 +193,7 @@ const products: Prisma.ProductCreateInput[] = [
     price: 2990000,
     Category: {
       connect: {
-        title_en: categories[1].title_en,
+        title: categories[1].title,
       },
     },
   },
@@ -204,9 +204,63 @@ const products: Prisma.ProductCreateInput[] = [
     price: 2990000,
     Category: {
       connect: {
-        title_en: categories[2].title_en,
+        title: categories[2].title,
       },
     },
+  },
+];
+
+const topics: Prisma.TopicCreateInput[] = [
+  {
+    title: 'Xu hướng',
+  },
+  {
+    title: 'Sự kiện',
+  },
+  {
+    title: 'Nấu ăn',
+  },
+  {
+    title: 'Tips & Tricks',
+  },
+];
+
+const articles: Prisma.ArticleCreateInput[] = [
+  {
+    title: 'Mẹo sử dụng bếp điện an toàn và hiệu quả',
+    author: 'Trần Kwan',
+    banner: 'https://picsum.photos/1280/350',
+    created_at: new Date('12/12/2024'),
+    Topic: {
+      connect: {
+        title: topics[3].title,
+      },
+    },
+    content: {},
+  },
+  {
+    title: 'Levia Ra Mắt Sản Phẩm Bếp Điện Thế Hệ Mới - Hiệu Suất Vượt Trội',
+    Topic: {
+      connect: {
+        title: topics[1].title,
+      },
+    },
+  },
+  {
+    title: 'Levia Ra Mắt Sản Phẩm Bếp Điện Thế Hệ Mới - Hiệu Suất Vượt Trội',
+  },
+  {
+    title: 'Levia Ra Mắt Sản Phẩm Bếp Điện Thế Hệ Mới',
+  },
+  {
+    title: 'Sản Phẩm Bếp Điện Thế Hệ Mới - Hiệu Suất Vượt Trội',
+  },
+  {
+    title: 'Levia Ra Mắt Sản Phẩm Hiệu Suất Vượt Trội',
+  },
+  {
+    title:
+      'Levia Ra Mắt Sản Phẩm Bếp Điện Thế Hệ Mới - Hiệu Suất Vượt Trội Levia Ra Mắt Sản Phẩm Bếp Điện Thế Hệ Mới - Hiệu Suất Vượt Trội',
   },
 ];
 
@@ -215,12 +269,14 @@ async function main() {
 
   await prisma.category.deleteMany();
   await prisma.product.deleteMany();
+  await prisma.topic.deleteMany();
+  await prisma.article.deleteMany();
 
   console.log('Start seeding...');
 
   for (const category of categories) {
     const newCategory = await prisma.category.upsert({
-      where: { title_en: category.title_en },
+      where: { title: category.title },
       update: category,
       create: category,
     });
@@ -234,6 +290,22 @@ async function main() {
       create: product,
     });
     console.log(`Created product with id: ${newProduct.id}`);
+  }
+
+  for (const topic of topics) {
+    const newTopic = await prisma.topic.upsert({
+      where: { title: topic.title },
+      update: topic,
+      create: topic,
+    });
+    console.log(`Created topic with id: ${newTopic.id}`);
+  }
+
+  for (const article of articles) {
+    const newArticle = await prisma.article.create({
+      data: article,
+    });
+    console.log(`Created article with id: ${newArticle.id}`);
   }
 
   console.log('Seeding finished.');
