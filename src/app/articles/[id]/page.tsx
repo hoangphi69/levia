@@ -1,3 +1,4 @@
+import EditorOutput from '@/app/lib/editor-output';
 import prisma from '@/app/lib/prisma';
 
 export default async function ArticleDetails({
@@ -42,31 +43,11 @@ export default async function ArticleDetails({
             </p>
           </div>
 
-          {/* {article.contents && (
+          {article?.content && (
             <div className="space-y-6 text-base text-gray-1">
-              {article.contents.map((item, index) => {
-                switch (item.type) {
-                  case 'paragraph':
-                    return <p key={index}>{item.text}</p>;
-                  case 'image':
-                    return (
-                      <figure key={index}>
-                        <img
-                          className="w-full object-center object-cover"
-                          src={item.image}
-                          alt=""
-                        />
-                        <figcaption className="mt-2 text-center text-h6 italic">
-                          {item.caption}
-                        </figcaption>
-                      </figure>
-                    );
-                  default:
-                    break;
-                }
-              })}
+              <EditorOutput content={article.content} />
             </div>
-          )} */}
+          )}
 
           <div className="flex items-center gap-4 font-light text-gray-1 text-h6 uppercase fill-gray-1">
             <span>Chia sẻ</span>

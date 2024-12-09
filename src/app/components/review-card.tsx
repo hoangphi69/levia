@@ -1,4 +1,5 @@
 import type { ProductReview } from '@prisma/client';
+import Image from 'next/image';
 
 type ReviewCard = Pick<
   ProductReview,
