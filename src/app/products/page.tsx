@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import ProductCard from '../components/product-card';
+import ProductCard from '../components/card-product';
 import prisma from '../lib/prisma';
 import {
   Breadcrumb,
