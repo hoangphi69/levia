@@ -8,7 +8,7 @@ import {
   BreadcrumbSeparator,
   BreadcrumbPage,
 } from '@/components/ui/breadcrumb';
-import ArticleCard from '../components/article-card';
+import ArticleCard from '../components/card-article';
 
 export default async function Articles() {
   const title = 'Bài viết';

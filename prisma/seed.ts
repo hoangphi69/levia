@@ -264,6 +264,34 @@ const articles: Prisma.ArticleCreateInput[] = [
   },
 ];
 
+const agencies: Prisma.AgencyCreateInput[] = [
+  {
+    title: 'Đại học Văn Lang - Campus 3',
+    lat: 10.82765550545538,
+    lng: 106.70006871018364,
+    location:
+      '69/68 Đ. Đặng Thuỳ Trâm, Phường 13, Bình Thạnh, Hồ Chí Minh 70000, Vietnam',
+    image: 'https://picsum.photos./200',
+    phone: '02871059999',
+    email: 'info@vlu.edu.vn',
+  },
+  {
+    title: 'Cửa hàng 1',
+    lat: 10.831298553692376,
+    lng: 106.69978672072827,
+  },
+  {
+    title: 'Cửa hàng 2',
+    lat: 10.827634427824027,
+    lng: 106.68918103858239,
+  },
+  {
+    title: 'Cửa hàng 3',
+    lat: 10.824053624907288,
+    lng: 106.68674621582426,
+  },
+];
+
 async function main() {
   console.log('Empty database...');
 
@@ -271,6 +299,7 @@ async function main() {
   await prisma.product.deleteMany();
   await prisma.topic.deleteMany();
   await prisma.article.deleteMany();
+  await prisma.agency.deleteMany();
 
   console.log('Start seeding...');
 
@@ -306,6 +335,13 @@ async function main() {
       data: article,
     });
     console.log(`Created article with id: ${newArticle.id}`);
+  }
+
+  for (const agency of agencies) {
+    const newAgency = await prisma.agency.create({
+      data: agency,
+    });
+    console.log(`Created agency with id: ${newAgency.id}`);
   }
 
   console.log('Seeding finished.');

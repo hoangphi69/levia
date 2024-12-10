@@ -88,3 +88,17 @@ model Article {
   Topic      Topic?   @relation(fields: [topic_id], references: [id], onDelete: SetNull)
   topic_id   String?
 }
+
+// MARK: AGENCIES
+model Agency {
+  id       String   @id @default(uuid())
+  title    String
+  image    String?
+  lat      Decimal?
+  lng      Decimal?
+  location String?
+  phone    String?  @unique
+  email    String?  @unique
+
+  @@unique([lat, lng])
+}
