@@ -1,22 +1,63 @@
 import { Prisma, PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
+const home: Prisma.HomeCreateInput = {
+  profile: 'default',
+  hero_image: 'https://picsum.photos/1280/300',
+  featured_product: {
+    connect: {
+      model: 'LV298',
+    },
+  },
+  featured_image: 'https://picsum.photos/500',
+  featured_feature_1: {
+    'Hộ gia đình tin dùng': '3000+',
+  },
+  featured_feature_2: {
+    'Công suất tối đa': '2400W',
+  },
+  featured_feature_3: {
+    'Con số gì đó nổi bật': '69',
+  },
+  feature_1: 'https://picsum.photos/500',
+  feature_2: 'https://picsum.photos/500',
+  feature_3: 'https://picsum.photos/500',
+  feature_4: 'https://picsum.photos/500',
+  feature_5: 'https://picsum.photos/500',
+  quote: {
+    comment:
+      'Chưa bao giờ trong đời tôi đc sử dụng sản phẩm đỉnh cao ntn. Tôi chắc chắn sẽ mua cái nữa cho bà già nhà tôi.',
+    author: 'Trần Tuấn Minh',
+    job: 'Tổ trưởng tổ dân phố',
+  },
+  partners: [
+    'https://picsum.photos/200/50',
+    'https://picsum.photos/200/50',
+    'https://picsum.photos/200/50',
+    'https://picsum.photos/200/50',
+    'https://picsum.photos/200/50',
+  ],
+};
+
 const categories: Prisma.CategoryCreateInput[] = [
   {
     title: 'Bếp điện từ',
     title_en: 'induction hobs',
+    banner: 'https://picsum.photos/1280/350',
     description:
       'Bếp điện từ kết hợp công nghệ hiện đại, thiết kế sang trọng và hiệu suất tối ưu. Đem lại trải nghiệm nấu nướng an toàn, tiết kiệm năng lượng và phù hợp với mọi gian bếp.',
   },
   {
     title: 'Máy hút mùi',
     title_en: 'kitchen hoods',
+    banner: 'https://picsum.photos/1280/350',
     description:
       'Máy hút mùi cao cấp với thiết kế tinh tế, khả năng khử mùi hiệu quả, giữ không gian bếp luôn sạch sẽ và trong lành. Công nghệ hiện đại, vận hành êm ái, phù hợp với mọi phong cách bếp.',
   },
   {
     title: 'Đồ gia dụng',
     title_en: 'cookwares',
+    banner: 'https://picsum.photos/1280/350',
     description:
       'Đồ gia dụng thông minh, tiện ích và bền bỉ, đáp ứng mọi nhu cầu sinh hoạt hằng ngày. Thiết kế tối ưu, tích hợp công nghệ tiên tiến, nâng cao chất lượng cuộc sống gia đình.',
   },
@@ -236,7 +277,11 @@ const articles: Prisma.ArticleCreateInput[] = [
         title: topics[3].title,
       },
     },
-    content: {},
+    content: {
+      blocks: [],
+    },
+    description:
+      'Câu Chuyện Thương Hiệu Và Khởi Nguồn Từ Đam Mê". Giới thiệu về quá trình hình thành và phát triển của công ty, bắt đầu từ niềm đam mê với công nghệ nhà bếp hiện đại. Đề cập đến những cột mốc quan trọng, như năm thành lập,',
   },
   {
     title: 'Levia Ra Mắt Sản Phẩm Bếp Điện Thế Hệ Mới - Hiệu Suất Vượt Trội',
@@ -295,6 +340,7 @@ const agencies: Prisma.AgencyCreateInput[] = [
 async function main() {
   console.log('Empty database...');
 
+  await prisma.home.deleteMany();
   await prisma.category.deleteMany();
   await prisma.product.deleteMany();
   await prisma.topic.deleteMany();
@@ -343,6 +389,9 @@ async function main() {
     });
     console.log(`Created agency with id: ${newAgency.id}`);
   }
+
+  const newHome = await prisma.home.create({ data: home });
+  console.log(`Created home with id: ${newHome.id}`);
 
   console.log('Seeding finished.');
 }

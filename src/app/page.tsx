@@ -1,147 +1,158 @@
 import Link from 'next/link';
+import prisma from './lib/prisma';
+import { SplitedTitle } from './lib/utils';
 
-export default function Home() {
-  const content = {
-    header1: 'Giải pháp cho căn bếp',
-    header2: 'Hiện đại',
-    subtitle:
-      'Thiết kế tinh tế. Hiệu suất vượt trội. Trải nghiệm nấu nướng đẳng cấp.',
-    hero: 'https://picsum.photos/1200/300',
+interface Quote {
+  comment: string;
+  author: string;
+  job: string;
+}
 
-    featured_product: {
-      id: '3000',
-      title: 'Bếp từ đôi Levia LV-3000',
-      description:
-        'Thiết kế bởi đội ngũ sáng tạo tài năng, để đem lại sự tiện nghi và sang trọng cho người dùng. Một đoạn text thể hiện các tính năng nổi bật của sản phẩm khiến cho họ ngay lập tức mua về cho vợ sử dụng.',
-      image: 'https://picsum.photos/450',
-      feature1: {
-        title: 'Hộ gia đình tin dùng',
-        details: '300+',
+export default async function Home() {
+  const home = await prisma.home.findUnique({
+    where: { profile: 'default' },
+    include: {
+      featured_product: {
+        select: {
+          title: true,
+          price: true,
+          images: true,
+          description: true,
+        },
       },
-      feature2: {
-        title: 'Con số gì đó nổi bật',
-        details: '69',
+    },
+  });
+
+  const categories = await prisma.category.findMany({
+    select: {
+      id: true,
+      title: true,
+      title_en: true,
+      banner: true,
+    },
+  });
+
+  const articles = await prisma.article.findMany({
+    select: {
+      id: true,
+      title: true,
+      description: true,
+      banner: true,
+      Topic: {
+        select: {
+          title: true,
+        },
       },
-      feature3: {
-        title: 'Công suất tối đa',
-        details: '2400W',
+    },
+    orderBy: {
+      created_at: 'asc',
+    },
+    take: 4,
+  });
+
+  const section = {
+    hero: {
+      header: 'Giải pháp cho căn bếp\nHiện đại',
+      subtitle:
+        'Thiết kế tinh tế. Hiệu suất vượt trội. Trải nghiệm nấu nướng đẳng cấp.',
+      button: 'Tìm hiểu về chúng tôi',
+      image: home?.hero_image,
+    },
+
+    featured: {
+      header: 'Sản phẩm nổi bật',
+      button: 'Khám phá sản phẩm',
+      product: {
+        id: home?.featured_product_id,
+        title: home?.featured_product?.title,
+        image: home?.featured_image || home?.featured_product?.images[0],
+        description: home?.featured_product?.description,
+        price: home?.featured_product?.price,
       },
     },
 
     features: {
+      header: 'Thiết kế độc đáo.\nCông nghệ đỉnh cao',
       subtitle:
         'Thiết kế bởi đội ngũ sáng tạo tài năng, kết hợp công nghệ đỉnh cao để đem lại sự tiện nghi và sang trọng cho người dùng',
+      items: [
+        home?.feature_1,
+        home?.feature_2,
+        home?.feature_3,
+        home?.feature_4,
+        home?.feature_5,
+      ],
     },
 
-    categories: {
+    category: {
+      header: 'Bộ sưu tập cho\ngian bếp hoàn hảo',
       subtitle:
         'Những sản phẩm được thiết kế tỉ mỉ, mang đến sự tiện nghi và sang trọng cho căn bếp của mỗi gia đình.',
-      category1_image: 'https://picsum.photos./500',
-      category2_image: 'https://picsum.photos./500',
-      category3_image: 'https://picsum.photos./500',
+      items: categories,
     },
 
     testimonials: {
+      header: 'Cùng nhau tạo nên\ntrải nghiệm khác biệt',
       subtitle:
         'Chúng tôi không chỉ cung cấp sản phẩm, mà còn mang đến trải nghiệm hài lòng, cùng với sự uy tín tới những người đồng hành.',
-      quote: {
-        comment:
-          'Chưa bao giờ trong đời tôi đc sử dụng sản phẩm đỉnh cao ntn. Tôi chắc chắn sẽ mua cái nữa cho bà già nhà tôi.',
-        author: 'Trần Tuấn Minh',
-        job: 'Tổ trưởng tổ dân phố',
-      },
-      partners: [
-        'https://picsum.photos/200/50',
-        'https://picsum.photos/200/50',
-        'https://picsum.photos/200/50',
-        'https://picsum.photos/200/50',
-        'https://picsum.photos/200/50',
-      ],
+      quote: home?.quote,
+      partners: home?.partners,
     },
 
-    articles: {
+    article: {
+      header: 'Vòng quanh\nthế giới ẩm thực',
       subtitle:
         'Giữ vững đam mê nấu nướng với những cập nhật mới nhất, bài viết chia sẻ và các sự kiện không thể bỏ lỡ.',
-      articles: [
-        {
-          id: '69',
-          topic: 'Xu hướng',
-          title:
-            'Levia Ra Mắt Sản Phẩm Bếp Điện Thế Hệ Mới - Hiệu Suất Vượt Trội',
-          description:
-            'Phần 1: Câu Chuyện Thương Hiệu. Tiêu đề phụ: "Khởi Nguồn Từ Đam Mê". Nội dung: Giới thiệu về quá trình hình thành và phát triển của công ty, bắt đầu từ niềm đam mê với công nghệ nhà bếp hiện đại. Đề cập đến những cột mốc quan trọng, như năm thành lập,',
-          banner: 'https://picsum.photos/750/250',
-        },
-        {
-          id: '69',
-          topic: 'Xu hướng',
-          title: 'Xu hướng thiết kế nhà bếp 2024 - Sự Lên Ngôi Của Sự Tinh Tế',
-          description:
-            'Phần 1: Câu Chuyện Thương Hiệu. Tiêu đề phụ: "Khởi Nguồn Từ Đam Mê". Nội dung: Giới thiệu về quá trình hình thành và phát triển của công ty, bắt đầu từ niềm đam mê với công nghệ nhà bếp hiện đại. Đề cập đến những cột mốc quan trọng, như năm thành lập,',
-        },
-        {
-          id: '69',
-          topic: 'Hướng dẫn',
-          title:
-            'Levia Ra Mắt Sản Phẩm Bếp Điện Thế Hệ Mới - Hiệu Suất Vượt Trội',
-          description:
-            'Phần 1: Câu Chuyện Thương Hiệu. Tiêu đề phụ: "Khởi Nguồn Từ Đam Mê". Nội dung: Giới thiệu về quá trình hình thành và phát triển của công ty, bắt đầu từ niềm đam mê với công nghệ nhà bếp hiện đại. Đề cập đến những cột mốc quan trọng, như năm thành lập,',
-        },
-        {
-          id: '69',
-          topic: 'Món ngon',
-          title: 'Điện Thế Hệ Mới, Hiệu Suất Vượt Trội',
-          description:
-            'Phần 1: Câu Chuyện Thương Hiệu. Tiêu đề phụ: "Khởi Nguồn Từ Đam Mê". Nội dung: Giới thiệu về quá trình hình thành và phát triển của công ty, bắt đầu từ niềm đam mê với công nghệ nhà bếp hiện đại. Đề cập đến những cột mốc quan trọng, như năm thành lập,',
-        },
-      ],
+      items: articles,
+      button: 'Khám phá thêm',
     },
   };
 
-  const { featured_product, features, categories, testimonials, articles } =
-    content;
+  const { hero, featured, features, category, testimonials, article } = section;
 
   return (
     <div className="flex flex-col gap-20 p-6 text-slate-400">
       <section>
-        <h1 className="font-bold text-4xl uppercase">
-          {content.header1}
-          <span className="font-medium font-script text-7xl normal-case">
-            {content.header2}
-          </span>
+        <h1>
+          <SplitedTitle
+            text={hero.header}
+            line1ClassName="font-bold font-modern text-4xl uppercase"
+            line2ClassName="font-medium font-script text-7xl normal-case"
+          />
         </h1>
-
-        <p>{content.subtitle}</p>
-
-        <img src={content.hero} alt="" />
-
+        <p>{hero.subtitle}</p>
+        <img src={hero.image} alt="" />
         <Link className="underline" href={'/about'}>
-          Tìm hiểu về chúng tôi
+          {hero.button}
         </Link>
       </section>
 
-      {featured_product && (
+      {home?.featured_product && (
         <section className="gap-4 grid grid-cols-2">
-          <img src={featured_product.image} alt="Featured product" />
+          <img src={featured.product.image} alt="Featured product" />
           <div className="flex flex-col gap-4">
-            <h2 className="uppercase">Sản phẩm nổi bật</h2>
+            <h2 className="uppercase">{featured.header}</h2>
             <h3 className="font-bold text-3xl text-foreground">
-              {featured_product.title}
+              {featured.product.title}
             </h3>
-            <p>{featured_product.description}</p>
+            <p>{featured.product.description}</p>
             <Link
               className="border-slate-400 hover:bg-slate-900 p-4 border"
-              href={`/products/${featured_product.id}`}
+              href={`/products/${featured.product.id}`}
             >
-              Khám phá sản phẩm
+              {featured.button}
             </Link>
-            <div className="flex gap-4">
-              <div className="flex flex-col gap-4">
-                <h3>{featured_product.feature1.title}</h3>
-                <span className="font-bold text-3xl text-white">
-                  {featured_product.feature1.details}
-                </span>
-              </div>
+            {/* <div className="flex gap-4">
+              {Object.entries(JSON.stringify(home.featured_feature_1)).map(
+                ([key, value], index) => (
+                  <div key={index} className="flex flex-col gap-4">
+                    <h3>{key}</h3>
+                    <span className="font-bold text-3xl text-white">
+                      {value}
+                    </span>
+                  </div>
+                )
+              )}
               <div className="flex flex-col gap-4">
                 <h3>{featured_product.feature2.title}</h3>
                 <span className="font-bold text-3xl text-white">
@@ -154,123 +165,107 @@ export default function Home() {
                   {featured_product.feature3.details}
                 </span>
               </div>
-            </div>
+            </div> */}
           </div>
         </section>
       )}
 
-      {features && (
+      {home?.feature_1 &&
+        home?.feature_2 &&
+        home?.feature_3 &&
+        home?.feature_4 &&
+        home?.feature_5 && (
+          <section>
+            <div className="flex justify-between">
+              <h2>
+                <SplitedTitle
+                  text={features.header}
+                  line1ClassName="font-script text-6xl leading-3"
+                  line2ClassName="font-bold font-modern text-3xl lowercase"
+                  inline={false}
+                />
+              </h2>
+              <p className="text-right max-w-96">{features.subtitle}</p>
+            </div>
+
+            <div className="gap-4 grid grid-cols-3 grid-rows-3 *:border">
+              <div className="row-span-2 p-4">
+                <img src={features.items[0] || undefined} alt="" />
+              </div>
+              <div className="p-4">
+                <img src={features.items[2] || undefined} alt="" />
+              </div>
+              <div className="row-span-2 p-4">
+                <img src={features.items[3] || undefined} alt="" />
+              </div>
+              <div className="p-4"></div>
+              <div className="col-span-2 p-4">
+                <img src={features.items[4] || undefined} alt="" />
+              </div>
+              <div className="p-4">
+                <img src={features.items[5] || undefined} alt="" />
+              </div>
+            </div>
+          </section>
+        )}
+
+      {categories?.length && (
         <section>
           <div className="flex justify-between">
-            <h2 className="font-script text-6xl leading-3">
-              Thiết kế độc đáo. <br />
-              <span className="font-bold font-modern text-3xl lowercase">
-                Công nghệ đỉnh cao
-              </span>
+            <h2>
+              <SplitedTitle
+                text={category.header}
+                line1ClassName="font-script text-6xl leading-3"
+                line2ClassName="font-bold font-modern text-3xl lowercase"
+                inline={false}
+              />
             </h2>
-            <p className="text-right max-w-96">{features.subtitle}</p>
-          </div>
-
-          <div className="gap-4 grid grid-cols-3 grid-rows-3 *:border">
-            <div className="row-span-2 p-4">
-              <h3 className="font-bold text-2xl text-white">Sò công suất</h3>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde,
-                accusamus?
-              </p>
-            </div>
-            <div className="p-4">
-              <h3 className="font-bold text-2xl text-white">Sò công suất</h3>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde,
-                accusamus?
-              </p>
-            </div>
-            <div className="row-span-2 p-4">
-              <h3 className="font-bold text-2xl text-white">Sò công suất</h3>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde,
-                accusamus?
-              </p>
-            </div>
-            <div className="p-4"></div>
-            <div className="col-span-2 p-4">
-              <h3 className="font-bold text-2xl text-white">Sò công suất</h3>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde,
-                accusamus?
-              </p>
-            </div>
-            <div className="p-4">
-              <h3 className="font-bold text-2xl text-white">Sò công suất</h3>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde,
-                accusamus?
-              </p>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {categories && (
-        <section>
-          <div className="flex justify-between">
-            <h2 className="font-script text-6xl leading-3">
-              Bộ sưu tập cho <br />
-              <span className="font-bold font-modern text-3xl lowercase">
-                Gian bếp hoàn hảo
-              </span>
-            </h2>
-            <p className="text-right max-w-96">{categories.subtitle}</p>
+            <p className="text-right max-w-96">{category.subtitle}</p>
           </div>
 
           <div className="gap-4 grid grid-cols-3">
-            <div className="p-4 border">
-              <img className="mb-4" src={categories.category1_image} alt="" />
-              <span className="uppercase">Induction Hobs</span>
-              <h3 className="font-bold text-2xl">Bếp điện từ</h3>
-            </div>
-            <div className="p-4 border">
-              <img className="mb-4" src={categories.category1_image} alt="" />
-              <span className="uppercase">Kitchen Hoods</span>
-              <h3 className="font-bold text-2xl">Máy hút mùi</h3>
-            </div>
-            <div className="p-4 border">
-              <img className="mb-4" src={categories.category1_image} alt="" />
-              <span className="uppercase">Cookwares</span>
-              <h3 className="font-bold text-2xl">Đồ gia dụng</h3>
-            </div>
+            {category.items.map((category) => (
+              <div key={category.id} className="p-4 border">
+                <img
+                  className="mb-4"
+                  src={category.banner || undefined}
+                  alt=""
+                />
+                <span className="uppercase">{category.title_en}</span>
+                <h3 className="font-bold text-2xl">{category.title}</h3>
+              </div>
+            ))}
           </div>
         </section>
       )}
 
-      {testimonials && (
+      {home?.quote && home?.partners.length && (
         <section>
           <div className="grid grid-cols-2">
             <div className="flex flex-col gap-4">
               <h2 className="font-script text-6xl leading-3">
-                Cùng nhau tạo nên <br />
-                <span className="font-bold font-modern text-3xl lowercase">
-                  Trải nghiệm khác biệt
-                </span>
+                <SplitedTitle
+                  text={testimonials.header}
+                  line1ClassName="font-script text-6xl leading-3"
+                  line2ClassName="font-bold font-modern text-3xl lowercase"
+                  inline={false}
+                />
               </h2>
               <p className="max-w-96">{testimonials.subtitle}</p>
             </div>
 
-            {testimonials.quote && (
-              <div>
-                <p className="text-white text-xl">
-                  {testimonials.quote.comment}
-                </p>
-                <p className="text-right">
-                  <span className="font-semibold">
-                    {testimonials.quote.author},
-                  </span>
-                  <br />
-                  <span>{testimonials.quote.job}</span>
-                </p>
-              </div>
-            )}
+            <div>
+              <p className="text-white text-xl">
+                {(testimonials.quote as unknown as Quote).comment}
+              </p>
+              <p className="text-right">
+                <span className="font-semibold">
+                  {(testimonials.quote as unknown as Quote).author}
+                </span>
+                <br />
+                <span>{(testimonials.quote as unknown as Quote).job}</span>
+              </p>
+            </div>
           </div>
 
           {testimonials.partners && (
@@ -285,35 +280,37 @@ export default function Home() {
         </section>
       )}
 
-      {articles && (
+      {articles?.length && (
         <section>
           <div className="flex justify-between">
-            <h2 className="font-script text-6xl leading-3">
-              Vòng quanh <br />
-              <span className="font-bold font-modern text-3xl lowercase">
-                thế giới ẩm thực
-              </span>
+            <h2>
+              <SplitedTitle
+                text={article.header}
+                line1ClassName="font-script text-6xl leading-3"
+                line2ClassName="font-bold font-modern text-3xl lowercase"
+                inline={false}
+              />
             </h2>
-            <p className="text-right max-w-96">{articles.subtitle}</p>
+            <p className="text-right max-w-96">{article.subtitle}</p>
           </div>
 
           <div className="gap-4 grid grid-cols-3">
             <article className="gap-4 grid grid-cols-2 col-span-2">
               <img
                 className="col-span-2 w-full"
-                src={articles.articles[0].banner}
+                src={article.items[0].banner}
                 alt=""
               />
               <h3 className="font-bold text-white text-xl">
-                {articles.articles[0].title}
+                {article.items[0].title}
               </h3>
               <div>
                 <p className="mb-6 line-clamp-3">
-                  {articles.articles[0].description}
+                  {article.items[0].description}
                 </p>
                 <Link
                   className="border-slate-400 hover:bg-slate-900 p-4 border"
-                  href={`/articles/${articles.articles[0].id}`}
+                  href={`/articles/${article.items[0].id}`}
                 >
                   Đọc tiếp
                 </Link>
@@ -321,16 +318,16 @@ export default function Home() {
             </article>
 
             <div className="flex flex-col gap-4 p-4 border">
-              {articles.articles.slice(1).map((article, index) => (
+              {article.items.slice(1).map((article, index) => (
                 <Link href={`/articles/${article.id}`} key={index}>
                   <article>
-                    <span className="uppercase">{article.topic}</span>
+                    <span className="uppercase">{article?.Topic?.title}</span>
                     <h3 className="font-bold text-white">{article.title}</h3>
                   </article>
                 </Link>
               ))}
 
-              <Link href={'/articles'}>Khám phá thêm </Link>
+              <Link href={'/articles'}>{article.button}</Link>
             </div>
           </div>
         </section>

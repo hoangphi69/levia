@@ -14,6 +14,26 @@ datasource db {
   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
+// MARK: HOME
+model Home {
+  id                  String   @id @default(uuid())
+  profile             String   @unique
+  hero_image          String   @default("https://picsum.photos/1280/350")
+  featured_product    Product? @relation(fields: [featured_product_id], references: [id], onDelete: SetNull)
+  featured_product_id String?  @unique
+  featured_image      String?
+  featured_feature_1  Json?
+  featured_feature_2  Json?
+  featured_feature_3  Json?
+  feature_1           String?
+  feature_2           String?
+  feature_3           String?
+  feature_4           String?
+  feature_5           String?
+  quote               Json?
+  partners            String[]
+}
+
 // MARK: PRODUCTS
 model Product {
   id          String          @id @default(uuid())
@@ -28,6 +48,7 @@ model Product {
   category_id String?
   media       ProductMedia[]
   reviews     ProductReview[]
+  Home        Home?
 
   @@index(model)
 }
@@ -35,6 +56,7 @@ model Product {
 model Category {
   id          String    @id @default(uuid())
   title       String    @unique
+  banner      String?
   title_en    String?
   description String?
   products    Product[]
@@ -78,15 +100,16 @@ model Topic {
 }
 
 model Article {
-  id         String   @id @default(uuid())
-  title      String
-  author     String   @default("Ẩn danh")
-  banner     String   @default("https://picsum.photos/200")
-  content    Json?
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-  Topic      Topic?   @relation(fields: [topic_id], references: [id], onDelete: SetNull)
-  topic_id   String?
+  id          String   @id @default(uuid())
+  title       String
+  author      String   @default("Ẩn danh")
+  banner      String   @default("https://picsum.photos/200")
+  description String?
+  content     Json?
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+  Topic       Topic?   @relation(fields: [topic_id], references: [id], onDelete: SetNull)
+  topic_id    String?
 }
 
 // MARK: AGENCIES
