@@ -3,6 +3,7 @@ import './globals.css';
 import Navigation from './components/navigation';
 import FAQ from './components/faq';
 import Footer from './components/footer';
+import { Toaster } from '@/components/ui/sonner';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -21,6 +22,7 @@ export default function RootLayout({
         {children}
         <FAQ />
         <Footer />
+        <Toaster />
       </body>
     </html>
   );
