@@ -39,6 +39,29 @@ const home: Prisma.HomeCreateInput = {
   ],
 };
 
+const faqs: Prisma.FaqCreateInput[] = [
+  {
+    q: 'Tôi có thể mua sản phẩm ở đâu?',
+    a: "Bạn có thể mua sản phẩm của chúng tôi thông qua trang web chính thức hoặc tại các đại lý phân phối uy tín trên toàn quốc. Danh sách các đại lý có thể được tìm thấy trong phần 'Liên Hệ' hoặc 'Đại Lý' trên trang web",
+  },
+  {
+    q: 'Sản phẩm bếp điện có tiết kiệm năng lượng không?',
+    a: "Bạn có thể mua sản phẩm của chúng tôi thông qua trang web chính thức hoặc tại các đại lý phân phối uy tín trên toàn quốc. Danh sách các đại lý có thể được tìm thấy trong phần 'Liên Hệ' hoặc 'Đại Lý' trên trang web",
+  },
+  {
+    q: 'Chính sách bảo hành sản phẩm như thế nào?',
+    a: "Bạn có thể mua sản phẩm của chúng tôi thông qua trang web chính thức hoặc tại các đại lý phân phối uy tín trên toàn quốc. Danh sách các đại lý có thể được tìm thấy trong phần 'Liên Hệ' hoặc 'Đại Lý' trên trang web",
+  },
+  {
+    q: 'Hỗ trợ kỹ thuật với sản phẩm?',
+    a: "Bạn có thể mua sản phẩm của chúng tôi thông qua trang web chính thức hoặc tại các đại lý phân phối uy tín trên toàn quốc. Danh sách các đại lý có thể được tìm thấy trong phần 'Liên Hệ' hoặc 'Đại Lý' trên trang web",
+  },
+  {
+    q: 'Làm thế nào để vệ sinh và bảo dưỡng bếp điện?',
+    a: "Bạn có thể mua sản phẩm của chúng tôi thông qua trang web chính thức hoặc tại các đại lý phân phối uy tín trên toàn quốc. Danh sách các đại lý có thể được tìm thấy trong phần 'Liên Hệ' hoặc 'Đại Lý' trên trang web",
+  },
+];
+
 const categories: Prisma.CategoryCreateInput[] = [
   {
     title: 'Bếp điện từ',
@@ -341,6 +364,7 @@ async function main() {
   console.log('Empty database...');
 
   await prisma.home.deleteMany();
+  await prisma.faq.deleteMany();
   await prisma.category.deleteMany();
   await prisma.product.deleteMany();
   await prisma.topic.deleteMany();
@@ -348,6 +372,11 @@ async function main() {
   await prisma.agency.deleteMany();
 
   console.log('Start seeding...');
+
+  for (const faq of faqs) {
+    const newFAQ = await prisma.faq.create({ data: faq });
+    console.log(`Created faq with id: ${newFAQ.id}`);
+  }
 
   for (const category of categories) {
     const newCategory = await prisma.category.upsert({
@@ -377,16 +406,12 @@ async function main() {
   }
 
   for (const article of articles) {
-    const newArticle = await prisma.article.create({
-      data: article,
-    });
+    const newArticle = await prisma.article.create({ data: article });
     console.log(`Created article with id: ${newArticle.id}`);
   }
 
   for (const agency of agencies) {
-    const newAgency = await prisma.agency.create({
-      data: agency,
-    });
+    const newAgency = await prisma.agency.create({ data: agency });
     console.log(`Created agency with id: ${newAgency.id}`);
   }
 

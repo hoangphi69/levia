@@ -34,6 +34,13 @@ model Home {
   partners            String[]
 }
 
+// MARK: FAQ
+model Faq {
+  id String  @id @default(uuid())
+  q  String
+  a  String?
+}
+
 // MARK: PRODUCTS
 model Product {
   id          String          @id @default(uuid())

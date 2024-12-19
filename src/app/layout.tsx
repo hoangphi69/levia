@@ -4,6 +4,7 @@ import Navigation from './components/navigation';
 import FAQ from './components/faq';
 import Footer from './components/footer';
 import { Toaster } from '@/components/ui/sonner';
+import FooterContact from './components/footer-contact';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -20,7 +21,10 @@ export default function RootLayout({
       <body className={`antialiased font-modern dark`}>
         <Navigation />
         {children}
-        <FAQ />
+        <section className="grid grid-cols-2 p-4">
+          <FooterContact />
+          <FAQ />
+        </section>
         <Footer />
         <Toaster />
       </body>
