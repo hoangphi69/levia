@@ -18,15 +18,28 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`antialiased font-modern dark`}>
+      <body className="mx-auto w-dvw max-w-screen-xl antialised dark">
         <Navigation />
         {children}
-        <section className="grid grid-cols-2 p-4">
+        <aside className="gap-6 md:gap-16 grid grid-cols-1 md:grid-cols-2 p-6 md:p-16">
           <FooterContact />
           <FAQ />
-        </section>
+        </aside>
         <Footer />
-        <Toaster />
+        <Toaster
+          toastOptions={{
+            unstyled: true,
+            classNames: {
+              toast:
+                'flex items-center gap-4 px-6 py-4 w-full bg-secondary shadow-lg rounded-sm',
+              description: 'group-[.toast]:text-muted-foreground',
+              actionButton:
+                'group-[.toast]:bg-primary group-[.toast]:text-primary-foreground',
+              cancelButton:
+                'group-[.toast]:bg-muted group-[.toast]:text-muted-foreground',
+            },
+          }}
+        />
       </body>
     </html>
   );

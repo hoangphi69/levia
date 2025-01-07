@@ -12,13 +12,17 @@ export default async function FAQ() {
   return (
     <>
       {faqs.length > 0 && (
-        <Accordion type="single" collapsible className="px-4 border">
+        <Accordion type="single" collapsible className="bg-secondary px-6">
           {faqs.map((item, index) => (
-            <AccordionItem key={index} value={`item${index}`}>
-              <AccordionTrigger className="font-bold">
+            <AccordionItem
+              className="py-2 last:border-b-0"
+              key={index}
+              value={`item${index}`}
+            >
+              <AccordionTrigger className="font-bold text-sm lg:text-base">
                 {item.q}
               </AccordionTrigger>
-              <AccordionContent className="text-gray-400">
+              <AccordionContent className="text-muted-foreground text-sm lg:text-base">
                 {item.a}
               </AccordionContent>
             </AccordionItem>
