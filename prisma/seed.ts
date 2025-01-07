@@ -3,27 +3,29 @@ const prisma = new PrismaClient();
 
 const home: Prisma.HomeCreateInput = {
   profile: 'default',
-  hero_image: 'https://picsum.photos/1280/300',
+  hero_image:
+    'https://utfs.io/f/1fEtWG3LOnRFDap7OD8rAhg9doS24XnrDtwcfF5YVG0IqxCk',
   featured_product: {
     connect: {
       model: 'LV298',
     },
   },
-  featured_image: 'https://picsum.photos/500',
-  featured_feature_1: {
-    'Hộ gia đình tin dùng': '3000+',
-  },
-  featured_feature_2: {
-    'Công suất tối đa': '2400W',
-  },
-  featured_feature_3: {
-    'Con số gì đó nổi bật': '69',
-  },
-  feature_1: 'https://picsum.photos/500',
-  feature_2: 'https://picsum.photos/500',
-  feature_3: 'https://picsum.photos/500',
-  feature_4: 'https://picsum.photos/500',
-  feature_5: 'https://picsum.photos/500',
+  featured_image:
+    'https://utfs.io/f/1fEtWG3LOnRF1bqnNJLOnRFSoljLrdV58Wt4BZMcIHwGxAQY',
+  featured_features: [
+    {
+      title: 'Hộ gia đình tin dùng',
+      content: '3000+',
+    },
+    {
+      title: 'Công suất tối đa',
+      content: '2400W',
+    },
+    {
+      title: 'Con số gì đó nổi bật',
+      content: '69',
+    },
+  ],
   quote: {
     comment:
       'Chưa bao giờ trong đời tôi đc sử dụng sản phẩm đỉnh cao ntn. Tôi chắc chắn sẽ mua cái nữa cho bà già nhà tôi.',
@@ -31,11 +33,12 @@ const home: Prisma.HomeCreateInput = {
     job: 'Tổ trưởng tổ dân phố',
   },
   partners: [
-    'https://picsum.photos/200/50',
-    'https://picsum.photos/200/50',
-    'https://picsum.photos/200/50',
-    'https://picsum.photos/200/50',
-    'https://picsum.photos/200/50',
+    'https://utfs.io/f/1fEtWG3LOnRFB7jPKpn1VGHmRQia2lu4XKY3ThnqcCpy7NrO',
+    'https://utfs.io/f/1fEtWG3LOnRFs7JGKK867Rh4TGJgYQAImVquc1sdUw3ylZp2',
+    'https://utfs.io/f/1fEtWG3LOnRFxkyxw3ukNeuEpYRJdx3521KrQvhcy0sC6Wwa',
+    'https://utfs.io/f/1fEtWG3LOnRFerxi1IGogQU2Hu9wBCRIiZhyrcvKjEtxJM01',
+    'https://utfs.io/f/1fEtWG3LOnRFCyW6mMspvmCP2OgA4EkDbH8STX9hwxn6ZUY5',
+    'https://utfs.io/f/1fEtWG3LOnRFGQ8vDWbh3KI6Fg9UovhGmbkr1LH5ynDCXzOc',
   ],
 };
 
@@ -66,21 +69,24 @@ const categories: Prisma.CategoryCreateInput[] = [
   {
     title: 'Bếp điện từ',
     title_en: 'induction hobs',
-    banner: 'https://picsum.photos/1280/350',
+    banner:
+      'https://utfs.io/f/1fEtWG3LOnRFMc3boe28EDzjH0rOqkB4alyJeKWciXGYbTgL',
     description:
       'Bếp điện từ kết hợp công nghệ hiện đại, thiết kế sang trọng và hiệu suất tối ưu. Đem lại trải nghiệm nấu nướng an toàn, tiết kiệm năng lượng và phù hợp với mọi gian bếp.',
   },
   {
     title: 'Máy hút mùi',
     title_en: 'kitchen hoods',
-    banner: 'https://picsum.photos/1280/350',
+    banner:
+      'https://utfs.io/f/1fEtWG3LOnRFDi9zTlrAhg9doS24XnrDtwcfF5YVG0IqxCkz',
     description:
       'Máy hút mùi cao cấp với thiết kế tinh tế, khả năng khử mùi hiệu quả, giữ không gian bếp luôn sạch sẽ và trong lành. Công nghệ hiện đại, vận hành êm ái, phù hợp với mọi phong cách bếp.',
   },
   {
     title: 'Đồ gia dụng',
     title_en: 'cookwares',
-    banner: 'https://picsum.photos/1280/350',
+    banner:
+      'https://utfs.io/f/1fEtWG3LOnRFn60mxuA1pbYNl3gW8LcIzJUwtHxadsuMGyZK',
     description:
       'Đồ gia dụng thông minh, tiện ích và bền bỉ, đáp ứng mọi nhu cầu sinh hoạt hằng ngày. Thiết kế tối ưu, tích hợp công nghệ tiên tiến, nâng cao chất lượng cuộc sống gia đình.',
   },
