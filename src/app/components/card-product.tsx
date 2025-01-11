@@ -1,11 +1,20 @@
 import type { Product } from '@prisma/client';
+import SmoothImage from './smooth-image';
 
 type ProductCard = Pick<Product, 'title' | 'price'> & { image: string };
 
 export default function ProductCard({ image, title, price }: ProductCard) {
   return (
     <article>
-      <img className="w-full" src={image} alt="" />
+      <div className="bg-secondary">
+        <SmoothImage
+          className="w-full"
+          width={300}
+          height={300}
+          src={image}
+          alt=""
+        />
+      </div>
       <p className="mt-4 font-bold text-lg">{title}</p>
       <p>từ {formattedPrice(price)}</p>
     </article>

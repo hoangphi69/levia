@@ -16,12 +16,10 @@ import { buttonVariants } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Link from 'next/link';
 
-export default async function ProductDetails({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const { id } = await params;
+type Params = Promise<{ id: string }>;
+
+export default async function ProductDetails(props: { params: Params }) {
+  const { id } = await props.params;
   const product = await prisma.product.findFirst({
     where: { id },
     include: {

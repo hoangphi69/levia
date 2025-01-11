@@ -397,7 +397,7 @@ export default async function Home() {
           <div className="gap-6 grid grid-cols-1 md:grid-cols-[2fr_1.5fr_1.5fr] auto-rows-[minmax(12rem,_1fr)] min-h-[450px]">
             {category.items.map((category) => (
               <Link
-                href={`/products`}
+                href={`/products?category_id=${category.id}`}
                 key={category.id}
                 className="relative bg-secondary first:rounded-ss-[5rem] overflow-hidden group isolate"
               >

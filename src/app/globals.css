@@ -237,6 +237,10 @@
     @apply inline-flex justify-center items-center gap-2 disabled:opacity-50 px-6 py-3 focus-visible:ring-1 focus-visible:ring-ring whitespace-nowrap disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg]:size-4 focus-visible:outline-none;
   }
 
+  .input {
+    @apply flex bg-input disabled:opacity-50 px-6 py-3 focus-visible:ring-1 focus-visible:ring-ring placeholder:text-muted-foreground transition-colors disabled:cursor-not-allowed focus-visible:outline-none;
+  }
+
   .text-gradient {
     @apply bg-clip-text bg-gradient-to-r from-accent-gold to-accent-almond text-transparent;
   }
@@ -268,6 +272,10 @@
   .btn-outline {
     @apply border-gradient border hover:bg-clip-border font-bold text-gradient hover:text-background button;
   }
+
+  /* .input-search {
+    @apply input 
+  } */
 
   .bento {
     grid-auto-columns: 1fr;
