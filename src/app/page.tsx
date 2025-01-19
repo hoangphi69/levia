@@ -153,7 +153,7 @@ export default async function Home() {
     <main>
       {/* Hero section */}
       <section className="space-y-6 md:space-y-0 pt-6 md:pt-16 pb-14 md:pb-24 pl-6 md:pl-16">
-        <div className="flex md:flex-row flex-col justify-between items-center md:items-baseline pr-6 md:pr-16 text-xl">
+        <header className="flex md:flex-row flex-col justify-between items-center md:items-baseline pr-6 md:pr-16 text-xl">
           <h1 className="z-10 md:h-24 lg:h-32">
             <span className="font-modern font-semibold text-5xl lg:text-7xl uppercase leading-tight">
               Giải pháp cho <br />
@@ -166,7 +166,7 @@ export default async function Home() {
           <p className="text-right max-w-[25ch] text-base text-muted-foreground lg:text-lg tracking-wide">
             {hero.subtitle}
           </p>
-        </div>
+        </header>
         <div className="relative after:top-0 after:right-0 after:absolute bg-secondary after:bg-gradient-to-l after:from-background after:to-background/0 rounded-ss-[5rem] after:w-16 after:h-full min-h-[250px] lg:min-h-[400px]">
           <SmoothImage
             src={hero.image as string}
@@ -204,7 +204,7 @@ export default async function Home() {
         <section className="gap-6 lg:gap-12 grid grid-cols-1 md:grid-cols-[1.6fr_2fr] py-12 p-6 md:p-16">
           <Link
             href={`/products/${featured.product.id}`}
-            className="relative bg-secondary rounded-ee-[5rem] w-full overflow-hidden aspect-square"
+            className="relative bg-secondary rounded-ss-[5rem] w-full overflow-hidden aspect-square"
           >
             <SmoothImage
               src={featured.product.image as string}
@@ -213,14 +213,14 @@ export default async function Home() {
             />
           </Link>
           <div className="flex flex-col gap-6 md:gap-12">
-            <div className="space-y-2">
+            <header className="space-y-2">
               <h2 className="font-light text-muted-foreground text-sm lg:text-lg uppercase tracking-wide">
                 {featured.header}
               </h2>
               <h3 className="font-bold text-foreground text-xl lg:text-2xl">
                 {featured.product.title}
               </h3>
-            </div>
+            </header>
 
             <p className="text-muted-foreground text-sm lg:text-base">
               {featured.product.description}
@@ -258,7 +258,7 @@ export default async function Home() {
 
       {/* Features section */}
       <section className="space-y-6 md:space-y-12 py-12 p-6 md:p-16">
-        <div className="flex md:flex-row flex-col justify-between items-center md:items-end gap-2">
+        <header className="flex md:flex-row flex-col justify-between items-center md:items-end gap-2">
           <h2 className="text-center md:text-left">
             <SplitedTitle
               text={features.header}
@@ -270,7 +270,7 @@ export default async function Home() {
           <p className="md:text-right max-w-[45ch] text-center text-muted-foreground text-sm lg:text-base tracking-wide">
             {features.subtitle}
           </p>
-        </div>
+        </header>
 
         <div className="gap-4 grid bento">
           <article className="grid bg-secondary rounded-ss-[5rem]">
@@ -380,7 +380,7 @@ export default async function Home() {
       {/* Categories section */}
       {categories?.length && (
         <section className="flex flex-col gap-6 md:gap-12 py-12 p-6 md:p-16">
-          <div className="flex md:flex-row flex-col justify-between items-center md:items-end gap-2">
+          <header className="flex md:flex-row flex-col justify-between items-center md:items-end gap-2">
             <h2 className="text-center md:text-left">
               <SplitedTitle
                 text={category.header}
@@ -392,7 +392,7 @@ export default async function Home() {
             <p className="md:text-right max-w-[45ch] text-center text-muted-foreground text-sm lg:text-base tracking-wide">
               {category.subtitle}
             </p>
-          </div>
+          </header>
 
           <div className="gap-6 grid grid-cols-1 md:grid-cols-[2fr_1.5fr_1.5fr] auto-rows-[minmax(12rem,_1fr)] min-h-[450px]">
             {category.items.map((category) => (
@@ -433,7 +433,7 @@ export default async function Home() {
       {home?.quote && home?.partners.length && (
         <section className="space-y-6 md:space-y-12 py-12 p-6 md:p-16">
           <div className="gap-6 md:gap-12 grid grid-cols-1 md:grid-cols-2">
-            <div className="flex flex-col items-center md:items-start gap-2 md:gap-4">
+            <header className="flex flex-col items-center md:items-start gap-2 md:gap-4">
               <h2 className="text-center md:text-left">
                 <SplitedTitle
                   text={testimonials.header}
@@ -445,10 +445,10 @@ export default async function Home() {
               <p className="max-w-[45ch] text-center text-muted-foreground text-sm md:text-left lg:text-base tracking-wide">
                 {testimonials.subtitle}
               </p>
-            </div>
+            </header>
 
             <div className="relative before:top-0 before:left-0 before:-z-10 before:absolute before:content-['“'] space-y-3 before:opacity-50 p-6 md:pr-0 before:font-extrabold md:before:text-[15rem] before:text-muted-foreground before:text-[10rem] before:leading-[0.6]">
-              <p className="font-medium text-white text-xl lg:text-3xl">
+              <p className="font-medium text-xl lg:text-3xl">
                 {(testimonials.quote as unknown as Quote).comment}
               </p>
               <p className="text-right text-sm lg:text-base">
@@ -498,7 +498,7 @@ export default async function Home() {
       {/* Articles section */}
       {articles?.length && (
         <section className="space-y-6 md:space-y-12 py-12 p-6 md:p-16">
-          <div className="flex md:flex-row flex-col justify-between items-center md:items-end gap-2">
+          <header className="flex md:flex-row flex-col justify-between items-center md:items-end gap-2">
             <h2 className="text-center md:text-left">
               <SplitedTitle
                 text={article.header}
@@ -510,7 +510,7 @@ export default async function Home() {
             <p className="md:text-right max-w-[45ch] text-center text-muted-foreground text-sm lg:text-base tracking-wide">
               {article.subtitle}
             </p>
-          </div>
+          </header>
 
           <div className="gap-6 grid grid-cols-1 md:grid-cols-[2fr_1fr]">
             <article className="gap-4 md:gap-6 grid grid-cols-2">
