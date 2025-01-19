@@ -1,47 +1,49 @@
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from '@/components/ui/breadcrumb';
 import Banner from '../components/banner';
+import SmoothImage from '../components/smooth-image';
+import { SplitedTitle } from '../lib/utils';
 
 export default function About() {
-  return (
-    <>
-      <Breadcrumb>
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink href="/">Trang chủ</BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator></BreadcrumbSeparator>
-          <BreadcrumbItem>
-            <BreadcrumbPage>Giới thiệu</BreadcrumbPage>
-          </BreadcrumbItem>
-        </BreadcrumbList>
-      </Breadcrumb>
+  const banner = {
+    title: 'Niềm cảm hứng\nđến từ căn bếp',
+    image: '../images/products-banner.png',
+    breadcrumb: [
+      {
+        display: 'Trang chủ',
+        href: '/',
+      },
+      {
+        display: 'Giới thiệu',
+      },
+    ],
+  };
 
-      <Banner
-        title={
-          <>
-            <span className="block -mb-6 md:-mb-8 font-normal font-script text-6xl text-light-1 md:text-8xl">
-              Niềm cảm hứng
-            </span>
-            <span className="text-4xl">Đến từ căn bếp</span>
-          </>
-        }
-        image={'https://picsum.photos/1280/350'}
-      />
+  return (
+    <main>
+      <Banner image={banner.image} breadcrumb={banner.breadcrumb}>
+        <header className="flex-1 content-center md:content-end space-y-2">
+          <h1 className="text-center md:text-left">
+            <SplitedTitle
+              text={banner.title}
+              line1ClassName="font-script text-5xl lg:text-7xl !leading-3"
+              line2ClassName="font-bold font-modern text-2xl lg:text-4xl text-gradient"
+              inline={false}
+            />
+          </h1>
+        </header>
+      </Banner>
 
       <section className="gap-4 grid md:grid-cols-[1fr_2fr] mx-auto px-5 md:px-16 py-6 md:py-12">
-        <h2 className="font-bold text-h2">
-          <span className="md:block text-light-1">Câu chuyện</span>{' '}
-          <span className="text-gray-1">thương hiệu</span>
-        </h2>
-        <div className="space-y-4 text-base text-gray-1">
-          <p className="font-bold text-h4 text-light-1">
+        <header>
+          <h2 className="font-bold text-4xl">
+            <SplitedTitle
+              text={'Câu chuyện\nthương hiệu'}
+              line1ClassName="text-muted-foreground"
+              inline={false}
+            />
+          </h2>
+        </header>
+        <div className="space-y-4 text-base text-muted-foreground">
+          <p className="font-semibold text-foreground text-xl">
             Giới thiệu về quá trình hình thành và phát triển của công ty, bắt
             đầu từ niềm đam mê với công nghệ nhà bếp hiện đại. Đề cập đến những
             cột mốc quan trọng và sự phát triển.
@@ -75,23 +77,30 @@ export default function About() {
 
       <section className="py-4">
         <figure>
-          <img
-            className="w-full max-h-[500px] object-center object-cover"
-            src={'https://picsum.photos/500'}
+          <SmoothImage
+            className="w-full max-h-[500px]"
+            src={'https://picsum.photos/1280/500'}
+            width={1280}
+            height={500}
             alt=""
           />
-          <figcaption className="mt-2 text-center text-h6 italic">
+          <figcaption className="mt-4 text-center text-muted-foreground text-sm italic">
             Phần 1: Câu Chuyện Thương Hiệu. Tiêu đề phụ: "Khởi Nguồn Từ Đam Mê".
           </figcaption>
         </figure>
       </section>
 
       <section className="gap-4 grid md:grid-cols-[1fr_2fr] mx-auto px-5 md:px-16 py-6 md:py-12">
-        <h2 className="font-bold text-h2">
-          <span className="md:block text-light-1">Sứ mệnh &amp;</span>{' '}
-          <span className="text-gray-1">tầm nhìn</span>
-        </h2>
-        <div className="space-y-4 text-base text-gray-1">
+        <header>
+          <h2 className="font-bold text-4xl">
+            <SplitedTitle
+              text={'Sứ mệnh &\ntầm nhìn'}
+              line1ClassName="text-muted-foreground"
+              inline={false}
+            />
+          </h2>
+        </header>
+        <div className="space-y-4 text-base text-muted-foreground">
           <p>
             Phần 1: Câu Chuyện Thương Hiệu. Tiêu đề phụ: "Khởi Nguồn Từ Đam Mê".
             Nội dung: Giới thiệu về quá trình hình thành và phát triển của công
@@ -120,11 +129,14 @@ export default function About() {
       </section>
 
       <section className="gap-4 grid md:grid-cols-[1fr_2fr] mx-auto px-5 md:px-16 py-6 md:py-12">
-        <h2 className="font-bold text-h2">
-          <span className="md:block text-light-1">Đội ngũ của</span>{' '}
-          <span className="text-gray-1">chúng tôi</span>
+        <h2 className="font-bold text-4xl">
+          <SplitedTitle
+            text={'Đội ngũ của\nchúng tôi'}
+            line1ClassName="text-muted-foreground"
+            inline={false}
+          />
         </h2>
-        <div className="space-y-4 text-base text-gray-1">
+        <div className="space-y-4 text-base text-muted-foreground">
           <p>
             Phần 1: Câu Chuyện Thương Hiệu. Tiêu đề phụ: "Khởi Nguồn Từ Đam Mê".
             Nội dung: Giới thiệu về quá trình hình thành và phát triển của công
@@ -135,18 +147,18 @@ export default function About() {
             tiên.
           </p>
 
-          <figure className="flex flex-col gap-2">
-            <q className="after:content-[close-quote] font-bold text-h4 text-light-1">
+          <figure className="flex flex-col gap-4">
+            <q className="after:content-[close-quote] font-semibold text-foreground text-xl">
               Giới thiệu về quá trình hình thành và phát triển của công ty, bắt
               đầu từ niềm đam mê với công nghệ nhà bếp hiện đại.
             </q>
-            <figcaption className="text-right text-h5 text-light-1 self-end">
+            <figcaption className="text-right text-foreground text-lg self-end">
               <span className="font-bold">&mdash; Mr. Tuấn Minh</span>,{' '}
               <cite>Co-founder Levia</cite>
             </figcaption>
           </figure>
         </div>
       </section>
-    </>
+    </main>
   );
 }
