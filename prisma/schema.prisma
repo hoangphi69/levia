@@ -64,7 +64,7 @@ model Category {
 
 model ProductMedia {
   id         String  @id @default(uuid())
-  title      String
+  title      String?
   subtitle   String?
   media_url  String  @default("https://picsum.photos/100")
   style      Style   @default(image_bottom)

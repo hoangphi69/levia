@@ -1,7 +1,7 @@
 'use client';
 
 import Image, { ImageProps } from 'next/image';
-import placholder from '../../../public/images/placeholder.png'; // Adjust the path to your fallback image
+import placeholder from '../../../public/images/placeholder.png'; // Adjust the path to your fallback image
 import { useState } from 'react';
 
 type ImageWrapperProps = ImageProps & {
@@ -12,7 +12,7 @@ const SmoothImage: React.FC<ImageWrapperProps> = ({
   src,
   alt,
   className,
-  fallback = placholder,
+  fallback = placeholder,
   ...props
 }) => {
   const [source, setSource] = useState(src);

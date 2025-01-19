@@ -1,5 +1,9 @@
+'use client';
+
 import type { ProductReview } from '@prisma/client';
-import Image from 'next/image';
+import SmoothImage from './smooth-image';
+import Zoom from './zoom';
+import { formattedRelativeTime } from '../lib/utils';
 
 type ReviewCard = Pick<
   ProductReview,
@@ -14,46 +18,57 @@ export default function ReviewCard({
   created_at,
 }: ReviewCard) {
   return (
-    <div className="hover:shadow-lg transition-shadow">
-      <img className="block w-full max-h-40 object-cover" src={image} alt="" />
-      <div className="space-y-4 bg-dark-1 p-6">
+    <article className="bg-secondary hover:shadow-lg transition-shadow">
+      <Zoom zoomImg={{ src: image }}>
+        <SmoothImage
+          className="w-full max-h-[250px]"
+          width={400}
+          height={250}
+          src={image}
+          alt=""
+        />
+      </Zoom>
+      <div className="relative z-10 space-y-4 bg-secondary -mt-[3rem] p-6 border rounded-se-[3rem]">
         <RatingStars rating={rating} />
-        <p className="text-gray-1 text-h5">{comment}</p>
+        <p className="text-base">{comment}</p>
         <div className="flex justify-between">
-          <span className="font-bold text-h6">{author}</span>
-          <span className="font-light text-gray-1 text-h6">
-            {created_at.toISOString()}
+          <span className="font-bold text-muted-foreground text-sm">
+            {author}
+          </span>
+          <span className="font-light text-muted-foreground text-sm">
+            {formattedRelativeTime(created_at)}
           </span>
         </div>
       </div>
-    </div>
+    </article>
   );
 }
 
 function RatingStars({ rating }: { rating: number }) {
   return (
-    <div className="flex gap-1">
+    <div
+      aria-label={`Comment with ${rating} stars rating`}
+      className="flex gap-1"
+    >
       {[...Array(5)].map((_, index) => {
         if (index + 1 <= rating)
           return (
-            <svg
+            <span
               key={index}
-              className="w-4 fill-accent-2"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 -960 960 960"
+              className="text-accent-gold text-lg leading-4 material-symbols-outlined"
+              style={{ fontVariationSettings: "'FILL' 1" }}
             >
-              <path d="m233-120 65-281L80-590l288-25 112-265 112 265 288 25-218 189 65 281-247-149-247 149Z" />
-            </svg>
+              star
+            </span>
           );
         return (
-          <svg
+          <span
             key={index}
-            className="w-4 fill-gray-2"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 -960 960 960"
+            className="text-border text-lg leading-4 material-symbols-outlined"
+            style={{ fontVariationSettings: "'FILL' 1" }}
           >
-            <path d="m233-120 65-281L80-590l288-25 112-265 112 265 288 25-218 189 65 281-247-149-247 149Z" />
-          </svg>
+            star
+          </span>
         );
       })}
     </div>

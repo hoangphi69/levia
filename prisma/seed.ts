@@ -10,8 +10,8 @@ const home: Prisma.HomeCreateInput = {
       model: 'LV298',
     },
   },
-  featured_image:
-    'https://utfs.io/f/1fEtWG3LOnRF1bqnNJLOnRFSoljLrdV58Wt4BZMcIHwGxAQY',
+  // featured_image:
+  //   'https://utfs.io/f/1fEtWG3LOnRF1bqnNJLOnRFSoljLrdV58Wt4BZMcIHwGxAQY',
   featured_features: [
     {
       title: 'Hộ gia đình tin dùng',
@@ -95,7 +95,14 @@ const categories: Prisma.CategoryCreateInput[] = [
 const products: Prisma.ProductCreateInput[] = [
   {
     model: 'LV298',
-    images: ['https://picsum.photos/501', 'https://picsum.photos/502'],
+    images: [
+      'https://picsum.photos/2000',
+      'https://picsum.photos/2001',
+      'https://picsum.photos/2002',
+      'https://picsum.photos/2003',
+      'https://picsum.photos/2004',
+      'https://picsum.photos/2005',
+    ],
     description:
       'Thiết kế bởi đội ngũ sáng tạo tài năng, để đem lại sự tiện nghi và sang trọng cho người dùng. Một đoạn text thể hiện các tính năng nổi bật của sản phẩm khiến cho họ ngay lập tức mua về cho vợ sử dụng.',
     title: 'Bếp từ đơn âm Levia LV298',
@@ -122,7 +129,7 @@ const products: Prisma.ProductCreateInput[] = [
         title: 'Thiết kế hiện đại, tinh tế',
         subtitle:
           'Mô tả ngắn một đoạn văn ngắn gọn, nổi bật những điểm mạnh chính của sản phẩm. Mô tả ngắn một đoạn văn ngắn gọn, nổi bật những điểm mạnh chính của sản phẩm.',
-        media_url: 'https://picsum.photos/400',
+        media_url: 'https://picsum.photos/1280/500',
       },
     },
     reviews: {
@@ -133,14 +140,14 @@ const products: Prisma.ProductCreateInput[] = [
             comment:
               'Chưa bao giờ trong đời tôi đc sử dụng sản phẩm đỉnh cao ntn. Tôi chắc chắn sẽ mua cái nữa cho bà già nhà tôi.',
             author: 'Hoang Phi',
-            image: 'https://picsum.photos/250/100',
+            image: 'https://picsum.photos/400/250',
           },
           {
             rating: 4,
             comment:
               'Chưa bao giờ trong đời tôi đc sử dụng sản phẩm đỉnh cao ntn. Tôi chắc chắn sẽ mua cái nữa cho bà già nhà tôi. Lorem ipsum iojwef  oij ij oiwef wef ioij o ioij oijew ofijwef iojewfo wefiow fi voijf weifj oweijf wfoi wiefjwiefoiw fwj',
             author: 'Kwan',
-            image: 'https://picsum.photos/250/100',
+            image: 'https://picsum.photos/400/250',
           },
         ],
       },

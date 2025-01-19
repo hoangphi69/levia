@@ -1,28 +1,34 @@
-export default function ReviewStats({ ratings }: { ratings: number[] }) {
+export default function ReviewStats({
+  ratings,
+  className,
+}: {
+  ratings: number[];
+  className?: string;
+}) {
   const percentages = ratingsPercentages(ratings);
   const overall = ratingOverall(ratings);
   const total = ratings.length;
 
   return (
-    <div className="flex items-center gap-6">
+    <div className={`flex items-end gap-12 ${className}`}>
       <div className="space-y-2">
         <p className="font-bold text-5xl md:text-6xl">
           {overall}
-          <span className="text-h3">/5.0</span>
+          <span className="text-2xl">&#47;5.0</span>
         </p>
-        <p className="text-gray-1 text-h5">&#40;{total} đánh giá&#41;</p>
+        <p className="text-muted-foreground">&#40;{total} đánh giá&#41;</p>
       </div>
 
       <div className="flex flex-col gap-0 w-full">
         {percentages.map((percentage, index, array) => (
           <div key={index} className="flex items-center gap-4 w-full">
-            <div className="bg-black w-full h-2 overflow-hidden">
+            <div className="bg-secondary w-full h-2 overflow-hidden">
               <div
                 style={{ width: `calc(${percentage * 100}% + 2px)` }}
-                className="bg-white h-full"
+                className="bg-gradient-to-r from-accent-gold to-accent-almond h-full"
               ></div>
             </div>
-            <span className="text-gray-1 text-h6">
+            <span className="text-muted-foreground text-sm">
               {array.length - index}.0
             </span>
           </div>

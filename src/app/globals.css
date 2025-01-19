@@ -197,7 +197,7 @@
     --accent: 0 0% 14.9%;
     --accent-foreground: 0 0% 98%;
 
-    --destructive: 0 62.8% 30.6%;
+    /* --destructive: 0 62.8% 30.6%; */
     --destructive-foreground: 0 0% 98%;
 
     --border: /* 0 0% 63.9% */ 0 0% 38%;
@@ -262,20 +262,15 @@
       transparent
     );
   }
-}
 
-@layer components {
-  .btn-fill {
-    @apply bg-gradient-to-tr hover:bg-gradient-to-bl from-accent-gold to-accent-almond hover:shadow-md font-bold text-background button;
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 
-  .btn-outline {
-    @apply border-gradient border hover:bg-clip-border font-bold text-gradient hover:text-background button;
+  .text-icon {
+    @apply inline-flex items-center gap-2;
   }
-
-  /* .input-search {
-    @apply input 
-  } */
 
   .bento {
     grid-auto-columns: 1fr;
@@ -312,6 +307,32 @@
     @media (max-width: 768px) {
       grid-template-areas: '_1' '_2' '_3' '_4' '_5' '_6';
       grid-template-rows: repeat(3, 300px) auto repeat(2, 300px);
+    }
+  }
+}
+
+@layer components {
+  .btn-fill {
+    @apply bg-gradient-to-tr hover:bg-gradient-to-bl from-accent-gold to-accent-almond hover:shadow-md font-bold text-background button;
+  }
+
+  .btn-outline {
+    @apply border-gradient border hover:bg-clip-border font-bold text-gradient hover:text-background button;
+  }
+
+  .btn-icon {
+    @apply hover:bg-secondary border rounded-full w-12 h-12 *:text-base aspect-square button;
+  }
+
+  .medium-zoom {
+    & [data-rmiz-modal-overlay='visible'] {
+      background-color: hsl(var(--background));
+    }
+
+    & [data-rmiz-btn-unzoom] {
+      background-color: hsl(var(--secondary));
+      color: hsl(var(--secondary-foreground));
+      inset: 2rem 2rem auto auto;
     }
   }
 }
