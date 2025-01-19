@@ -18,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="mx-auto w-dvw max-w-screen-xl antialised dark">
+      <body className="mx-auto max-w-screen-xl antialised dark">
         <Navigation />
         {children}
         <aside className="gap-6 md:gap-16 grid grid-cols-1 md:grid-cols-2 p-6 md:p-16">
