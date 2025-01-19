@@ -1,25 +1,26 @@
+import Breadcrumb, { Navigation } from './breadcrumb';
+
 export default function Banner({
-  title,
   image,
+  breadcrumb,
+  children,
 }: {
-  title: string | JSX.Element;
   image: string;
+  breadcrumb?: Navigation[];
+  children?: React.ReactNode;
 }) {
   return (
-    <section className="relative h-[40dvh]">
-      <div className="block relative after:z-10 after:absolute after:inset-0 after:bg-gradient-to-r after:from-dark-2/100 after:to-dark-2/20 ml-auto w-full md:w-2/3 h-full isolate">
-        <img
-          className="w-full h-full object-center object-cover"
-          src={image}
-          alt=""
-        />
-      </div>
+    <section
+      style={{
+        backgroundImage: `url(${image})`,
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+      }}
+      className="relative flex flex-col justify-between space-y-4 md:px-16 md:py-12 p-6 md:h-[300px] min-h-[250px]"
+    >
+      <Breadcrumb list={breadcrumb || []} />
 
-      {title && (
-        <div className="absolute inset-0 space-y-4 m-auto md:ml-16 w-max h-max text-center md:text-left">
-          <h1 className="font-extrabold text-gradient text-h1">{title}</h1>
-        </div>
-      )}
+      {children}
     </section>
   );
 }
