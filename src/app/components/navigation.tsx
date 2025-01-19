@@ -17,17 +17,11 @@ export default function Navigation() {
   const isDesktop = useMediaQuery('(min-width: 768px)');
 
   const links = [
+    { display: 'Trang chủ', href: '/' },
+    { display: 'Giới thiệu', href: '/about' },
     {
-      route: '/',
-      displayName: 'Trang chủ',
-    },
-    {
-      route: '/about',
-      displayName: 'Giới thiệu',
-    },
-    {
-      route: '/products',
-      displayName: 'Sản phẩm',
+      display: 'Sản phẩm',
+      href: '/products',
       dropdown: (
         <div className="*:inline-flex flex flex-col *:items-center *:gap-2 *:px-6 *:py-4 font-semibold text-muted-foreground whitespace-nowrap">
           <Link href={'/products/'}>
@@ -39,14 +33,8 @@ export default function Navigation() {
         </div>
       ),
     },
-    {
-      route: '/articles',
-      displayName: 'Bài viết',
-    },
-    {
-      route: '/agencies',
-      displayName: 'Đại lý',
-    },
+    { display: 'Bài viết', href: '/articles' },
+    { display: 'Đại lý', href: '/agencies' },
   ];
 
   return isDesktop ? (
@@ -63,10 +51,10 @@ export default function Navigation() {
               <>
                 <Link
                   className="inline-flex items-center gap-1 p-4 font-bold text-sm whitespace-nowrap"
-                  href={link.route}
+                  href={link.href}
                 >
                   <span className="group-hover:underline decoration-2 decoration-accent-gold">
-                    {link.displayName}
+                    {link.display}
                   </span>
                   <span className="group-hover:rotate-180 group-hover:text-accent-gold transition-transform material-symbols-outlined">
                     keyboard_arrow_down
@@ -80,9 +68,9 @@ export default function Navigation() {
               // Link without dropdown
               <Link
                 className="p-4 font-bold text-sm hover:underline whitespace-nowrap decoration-2 decoration-accent-gold"
-                href={link.route}
+                href={link.href}
               >
-                {link.displayName}
+                {link.display}
               </Link>
             )}
           </li>
@@ -122,9 +110,9 @@ export default function Navigation() {
                 <li className="hover:bg-secondary" key={index}>
                   <Link
                     className="flex px-6 py-4 font-semibold uppercase"
-                    href={link.route}
+                    href={link.href}
                   >
-                    {link.displayName}
+                    {link.display}
                   </Link>
                 </li>
               ))}
