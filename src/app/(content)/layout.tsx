@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
-import './globals.css';
-import Navigation from './components/navigation';
-import FAQ from './components/faq';
-import Footer from './components/footer';
+import '../globals.css';
+import Navigation from '../components/navigation';
+import FAQ from '../components/faq';
+import Footer from '../components/footer';
 import { Toaster } from '@/components/ui/sonner';
-import FooterContact from './components/footer-contact';
+import FooterContact from '../components/footer-contact';
 
 export const metadata: Metadata = {
   title: 'Create Next App',

@@ -1,4 +1,4 @@
-import GoogleMaps from '../lib/google-maps';
+import GoogleMaps from '../../lib/google-maps';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -7,9 +7,9 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
-import Banner from '../components/banner';
-import prisma from '../lib/prisma';
-import AgencyCard from '../components/card-agency';
+import Banner from '../../components/banner';
+import prisma from '../../lib/prisma';
+import AgencyCard from '../../components/card-agency';
 
 export default async function Agencies() {
   const agencies = await prisma.agency.findMany();

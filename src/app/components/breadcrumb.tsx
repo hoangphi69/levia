@@ -6,6 +6,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
+import Link from 'next/link';
 import React, { Fragment } from 'react';
 
 export type Navigation = {
@@ -26,7 +27,9 @@ export default function CustomBreadcrumb({ list }: { list: Navigation[] }) {
         {list.slice(0, -1).map(({ display, href }, index) => (
           <Fragment key={index}>
             <BreadcrumbItem>
-              <BreadcrumbLink href={href}>{display}</BreadcrumbLink>
+              <BreadcrumbLink asChild>
+                <Link href={href as string}>{display}</Link>
+              </BreadcrumbLink>
             </BreadcrumbItem>
             <CustomBreadcrumbSeparator />
           </Fragment>

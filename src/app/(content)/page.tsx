@@ -1,14 +1,14 @@
 import Link from 'next/link';
-import prisma from './lib/prisma';
-import { SplitedTitle } from './lib/utils';
-import CircularTextButton from './components/circular-text';
-import SmoothImage from './components/smooth-image';
-import logo from '../../public/logo/logo-text.svg';
-import feature1 from '../../public/images/feature_1.png';
-import feature2 from '../../public/images/feature_2.png';
-import feature3 from '../../public/images/feature_3.png';
-import feature5 from '../../public/images/feature_5.png';
-import feature6 from '../../public/images/feature_6.png';
+import prisma from '../lib/prisma';
+import { SplitedTitle } from '../lib/utils';
+import CircularTextButton from '../components/circular-text';
+import SmoothImage from '../components/smooth-image';
+import logo from '../../../public/logo/logo-text.svg';
+import feature1 from '../../../public/images/feature_1.png';
+import feature2 from '../../../public/images/feature_2.png';
+import feature3 from '../../../public/images/feature_3.png';
+import feature5 from '../../../public/images/feature_5.png';
+import feature6 from '../../../public/images/feature_6.png';
 
 interface Quote {
   comment: string;

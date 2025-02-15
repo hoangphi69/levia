@@ -1,7 +1,7 @@
 'use client';
 
-import Banner from '../components/banner';
-import { SplitedTitle } from '../lib/utils';
+import Banner from '../../components/banner';
+import { SplitedTitle } from '../../lib/utils';
 import Link from 'next/link';
 import { toast } from 'sonner';
 import { sendEmail } from './actions';

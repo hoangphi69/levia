@@ -1,6 +1,6 @@
-import Banner from '../components/banner';
-import SmoothImage from '../components/smooth-image';
-import { SplitedTitle } from '../lib/utils';
+import Banner from '../../components/banner';
+import SmoothImage from '../../components/smooth-image';
+import { SplitedTitle } from '../../lib/utils';
 
 export default function About() {
   const banner = {

@@ -1,6 +1,6 @@
 'use server';
 
-import { ContactFormSchema } from '../lib/types';
+import { ContactFormSchema } from '../../lib/types';
 import { Resend } from 'resend';
 
 export async function sendEmail(_state: any, formData: FormData) {
