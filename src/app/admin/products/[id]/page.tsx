@@ -17,7 +17,15 @@ import {
 import SmoothImage from '@/app/components/smooth-image';
 import Zoom from '@/app/components/zoom';
 import { Button } from '@/components/ui/button';
-import { RefreshCcw, Trash2 } from 'lucide-react';
+import { Plus, RefreshCcw, Trash2 } from 'lucide-react';
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogTitle,
+} from '@/components/ui/dialog';
+import UploadDropZone from '../../components/upload-drop-zone';
+import SwapyImageZone from '../../components/swapy-image-zone';
 
 type Params = Promise<{ id: string }>;
 
@@ -60,31 +68,8 @@ export default async function ProductDetails(props: { params: Params }) {
             </CardTitle>
             <CardDescription>Sản phẩm cần tối thiểu 4 hình ảnh</CardDescription>
           </CardHeader>
-          <CardContent className="gap-4 grid grid-cols-2">
-            {product?.images.map((image, index) => (
-              <div key={index} className="group relative">
-                <Zoom>
-                  <SmoothImage
-                    src={image}
-                    width={640}
-                    height={400}
-                    alt=""
-                    className="rounded-xl w-full h-full"
-                  />
-                </Zoom>
-
-                <div className="top-0 right-0 absolute flex flex-col gap-2 opacity-0 group-hover:opacity-100 p-2 transition-opacity">
-                  <Button variant={'outline'} size={'icon'}>
-                    <span className="sr-only">Đổi ảnh</span>
-                    <RefreshCcw />
-                  </Button>
-                  <Button variant={'outline'} size={'icon'}>
-                    <span className="sr-only">Xoá ảnh</span>
-                    <Trash2 />
-                  </Button>
-                </div>
-              </div>
-            ))}
+          <CardContent>
+            <SwapyImageZone productId={id} images={product?.images} />
           </CardContent>
         </Card>
 

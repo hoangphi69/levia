@@ -3,6 +3,7 @@ import { SidebarProvider } from '@/components/ui/sidebar';
 import type { Metadata } from 'next';
 import { SidebarNavigation } from './components/sidebar-navigation';
 import ThemeProvider from './components/theme-provider';
+import { Toaster } from 'sonner';
 
 export const metadata: Metadata = {
   title: 'Levia Admin',
@@ -26,6 +27,7 @@ export default function RootLayout({
           <SidebarProvider>
             <SidebarNavigation />
             <main className="w-full">{children}</main>
+            <Toaster richColors />
           </SidebarProvider>
         </ThemeProvider>
       </body>
