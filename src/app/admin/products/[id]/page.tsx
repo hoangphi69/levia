@@ -1,10 +1,10 @@
 import ProductMedia from '@/app/components/product-media';
 import ReviewCard from '@/app/components/card-review';
-import ReviewStats from '@/app/components/review-stats';
+import ReviewStats, { calcRatingOverall } from '@/app/components/review-stats';
 import prisma from '@/app/lib/prisma';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Link from 'next/link';
-import { formattedPrice, SplitedTitle } from '@/app/lib/utils';
+import { formattedDate, formattedPrice, SplitedTitle } from '@/app/lib/utils';
 import CarouselProduct from '@/app/components/carousel';
 import Header from '../../components/header';
 import {
@@ -14,18 +14,22 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import SmoothImage from '@/app/components/smooth-image';
+import SwapyImageZone from '../../components/swapy-image-zone';
+import { Badge } from '@/components/ui/badge';
+import { Fragment } from 'react';
 import Zoom from '@/app/components/zoom';
-import { Button } from '@/components/ui/button';
-import { Plus, RefreshCcw, Trash2 } from 'lucide-react';
+import SmoothImage from '@/app/components/smooth-image';
 import {
   Dialog,
-  DialogTrigger,
   DialogContent,
   DialogTitle,
+  DialogTrigger,
 } from '@/components/ui/dialog';
+import { Plus, Star } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { AddProductImage } from '@/app/lib/actions';
+import { toast } from 'sonner';
 import UploadDropZone from '../../components/upload-drop-zone';
-import SwapyImageZone from '../../components/swapy-image-zone';
 
 type Params = Promise<{ id: string }>;
 
@@ -36,6 +40,7 @@ export default async function ProductDetails(props: { params: Params }) {
     include: {
       media: true,
       reviews: true,
+      Category: true,
     },
   });
 
@@ -60,26 +65,205 @@ export default async function ProductDetails(props: { params: Params }) {
     <>
       <Header title={header.title} list={header.breadcrumb} />
 
-      <section className="gap-4 grid grid-cols-2 mx-auto p-4 container">
-        <Card>
+      <section
+        className="gap-4 grid grid-cols-2 mx-auto p-4"
+        style={{
+          gridTemplateAreas: `
+          "image meta"
+          "image features"
+          "image specs"
+          "media media"
+          "reviews reviews"
+        `,
+        }}
+      >
+        {product?.images && product.images.length > 0 && (
+          <Card className="" style={{ gridArea: 'image' }}>
+            <CardHeader>
+              <CardTitle>
+                <h2 className="font-bold text-xl">Hình ảnh</h2>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="gap-4 grid grid-cols-2">
+                {product.images.map((image, index) => (
+                  <div key={index} className="relative h-[300px]">
+                    <Zoom>
+                      <SmoothImage
+                        src={image}
+                        width={640}
+                        height={400}
+                        alt=""
+                        className="absolute rounded-xl size-full"
+                      />
+                    </Zoom>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        <Card className="" style={{ gridArea: 'meta' }}>
           <CardHeader>
             <CardTitle>
-              <h2 className="font-bold text-xl">Hình ảnh</h2>
+              <h2 className="font-bold text-xl">Thông tin</h2>
             </CardTitle>
-            <CardDescription>Sản phẩm cần tối thiểu 4 hình ảnh</CardDescription>
           </CardHeader>
           <CardContent>
-            <SwapyImageZone productId={id} images={product?.images} />
+            <dl className="gap-x-12 gap-y-4 grid grid-cols-[max-content_1fr]">
+              <dt className="text-muted-foreground">Model: </dt>
+              <dd>{product?.model}</dd>
+              <dt className="text-muted-foreground">Tên sản phẩm: </dt>
+              <dd>{product?.title}</dd>
+              <dt className="text-muted-foreground">Phân loại: </dt>
+              <dd>
+                <Badge variant={'outline'}>{product?.Category?.title}</Badge>
+              </dd>
+              <dt className="text-muted-foreground">Giá tiền: </dt>
+              <dd>{formattedPrice(product?.price)}</dd>
+              <dt className="text-muted-foreground">Mô tả: </dt>
+              <dd className="max-w-prose">{product?.description}</dd>
+            </dl>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Thông tin sản phẩm</CardTitle>
-          </CardHeader>
-        </Card>
+        {product?.features && (
+          <Card className="" style={{ gridArea: 'features' }}>
+            <CardHeader>
+              <CardTitle>
+                <h2 className="font-bold text-xl">Tính năng</h2>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <dl className="gap-x-12 gap-y-4 grid grid-cols-[max-content_1fr]">
+                {Object.entries(product?.features).map(
+                  ([label, value], index) => (
+                    <Fragment key={index}>
+                      <dt className="text-muted-foreground">{label}: </dt>
+                      <dd>{value}</dd>
+                    </Fragment>
+                  )
+                )}
+              </dl>
+            </CardContent>
+          </Card>
+        )}
+
+        {product?.specs && (
+          <Card className="" style={{ gridArea: 'specs' }}>
+            <CardHeader>
+              <CardTitle>
+                <h2 className="font-bold text-xl">Thông số</h2>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <dl className="gap-x-12 gap-y-4 grid grid-cols-[max-content_1fr]">
+                {Object.entries(product?.specs).map(([label, value], index) => (
+                  <Fragment key={index}>
+                    <dt className="text-muted-foreground">{label}: </dt>
+                    <dd>{value}</dd>
+                  </Fragment>
+                ))}
+              </dl>
+            </CardContent>
+          </Card>
+        )}
+
+        {product?.media && product.media.length > 0 && (
+          <Card className="" style={{ gridArea: 'media' }}>
+            <CardHeader>
+              <CardTitle>
+                <h2 className="font-bold text-xl">Chi tiết</h2>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="gap-4 grid grid-cols-2">
+                {product.media.map(
+                  ({ id, title, subtitle, media_url, style }) => (
+                    <div key={id} className="gap-4 grid grid-cols-2">
+                      <div className="relative h-[300px]">
+                        <Zoom>
+                          <SmoothImage
+                            src={media_url}
+                            width={640}
+                            height={400}
+                            alt=""
+                            className="absolute rounded-xl size-full"
+                          />
+                        </Zoom>
+                      </div>
+                      <dl className="self-start gap-4 grid grid-cols-[max-content_1fr]">
+                        <dt className="text-muted-foreground">Tiêu đề: </dt>
+                        <dd>{title}</dd>
+                        <dt className="text-muted-foreground">Mô tả: </dt>
+                        <dd>{subtitle}</dd>
+                        <dt className="text-muted-foreground">Bố cục: </dt>
+                        <dd>{style}</dd>
+                      </dl>
+                    </div>
+                  )
+                )}
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {product?.reviews && product.reviews.length > 0 && (
+          <Card className="" style={{ gridArea: 'reviews' }}>
+            <CardHeader>
+              <CardTitle>
+                <h2 className="font-bold text-xl">
+                  Đánh giá{' '}
+                  <span className="text-muted-foreground">
+                    (
+                    {calcRatingOverall(
+                      product.reviews.map((review) => review.rating)
+                    )}{' '}
+                    ★)
+                  </span>
+                </h2>
+              </CardTitle>
+              <CardDescription>
+                {product.reviews.map((review) => review.rating).length} đánh giá
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="gap-4 grid grid-cols-2">
+                {product.reviews.map(
+                  ({ id, image, rating, comment, author, created_at }) => (
+                    <Fragment key={id}>
+                      <div className="relative h-[300px]">
+                        <Zoom>
+                          <SmoothImage
+                            src={image}
+                            width={640}
+                            height={400}
+                            alt=""
+                            className="absolute rounded-xl size-full"
+                          />
+                        </Zoom>
+                      </div>
+                      <dl className="self-start gap-x-4 gap-y-4 grid grid-cols-[max-content_1fr]">
+                        <dt className="text-muted-foreground">Đánh giá: </dt>
+                        <dd>{rating}</dd>
+                        <dt className="text-muted-foreground">Nội dung: </dt>
+                        <dd>{comment}</dd>
+                        <dt className="text-muted-foreground">User: </dt>
+                        <dd>{author}</dd>
+                        <dt className="text-muted-foreground">Ngày : </dt>
+                        <dd>{formattedDate(created_at)}</dd>
+                      </dl>
+                    </Fragment>
+                  )
+                )}
+              </div>
+            </CardContent>
+          </Card>
+        )}
       </section>
 
+      {/* 
       <section className="gap-6 md:gap-12 grid grid-cols-1 md:grid-cols-2 p-6 md:px-16 md:py-12">
         <CarouselProduct images={product?.images} />
 
@@ -237,7 +421,7 @@ export default async function ProductDetails(props: { params: Params }) {
             ))}
           </div>
         </section>
-      )}
+      )} */}
     </>
   );
 }

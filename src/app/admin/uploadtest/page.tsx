@@ -2,7 +2,15 @@
 
 import React from 'react';
 import Header from '../components/header';
-import { UploadDropzone } from '@/app/lib/uploadthing';
+import { Input } from '@/components/ui/input';
+import { uploadImages } from './action';
+import { Button } from '@/components/ui/button';
+
+export async function handleFormSubmit(formData: FormData) {
+  const files = formData.getAll('files');
+  const response = await uploadImages(files as File[]);
+  console.log(response);
+}
 
 export default function UploadTest() {
   const header = {
@@ -22,7 +30,10 @@ export default function UploadTest() {
     <>
       <Header title={header.title} list={header.breadcrumb} />
       <section className="gap-4 grid grid-cols-4 mx-auto p-4 container">
-        <UploadDropzone endpoint={'imageUploader'}></UploadDropzone>
+        <form action={handleFormSubmit}>
+          <Input name="files" type="file" accept="image/*" />
+          <Button type="submit">Upload</Button>
+        </form>
       </section>
     </>
   );

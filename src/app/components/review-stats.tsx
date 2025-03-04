@@ -5,8 +5,8 @@ export default function ReviewStats({
   ratings: number[];
   className?: string;
 }) {
-  const percentages = ratingsPercentages(ratings);
-  const overall = ratingOverall(ratings);
+  const percentages = calcRatingsPercentages(ratings);
+  const overall = calcRatingOverall(ratings);
   const total = ratings.length;
 
   return (
@@ -25,7 +25,7 @@ export default function ReviewStats({
             <div className="bg-secondary w-full h-2 overflow-hidden">
               <div
                 style={{ width: `calc(${percentage * 100}% + 2px)` }}
-                className="bg-gradient-to-r from-accent-gold to-accent-almond h-full"
+                className="bg-gradient-to-r h-full from-accent-gold to-accent-almond"
               ></div>
             </div>
             <span className="text-muted-foreground text-sm">
@@ -38,7 +38,7 @@ export default function ReviewStats({
   );
 }
 
-function ratingsPercentages(ratings: number[]) {
+function calcRatingsPercentages(ratings: number[]) {
   const totalRatings = ratings.length;
   const starCounts = [0, 0, 0, 0, 0];
 
@@ -49,7 +49,7 @@ function ratingsPercentages(ratings: number[]) {
   return percentages;
 }
 
-function ratingOverall(ratings: number[]) {
+export function calcRatingOverall(ratings: number[]) {
   return (ratings.reduce((acc, curr) => curr + acc) / ratings.length).toFixed(
     1
   );
