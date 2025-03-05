@@ -1,43 +1,31 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import Header from '../components/header';
+import SmoothImage from '@/components/wrapper/smooth-image';
+import { Button } from '@/components/shadcn/button';
 import {
   Card,
+  CardContent,
+  CardDescription,
   CardHeader,
   CardTitle,
-  CardDescription,
-  CardContent,
-} from '@/components/ui/card';
-import SmoothImage from '@/app/components/smooth-image';
-import { Button } from '@/components/ui/button';
+} from '@/components/shadcn/card';
 import {
   Tooltip,
-  TooltipTrigger,
   TooltipContent,
-} from '@/components/ui/tooltip';
+  TooltipTrigger,
+} from '@/components/shadcn/tooltip';
 import {
   Check,
   GripVertical,
   LoaderCircle,
   Plus,
-  RefreshCcw,
   RotateCcw,
   Trash2,
 } from 'lucide-react';
 import { Reorder, useDragControls } from 'motion/react';
-import UploadDropZone from '../components/upload-drop-zone';
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
+import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
-import { saveImageOrder, uploadImages, removeUploadedImage } from './page';
-import { set } from 'zod';
-import { blob } from 'stream/consumers';
-import { utapi } from '@/app/lib/uploadthing';
+import { removeUploadedImage, saveImageOrder, uploadImages } from './page';
 
 interface FileMap {
   blob: string;

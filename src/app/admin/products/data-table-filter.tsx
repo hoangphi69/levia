@@ -3,9 +3,9 @@ import { Column } from '@tanstack/react-table';
 import { Check, Command, PlusCircle } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
+import { Badge } from '@/components/shadcn/badge';
+import { Button } from '@/components/shadcn/button';
+import { Separator } from '@/components/shadcn/separator';
 import {
   CommandEmpty,
   CommandGroup,
@@ -13,12 +13,12 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from '@/components/ui/command';
+} from '@/components/shadcn/command';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/components/ui/popover';
+} from '@/components/shadcn/popover';
 
 interface DataTableFacetedFilterProps<TData, TValue> {
   column?: Column<TData, TValue>;
@@ -53,7 +53,7 @@ export function DataTableFacetedFilter<TData, TValue>({
               >
                 {selectedValues.size}
               </Badge>
-              <div className="lg:flex space-x-1 hidden">
+              <div className="hidden lg:flex space-x-1">
                 {selectedValues.size > 2 ? (
                   <Badge
                     variant="secondary"

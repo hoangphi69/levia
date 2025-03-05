@@ -1,7 +1,7 @@
 'use server';
 
 import React from 'react';
-import Header from '../components/header';
+import Header from '../components/layout/header';
 import Experimental from './experimental';
 import prisma from '@/app/lib/prisma';
 import { utapi } from '@/app/lib/uploadthing';

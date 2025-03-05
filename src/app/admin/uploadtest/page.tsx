@@ -1,10 +1,10 @@
 'use client';
 
 import React from 'react';
-import Header from '../components/header';
-import { Input } from '@/components/ui/input';
+import Header from '../components/layout/header';
+import { Input } from '@/components/shadcn/input';
 import { uploadImages } from './action';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/shadcn/button';
 
 export async function handleFormSubmit(formData: FormData) {
   const files = formData.getAll('files');

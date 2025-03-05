@@ -1,11 +1,11 @@
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/shadcn/button';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
+} from '@/components/shadcn/select';
 import { Table } from '@tanstack/react-table';
 import {
   ChevronLeft,
@@ -23,7 +23,7 @@ export function DataTablePagination<TData>({
 }: DataTablePaginationProps<TData>) {
   return (
     <div className="flex justify-between items-center">
-      <div className="lg:flex items-center space-x-2 hidden">
+      <div className="hidden lg:flex items-center space-x-2">
         <p className="font-medium text-sm">Số lượng dòng</p>
         <Select
           value={`${table.getState().pagination.pageSize}`}
@@ -55,7 +55,7 @@ export function DataTablePagination<TData>({
       <div className="flex items-center gap-2">
         <Button
           variant="outline"
-          className="lg:flex hidden p-0 w-8 h-8"
+          className="hidden lg:flex p-0 w-8 h-8"
           onClick={() => table.setPageIndex(0)}
           disabled={!table.getCanPreviousPage()}
         >
@@ -86,7 +86,7 @@ export function DataTablePagination<TData>({
         </Button>
         <Button
           variant="outline"
-          className="lg:flex hidden p-0 w-8 h-8"
+          className="hidden lg:flex p-0 w-8 h-8"
           onClick={() => table.setPageIndex(table.getPageCount() - 1)}
           disabled={!table.getCanNextPage()}
         >

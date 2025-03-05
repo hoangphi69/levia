@@ -1,10 +1,10 @@
-import SmoothImage from '@/app/components/smooth-image';
-import { Button } from '@/components/ui/button';
+import SmoothImage from '@/components/wrapper/smooth-image';
+import { Button } from '@/components/shadcn/button';
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from '@/components/ui/tooltip';
+} from '@/components/shadcn/tooltip';
 import { GripVertical, RefreshCcw, Trash2 } from 'lucide-react';
 import { Reorder, useDragControls } from 'motion/react';
 

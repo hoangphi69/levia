@@ -1,6 +1,6 @@
 import React from 'react';
-import ThemeSwitch from './components/theme-switch';
-import Header from './components/header';
+import ThemeSwitch from './components/theme/theme-switch';
+import Header from './components/layout/header';
 
 const header = {
   title: 'Dashboard',

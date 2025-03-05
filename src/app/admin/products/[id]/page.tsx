@@ -1,35 +1,18 @@
-import ProductMedia from '@/app/components/product-media';
-import ReviewCard from '@/app/components/card-review';
-import ReviewStats, { calcRatingOverall } from '@/app/components/review-stats';
+import { calcRatingOverall } from '@/app/lib/utils/calc';
+import SmoothImage from '@/components/wrapper/smooth-image';
+import Zoom from '@/components/wrapper/zoom';
 import prisma from '@/app/lib/prisma';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import Link from 'next/link';
-import { formattedDate, formattedPrice, SplitedTitle } from '@/app/lib/utils';
-import CarouselProduct from '@/app/components/carousel';
-import Header from '../../components/header';
+import { formattedDate, formattedPrice } from '@/app/lib/utils/format';
+import { Badge } from '@/components/shadcn/badge';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import SwapyImageZone from '../../components/swapy-image-zone';
-import { Badge } from '@/components/ui/badge';
+} from '@/components/shadcn/card';
 import { Fragment } from 'react';
-import Zoom from '@/app/components/zoom';
-import SmoothImage from '@/app/components/smooth-image';
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
-import { Plus, Star } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { AddProductImage } from '@/app/lib/actions';
-import { toast } from 'sonner';
-import UploadDropZone from '../../components/upload-drop-zone';
+import Header from '../../components/layout/header';
 
 type Params = Promise<{ id: string }>;
 

@@ -1,8 +1,8 @@
 import '../globals.css';
-import { SidebarProvider } from '@/components/ui/sidebar';
+import { SidebarProvider } from '@/components/shadcn/sidebar';
 import type { Metadata } from 'next';
-import { SidebarNavigation } from './components/sidebar-navigation';
-import ThemeProvider from './components/theme-provider';
+import { SideNavbar } from './components/layout/side-navbar';
+import ThemeProvider from './components/theme/theme-provider';
 import { Toaster } from 'sonner';
 
 export const metadata: Metadata = {
@@ -25,7 +25,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <SidebarProvider>
-            <SidebarNavigation />
+            <SideNavbar />
             <main className="w-full">{children}</main>
             <Toaster richColors />
           </SidebarProvider>

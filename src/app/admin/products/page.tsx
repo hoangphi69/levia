@@ -1,5 +1,5 @@
 import prisma from '@/app/lib/prisma';
-import Header from '../components/header';
+import Header from '../components/layout/header';
 import DataTable from './data-table';
 import { columns } from './columns';
 
