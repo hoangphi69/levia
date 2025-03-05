@@ -34,9 +34,10 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { toast } from 'sonner';
-import { saveImageOrder, uploadImages } from './page';
+import { saveImageOrder, uploadImages, removeUploadedImage } from './page';
 import { set } from 'zod';
 import { blob } from 'stream/consumers';
+import { utapi } from '@/app/lib/uploadthing';
 
 interface FileMap {
   blob: string;
@@ -60,12 +61,14 @@ export default function Experimental({
 
   const handleSave = async () => {
     setIsLoading(true);
+
+    let updatedItems = [...items];
+
+    // Add new images
     const blobs = items.filter((item) => item.startsWith('blob:'));
     const files = blobs
       .map((blob) => newFileMap.find((fileMap) => fileMap.blob === blob)?.file)
       .filter((file) => file !== undefined);
-
-    let updatedItems = [...items];
     if (files.length > 0) {
       const response = await uploadImages(files);
       const urls = response
@@ -79,11 +82,20 @@ export default function Experimental({
         }
         return item;
       });
-
-      await saveImageOrder(updatedItems);
-    } else {
-      await saveImageOrder(updatedItems);
     }
+
+    // Remove images
+    // https://<app-id>.ufs.sh/f/<file-key>
+    // Remove images (on the cloud if it's not in updatedItems)
+    const removedFileKeys = savedItems
+      .filter((item) => !updatedItems.includes(item))
+      .map((url) => url.split('/').slice(-1)[0]);
+    if (removedFileKeys.length > 0) {
+      await removeUploadedImage(removedFileKeys);
+    }
+
+    // Save images
+    await saveImageOrder(updatedItems);
 
     setItems(updatedItems);
     setSavedItems(updatedItems);

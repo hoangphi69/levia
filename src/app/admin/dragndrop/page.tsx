@@ -34,6 +34,11 @@ export async function uploadImages(files: File[]) {
   return await utapi.uploadFiles(files);
 }
 
+export async function removeUploadedImage(keys: string[]) {
+  'use server';
+  await utapi.deleteFiles(keys);
+}
+
 // export async function removeUploadedImage()
 
 export default async function DragnDrop() {
