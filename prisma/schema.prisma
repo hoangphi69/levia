@@ -85,7 +85,6 @@ model ProductReview {
 }
 
 enum Style {
-  video
   image_only
   image_left
   image_right

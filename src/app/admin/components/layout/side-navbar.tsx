@@ -26,13 +26,8 @@ const items = [
     icon: Home,
   },
   {
-    title: 'Drag n drop',
-    url: '/admin/dragndrop',
-    icon: FlaskConical,
-  },
-  {
-    title: 'Upload',
-    url: '/admin/uploadtest',
+    title: 'Experimental',
+    url: '/admin/experimental',
     icon: FlaskConical,
   },
   {

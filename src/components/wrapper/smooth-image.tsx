@@ -1,7 +1,7 @@
 'use client';
 
 import Image, { ImageProps } from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 type ImageWrapperProps = ImageProps & {
   fallback?: string; // Optionally allow custom fallback images
@@ -15,6 +15,8 @@ const SmoothImage: React.FC<ImageWrapperProps> = ({
   ...props
 }) => {
   const [source, setSource] = useState(src);
+
+  useEffect(() => setSource(src), [src]);
 
   return (
     <Image

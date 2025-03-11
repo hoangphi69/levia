@@ -9,7 +9,7 @@ export default function Header({ title, ...props }: HeaderProps) {
   return (
     <header className="space-y-4 p-4">
       <Breadcrumb {...props} />
-      <h1 className="font-bold text-3xl">{title}</h1>
+      <h1 className="ml-1 font-bold text-3xl">{title}</h1>
     </header>
   );
 }

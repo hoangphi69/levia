@@ -1,19 +1,13 @@
-import ProductCard from '@/app/(public)/products/product-card';
+import Breadcrumb from '@/app/(public)/components/layout/breadcrumb';
+import SplitedTitle from '@/app/(public)/components/splited-title';
+import ProductCarousel from '@/app/(public)/products/[id]/product-carousel';
 import ProductMedia from '@/app/(public)/products/[id]/product-media';
 import ProductReviewCard from '@/app/(public)/products/[id]/product-review-card';
 import ProductReviewStats from '@/app/(public)/products/[id]/product-review-stats';
+import ProductCard from '@/app/(public)/products/product-card';
 import prisma from '@/app/lib/prisma';
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from '@/components/shadcn/tabs';
-import Link from 'next/link';
+import { Params } from '@/app/lib/types';
 import { formattedPrice } from '@/app/lib/utils/format';
-import SplitedTitle from '@/app/(public)/components/splited-title';
-import Breadcrumb from '@/app/(public)/components/layout/breadcrumb';
-import ProductCarousel from '@/app/(public)/products/[id]/product-carousel';
 import {
   Carousel,
   CarouselContent,
@@ -21,8 +15,13 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/shadcn/carousel';
-
-type Params = Promise<{ id: string }>;
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from '@/components/shadcn/tabs';
+import Link from 'next/link';
 
 export default async function ProductDetails(props: { params: Params }) {
   const { id } = await props.params;
@@ -190,7 +189,7 @@ export default async function ProductDetails(props: { params: Params }) {
           {product.media.map((media, index) => (
             <ProductMedia
               key={index}
-              style={'image_only'}
+              style={media.style}
               title={media.title}
               subtitle={media.subtitle}
               media_url={media.media_url}
