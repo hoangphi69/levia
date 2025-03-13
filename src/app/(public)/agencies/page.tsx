@@ -1,4 +1,4 @@
-import GoogleMaps from '../../lib/google-maps';
+import GoogleMaps from '../../../lib/google-maps';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -7,8 +7,8 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/shadcn/breadcrumb';
-import Banner from '../components/layout/banner';
-import prisma from '../../lib/prisma';
+import Banner from '../_components/layout/banner';
+import prisma from '../../../lib/prisma';
 import AgencyCard from './agency-card';
 
 export default async function Agencies() {

@@ -3,7 +3,7 @@
 import type { ProductReview } from '@prisma/client';
 import SmoothImage from '../../../../components/wrapper/smooth-image';
 import Zoom from '../../../../components/wrapper/zoom';
-import { formattedRelativeTime } from '../../../lib/utils/format';
+import { formattedRelativeTime } from '../../../../lib/utils/format';
 
 type ReviewCard = Pick<
   ProductReview,

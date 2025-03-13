@@ -1,8 +1,8 @@
 import ArticleShare from '@/app/(public)/articles/[id]/article-share';
-import Banner from '@/app/(public)/components/layout/banner';
-import EditorOutput from '@/app/lib/editor-output';
-import prisma from '@/app/lib/prisma';
-import { formattedDate } from '@/app/lib/utils/format';
+import Banner from '@/app/(public)/_components/layout/banner';
+import EditorOutput from '@/lib/editor-output';
+import prisma from '@/lib/prisma';
+import { formattedDate } from '@/lib/utils/format';
 
 export default async function ArticleDetails({
   params,

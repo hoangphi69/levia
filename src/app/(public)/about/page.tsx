@@ -1,6 +1,6 @@
-import Banner from '../components/layout/banner';
+import Banner from '../_components/layout/banner';
 import SmoothImage from '../../../components/wrapper/smooth-image';
-import SplitedTitle from '@/app/(public)/components/splited-title';
+import SplitedTitle from '@/app/(public)/_components/splited-title';
 
 export default function About() {
   const banner = {

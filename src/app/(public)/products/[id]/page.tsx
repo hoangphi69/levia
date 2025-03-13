@@ -1,13 +1,13 @@
-import Breadcrumb from '@/app/(public)/components/layout/breadcrumb';
-import SplitedTitle from '@/app/(public)/components/splited-title';
+import Breadcrumb from '@/app/(public)/_components/layout/breadcrumb';
+import SplitedTitle from '@/app/(public)/_components/splited-title';
 import ProductCarousel from '@/app/(public)/products/[id]/product-carousel';
 import ProductMedia from '@/app/(public)/products/[id]/product-media';
 import ProductReviewCard from '@/app/(public)/products/[id]/product-review-card';
 import ProductReviewStats from '@/app/(public)/products/[id]/product-review-stats';
 import ProductCard from '@/app/(public)/products/product-card';
-import prisma from '@/app/lib/prisma';
-import { Params } from '@/app/lib/types';
-import { formattedPrice } from '@/app/lib/utils/format';
+import prisma from '@/lib/prisma';
+import { Params } from '@/lib/definitions';
+import { formattedPrice } from '@/lib/utils/format';
 import {
   Carousel,
   CarouselContent,

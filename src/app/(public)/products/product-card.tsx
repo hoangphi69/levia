@@ -1,6 +1,6 @@
 import type { Product } from '@prisma/client';
 import SmoothImage from '../../../components/wrapper/smooth-image';
-import { formattedPrice } from '../../lib/utils/format';
+import { formattedPrice } from '../../../lib/utils/format';
 
 type ProductCard = Pick<Product, 'title' | 'price'> & { image: string };
 

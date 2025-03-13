@@ -1,6 +1,13 @@
 import { Prisma, PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
+const user: Prisma.UserCreateInput = {
+  email: 't@m.com',
+  password: '123',
+  name: 'based-banana',
+  role: 'admin',
+};
+
 const home: Prisma.HomeCreateInput = {
   profile: 'default',
   hero_image:
@@ -376,6 +383,7 @@ const agencies: Prisma.AgencyCreateInput[] = [
 async function main() {
   console.log('Empty database...');
 
+  await prisma.user.deleteMany();
   await prisma.home.deleteMany();
   await prisma.faq.deleteMany();
   await prisma.category.deleteMany();
@@ -430,6 +438,9 @@ async function main() {
 
   const newHome = await prisma.home.create({ data: home });
   console.log(`Created home with id: ${newHome.id}`);
+
+  const newUser = await prisma.user.create({ data: user });
+  console.log(`Created admin with id: ${newUser.id}`);
 
   console.log('Seeding finished.');
 }

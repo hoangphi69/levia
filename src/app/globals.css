@@ -132,7 +132,7 @@
 }
 @font-face {
   font-family: 'SH Imogen Agnes';
-  src: url('./fonts/SH-Imogen-Agnes.ttf');
+  src: url('@/fonts/SH-Imogen-Agnes.ttf');
 }
 
 @layer base {
@@ -161,7 +161,7 @@
     --accent-almond: 39 44% 86%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive-foreground: 7 91% 91%;
 
     --border: 0 0% 89.8%;
     --radius: 0.5rem;
@@ -207,7 +207,7 @@
     --accent-foreground: 0 0% 98%;
 
     /* --destructive: 0 62.8% 30.6%; */
-    --destructive-foreground: 0 0% 98%;
+    --destructive-foreground: 11 23% 9%;
 
     --border: /* 0 0% 63.9% */ 0 0% 38%;
     --input: /* 0 0% 14.9%; */ 0 0% 38%;

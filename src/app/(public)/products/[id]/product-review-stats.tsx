@@ -1,7 +1,7 @@
 import {
   calcRatingOverall,
   calcRatingsPercentages,
-} from '../../../lib/utils/calc';
+} from '../../../../lib/utils/calc';
 
 export default function ProductReviewStats({
   ratings,

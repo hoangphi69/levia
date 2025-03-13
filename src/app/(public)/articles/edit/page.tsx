@@ -1,5 +1,5 @@
-import Editor from '@/app/lib/editor';
-import prisma from '@/app/lib/prisma';
+import Editor from '@/lib/editor';
+import prisma from '@/lib/prisma';
 import { OutputData } from '@editorjs/editorjs';
 import { Prisma } from '@prisma/client';
 

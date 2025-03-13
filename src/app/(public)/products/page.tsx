@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import ProductCard from './product-card';
-import prisma from '../../lib/prisma';
+import prisma from '../../../lib/prisma';
 import ProductSearch from './product-search';
-import Banner from '../components/layout/banner';
+import Banner from '../_components/layout/banner';
 
 type searchParams = Promise<{ [key: string]: string | undefined }>;
 

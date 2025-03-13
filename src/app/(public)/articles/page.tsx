@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import prisma from '../../lib/prisma';
+import prisma from '../../../lib/prisma';
 import ArticleCard from './article-card';
-import Banner from '../components/layout/banner';
+import Banner from '../_components/layout/banner';
 
 export default async function Articles() {
   const articles = await prisma.article.findMany({ include: { Topic: true } });

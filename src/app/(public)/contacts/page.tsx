@@ -1,7 +1,7 @@
 'use client';
 
-import Banner from '../components/layout/banner';
-import SplitedTitle from '@/app/(public)/components/splited-title';
+import Banner from '../_components/layout/banner';
+import SplitedTitle from '@/app/(public)/_components/splited-title';
 import Link from 'next/link';
 import { toast } from 'sonner';
 import { sendEmail } from './actions';
