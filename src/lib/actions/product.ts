@@ -1,8 +1,8 @@
 'use server';
 
 import { ProductMedia, ProductReview } from '@prisma/client';
-import prisma from '../prisma';
 import { ProductMetadata } from '../definitions';
+import prisma from '../prisma';
 import { getCategoryByTitle } from './category';
 
 async function getAllProducts() {
@@ -18,6 +18,7 @@ async function getAllProducts() {
         },
       },
     },
+    orderBy: { created_at: 'desc' }, // Newest first
   });
 }
 
@@ -35,6 +36,24 @@ async function getProductByID(id: string) {
 async function checkProductExistedByModel(model: string) {
   const result = await prisma.product.findUnique({ where: { model } });
   return !!result;
+}
+
+async function createProduct(
+  model: string,
+  title: string,
+  categoryTitle: string
+) {
+  const category = await getCategoryByTitle(categoryTitle);
+
+  const newProduct = await prisma.product.create({
+    data: {
+      model,
+      title,
+      category_id: category?.id,
+    },
+  });
+
+  return newProduct.id;
 }
 
 async function updateProductMetadata(id: string, metadata: ProductMetadata) {
@@ -197,12 +216,18 @@ async function updateProductReview(
   }
 }
 
+async function deleteProductByModel(model: string) {
+  return await prisma.product.delete({ where: { model } });
+}
+
 export {
-  checkProductExistedByModel,
   getAllProducts,
   getProductByID,
+  checkProductExistedByModel,
+  createProduct,
+  updateProductMetadata,
   updateProductImages,
   updateProductMedia,
-  updateProductMetadata,
   updateProductReview,
+  deleteProductByModel,
 };

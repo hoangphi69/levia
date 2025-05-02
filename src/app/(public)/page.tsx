@@ -520,7 +520,7 @@ export default async function Home() {
               >
                 <SmoothImage
                   className="w-full h-full min-h-[200px] group-hover:scale-[1.01] transition-transform"
-                  src={article.items[0].banner}
+                  src={article.items[0].banner || undefined}
                   width={900}
                   height={250}
                   alt=""

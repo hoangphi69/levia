@@ -3,17 +3,18 @@
 import Image, { ImageProps } from 'next/image';
 import { useEffect, useState } from 'react';
 
-type ImageWrapperProps = ImageProps & {
+type ImageWrapperProps = Omit<ImageProps, 'src'> & {
+  src?: string;
   fallback?: string; // Optionally allow custom fallback images
 };
 
-const SmoothImage: React.FC<ImageWrapperProps> = ({
-  src,
+export default function SmoothImage({
+  src = '/images/placeholder.png',
   alt,
   className,
   fallback = '/images/placeholder.png',
   ...props
-}) => {
+}: ImageWrapperProps) {
   const [source, setSource] = useState(src);
 
   useEffect(() => setSource(src), [src]);
@@ -28,6 +29,4 @@ const SmoothImage: React.FC<ImageWrapperProps> = ({
       onError={() => setSource(fallback)} // Switch to fallback image on error
     />
   );
-};
-
-export default SmoothImage;
+}

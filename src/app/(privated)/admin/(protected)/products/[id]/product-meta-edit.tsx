@@ -36,6 +36,7 @@ import { toast } from 'sonner';
 import { z } from 'zod';
 import CurrencyInput from './currency-input';
 import { checkProductExistedByModel } from '@/lib/actions/product';
+import _ from 'lodash';
 
 export default function ProductMetadataEdit({
   title,
@@ -77,8 +78,8 @@ export default function ProductMetadataEdit({
 
   useEffect(() => {
     watchedValues.price = Number(watchedValues.price?.toString());
-    const hasChanged =
-      JSON.stringify(watchedValues) !== JSON.stringify(savedMetadata);
+    savedMetadata.price = Number(savedMetadata.price?.toString());
+    const hasChanged = !_.isEqual(watchedValues, savedMetadata);
     setIsChanged(hasChanged);
   }, [watchedValues, savedMetadata]);
 

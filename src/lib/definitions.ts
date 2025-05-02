@@ -12,6 +12,21 @@ export const ContactFormSchema = z.object({
   message: z.string({ required_error: 'Nội dung không được để trống' }).trim(),
 });
 
+export const ProductAddFormSchema = z.object({
+  model: z
+    .string({ required_error: 'Model không được để trống.' })
+    .trim()
+    .min(2, 'Model phải có ít nhất 2 ký tự.')
+    .max(10, 'Model không được vượt quá 10 ký tự.')
+    .regex(/^\S+$/, 'Model không được chứa khoảng trắng.'),
+  title: z
+    .string({ required_error: 'Tên sản phẩm không được để trống.' })
+    .trim()
+    .min(2, 'Tên sản phẩm phải có ít nhất 2 ký tự.')
+    .max(100, 'Tên sản phẩm không được vượt quá 100 ký tự.'),
+  category: z.string({ required_error: 'Danh mục không được để trống.' }),
+});
+
 export const ProductMetadataFormSchema = z.object({
   model: z
     .string({ required_error: 'Model không được để trống.' })

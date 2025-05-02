@@ -8,6 +8,7 @@ import { Toaster } from 'sonner';
 export const metadata: Metadata = {
   title: 'Levia Admin',
   description: 'Levia Admin quản lý nội dung',
+  // TODO: Create universal favicon to avoid dynamic theme
   icons: {
     icon: [
       {

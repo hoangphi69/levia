@@ -8,8 +8,8 @@ import {
   updateProductReview,
 } from '@/lib/actions/product';
 import { Params } from '@/lib/definitions';
-import ProductMetadataEdit from './product-meta-edit';
 import ProductMediaEdit from './product-media-edit';
+import ProductMetadataEdit from './product-meta-edit';
 import ProductReviewEdit from './product-review-edit';
 
 export default async function ProductEditPage({ params }: { params: Params }) {
@@ -17,7 +17,6 @@ export default async function ProductEditPage({ params }: { params: Params }) {
   const product = await getProductByID(id);
 
   const header = {
-    // title: 'Chỉnh sửa sản phẩm',
     title: product?.title,
     breadcrumb: [
       {
@@ -32,9 +31,6 @@ export default async function ProductEditPage({ params }: { params: Params }) {
         display: product?.title,
         href: `/admin/products/${id}`,
       },
-      // {
-      //   display: 'Chỉnh sửa',
-      // },
     ],
   };
 
@@ -51,6 +47,8 @@ export default async function ProductEditPage({ params }: { params: Params }) {
   const media = product?.media;
 
   const reviews = product?.reviews;
+
+  // TODO: Create skeleton page for loading
 
   return (
     <>

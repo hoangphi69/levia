@@ -16,13 +16,13 @@ datasource db {
 
 // MARK: USER
 model User {
-  id        String   @id @default(uuid())
-  email     String   @unique
-  password  String // Hashed
-  name      String?
-  role      Role     @default(viewer)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         String   @id @default(uuid())
+  email      String   @unique
+  password   String // Hashed
+  name       String?
+  role       Role     @default(viewer)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
 enum Role {
@@ -35,7 +35,7 @@ enum Role {
 model Home {
   id                  String   @id @default(uuid())
   profile             String   @unique
-  hero_image          String   @default("https://picsum.photos/1280/350")
+  hero_image          String?  @default("/images/placeholder.png")
   featured_product    Product? @relation(fields: [featured_product_id], references: [id], onDelete: SetNull)
   featured_product_id String?  @unique
   featured_image      String?
@@ -58,7 +58,7 @@ model Product {
   title       String
   price       Float?
   description String?
-  images      String[]        @default(["https://picsum.photos/100"])
+  images      String[]
   features    Json?
   specs       Json?
   Category    Category?       @relation(fields: [category_id], references: [id], onDelete: SetNull)
@@ -66,6 +66,8 @@ model Product {
   media       ProductMedia[]
   reviews     ProductReview[]
   Home        Home?
+  created_at  DateTime        @default(now())
+  updated_at  DateTime        @updatedAt
 
   @@index(model)
 }
@@ -77,28 +79,32 @@ model Category {
   title_en    String?
   description String?
   products    Product[]
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
 }
 
 model ProductMedia {
-  id         String  @id @default(uuid())
+  id         String   @id @default(uuid())
   title      String?
   subtitle   String?
-  media_url  String  @default("https://picsum.photos/100")
-  style      Style   @default(image_bottom)
-  Product    Product @relation(fields: [product_id], references: [id], onDelete: Cascade)
+  media_url  String?
+  style      Style    @default(image_bottom)
+  Product    Product  @relation(fields: [product_id], references: [id], onDelete: Cascade)
   product_id String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
 model ProductReview {
   id         String   @id @default(uuid())
   rating     Int
   comment    String?
-  image      String   @default("")
+  image      String?
   author     String   @default("Ẩn danh")
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
   Product    Product  @relation(fields: [product_id], references: [id], onDelete: Cascade)
   product_id String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
 enum Style {
@@ -110,34 +116,38 @@ enum Style {
 
 // MARK: ARTICLES
 model Topic {
-  id       String    @id @default(uuid())
-  title    String    @unique
-  articles Article[]
+  id         String    @id @default(uuid())
+  title      String    @unique
+  articles   Article[]
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
 }
 
 model Article {
   id          String   @id @default(uuid())
   title       String
   author      String   @default("Ẩn danh")
-  banner      String   @default("https://picsum.photos/200")
+  banner      String?
   description String?
   content     Json?
-  created_at  DateTime @default(now())
-  updated_at  DateTime @updatedAt
   Topic       Topic?   @relation(fields: [topic_id], references: [id], onDelete: SetNull)
   topic_id    String?
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
 }
 
 // MARK: AGENCIES
 model Agency {
-  id       String   @id @default(uuid())
-  title    String
-  image    String?
-  lat      Decimal?
-  lng      Decimal?
-  location String?
-  phone    String?  @unique
-  email    String?  @unique
+  id         String   @id @default(uuid())
+  title      String
+  image      String?
+  lat        Decimal?
+  lng        Decimal?
+  location   String?
+  phone      String?  @unique
+  email      String?  @unique
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
   @@unique([lat, lng])
 }

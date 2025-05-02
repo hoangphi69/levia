@@ -15,6 +15,18 @@ import {
 import { ColumnDef } from '@tanstack/react-table';
 import { Edit, MoreHorizontal, Trash } from 'lucide-react';
 import { DataTableHeader } from './data-table-header';
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/shadcn/dialog';
+import ProductRemoveModal from './product-remove-modal';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/shadcn/tooltip';
 
 export type Product = {
   id: string;
@@ -71,9 +83,11 @@ export const columns: ColumnDef<Product>[] = [
     header: ({ column }) => (
       <DataTableHeader column={column} title="Danh mục" />
     ),
-    cell: ({ row }) => (
-      <Badge variant={'outline'}>{row.getValue('category_title')}</Badge>
-    ),
+    cell: ({ row }) => {
+      const value = row.getValue('category_title');
+      if (value) return <Badge variant={'outline'}>{value as string}</Badge>;
+      else return value;
+    },
   },
 
   {
@@ -96,33 +110,17 @@ export const columns: ColumnDef<Product>[] = [
       const product = row.original;
 
       return (
-        <DropdownMenu>
-          <div className="w-full text-center">
-            <DropdownMenuTrigger asChild>
-              <Button variant={'ghost'}>
-                <span className="sr-only">Tuỳ chọn</span>
-                <MoreHorizontal className="w-4 h-4" />
-              </Button>
-            </DropdownMenuTrigger>
-          </div>
-
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>
-              <span className="text-muted-foreground">Tuỳ chọn</span>
-            </DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <Edit />
-              {/* TODO: Link to edit product */}
-              <span>Sửa</span>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              {/* TODO: Delete product function */}
-              <Trash />
-              <span>Xoá</span>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <div
+          className="w-full text-center"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <ProductRemoveModal product={product}>
+            <Button variant={'ghost'} className="group">
+              <span className="sr-only">Xoá sản phẩm</span>
+              <Trash className="group-hover:text-red-500 transition-colors" />
+            </Button>
+          </ProductRemoveModal>
+        </div>
       );
     },
   },
