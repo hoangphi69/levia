@@ -1,9 +1,9 @@
 'use client';
 
+import logo from '@/../public/logo/logo-text.svg';
+import SmoothImage from '@/components/wrapper/smooth-image';
 import Link from 'next/link';
 import { toast } from 'sonner';
-import SmoothImage from '../../../../components/wrapper/smooth-image';
-import logo from '@/../public/logo/logo-text.svg';
 
 export default function FooterContact() {
   return (

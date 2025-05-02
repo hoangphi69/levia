@@ -2,8 +2,8 @@
 
 import { redirect } from 'next/navigation';
 import { LoginFormSchema } from '../definitions';
-import { createSession, deleteSession } from '../session';
 import prisma from '../prisma';
+import { createSession, deleteSession } from '../session';
 
 async function login(_state: any, formData: FormData) {
   // Form validation

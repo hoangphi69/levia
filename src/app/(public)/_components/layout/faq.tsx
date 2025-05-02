@@ -4,7 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/shadcn/accordion';
-import prisma from '../../../../lib/prisma';
+import prisma from '@/lib/prisma';
 
 export default async function FAQ() {
   const faqs = await prisma.faq.findMany();

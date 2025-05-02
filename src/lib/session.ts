@@ -1,6 +1,6 @@
-import 'server-only';
 import { jwtVerify, SignJWT } from 'jose';
 import { cookies } from 'next/headers';
+import 'server-only';
 
 const key = new TextEncoder().encode(process.env.SESSION_SECRET);
 type userPayload = { id: string; role: 'admin' | 'editor' | 'viewer' };

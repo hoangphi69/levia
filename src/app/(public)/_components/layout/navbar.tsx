@@ -1,17 +1,17 @@
 'use client';
 
-import { Button } from '@/components/shadcn/button';
-import Link from 'next/link';
-import SmoothImage from '../../../../components/wrapper/smooth-image';
 import logo from '@/../public/logo/logo-text.svg';
-import { useMediaQuery } from '@/hooks/use-media-query';
+import { Button } from '@/components/shadcn/button';
 import {
   Sheet,
   SheetContent,
   SheetTitle,
   SheetTrigger,
 } from '@/components/shadcn/sheet';
+import SmoothImage from '@/components/wrapper/smooth-image';
+import { useMediaQuery } from '@/hooks/use-media-query';
 import * as VisuallyHidden from '@radix-ui/react-visually-hidden';
+import Link from 'next/link';
 
 export default function Navbar() {
   const isDesktop = useMediaQuery('(min-width: 768px)');
