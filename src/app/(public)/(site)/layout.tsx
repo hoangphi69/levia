@@ -7,25 +7,6 @@ import FooterContact from '../_components/layout/footer-contact';
 import Navbar from '../_components/layout/navbar';
 import localFont from 'next/font/local';
 
-export const metadata: Metadata = {
-  title: 'Levia',
-  description: 'Giải pháp cho căn bếp hiện đại',
-  icons: {
-    icon: [
-      {
-        media: '(prefers-color-scheme: light)',
-        url: '/logo/logo-black.svg',
-        href: '/logo/logo-black.svg',
-      },
-      {
-        media: '(prefers-color-scheme: dark)',
-        url: '/logo/logo-white.svg',
-        href: '/logo/logo-white.svg',
-      },
-    ],
-  },
-};
-
 const shImogenAgnes = localFont({
   variable: '--font-sh-imogen-agnes',
   src: '../../../fonts/SHImogenAgnes.woff',
@@ -126,6 +107,25 @@ const monorale = localFont({
     },
   ],
 });
+
+export const metadata: Metadata = {
+  title: 'Levia',
+  description: 'Giải pháp cho căn bếp hiện đại',
+  icons: {
+    icon: [
+      {
+        media: '(prefers-color-scheme: light)',
+        url: '/logo/logo-black.svg',
+        href: '/logo/logo-black.svg',
+      },
+      {
+        media: '(prefers-color-scheme: dark)',
+        url: '/logo/logo-white.svg',
+        href: '/logo/logo-white.svg',
+      },
+    ],
+  },
+};
 
 export default function RootLayout({
   children,
