@@ -221,13 +221,13 @@ async function deleteProductByModel(model: string) {
 }
 
 export {
-  getAllProducts,
-  getProductByID,
   checkProductExistedByModel,
   createProduct,
-  updateProductMetadata,
+  deleteProductByModel,
+  getAllProducts,
+  getProductByID,
   updateProductImages,
   updateProductMedia,
+  updateProductMetadata,
   updateProductReview,
-  deleteProductByModel,
 };

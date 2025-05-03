@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
 import EditorJS, { OutputData } from '@editorjs/editorjs';
+import { useEffect, useRef, useState } from 'react';
 
 export default function Editor({
   data,

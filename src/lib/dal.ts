@@ -1,9 +1,9 @@
 import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 import { cache } from 'react';
 import 'server-only';
-import { decrypt } from './session';
-import { redirect } from 'next/navigation';
 import prisma from './prisma';
+import { decrypt } from './session';
 
 export const verifySession = cache(async () => {
   const cookie = (await cookies()).get('session')?.value;

@@ -16,4 +16,4 @@ async function getCategoryByTitle(title: string) {
   return category;
 }
 
-export { getCategoryTitles, getCategoryByTitle };
+export { getCategoryByTitle, getCategoryTitles };
