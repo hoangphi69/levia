@@ -11,8 +11,8 @@ export default withUt({
   theme: {
     extend: {
       fontFamily: {
-        modern: 'Monorale',
-        script: 'SH Imogen Agnes',
+        modern: 'var(--font-monorale)',
+        script: 'var(--font-sh-imogen-agnes)',
       },
       colors: {
         background: 'hsl(var(--background))',

@@ -1,10 +1,11 @@
-import type { Metadata } from 'next';
 import '@/app/globals.css';
-import Navbar from '../_components/layout/navbar';
+import { Toaster } from '@/components/shadcn/sonner';
+import { monorale, shImogenAgnes } from '@/fonts/index';
+import type { Metadata } from 'next';
 import FAQ from '../_components/layout/faq';
 import Footer from '../_components/layout/footer';
-import { Toaster } from '@/components/shadcn/sonner';
 import FooterContact from '../_components/layout/footer-contact';
+import Navbar from '../_components/layout/navbar';
 
 export const metadata: Metadata = {
   title: 'Levia',
@@ -32,7 +33,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="mx-auto max-w-screen-xl antialised dark">
+      <body
+        className={`mx-auto max-w-screen-xl antialised dark ${shImogenAgnes.variable} ${monorale.variable}`}
+      >
         <Navbar />
         {children}
         <aside className="gap-6 md:gap-16 grid grid-cols-1 md:grid-cols-2 p-6 md:p-16">

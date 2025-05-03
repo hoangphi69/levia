@@ -2,6 +2,7 @@ import { SideNavbar } from '@/app/(private)/admin/_components/layout/side-navbar
 import ThemeProvider from '@/app/(private)/admin/_components/theme/theme-provider';
 import '@/app/globals.css';
 import { SidebarProvider } from '@/components/shadcn/sidebar';
+import { monorale } from '@/fonts';
 import type { Metadata } from 'next';
 import { Toaster } from 'sonner';
 
@@ -32,7 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="antialised">
+      <body className={`antialised ${monorale.variable}`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
