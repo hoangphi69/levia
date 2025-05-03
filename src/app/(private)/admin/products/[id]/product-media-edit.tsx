@@ -45,7 +45,7 @@ export default function ProductMediaEdit({
   const createNewMedia = () => {
     // Generate temporary media id prefixed with 'temp:'
     const uuid = generateUUID();
-    const newMedia: ProductMedia = {
+    const newMedia = {
       id: `temp:${uuid}`,
       product_id: '',
       title: '',
@@ -53,7 +53,7 @@ export default function ProductMediaEdit({
       media_url: '',
       style: 'image_bottom',
     };
-    setMedia([...media, newMedia]);
+    setMedia([...media, newMedia as ProductMedia]);
   };
 
   const deleteMedia = (id: string) => {
@@ -100,7 +100,7 @@ export default function ProductMediaEdit({
     // Extract blob URLs from media_url
     const blobs = media
       .map((m) => m.media_url)
-      .filter((url) => url.startsWith('blob:'));
+      .filter((url) => url?.startsWith('blob:'));
 
     // Match blobs with files in fileMap
     const files = blobs
@@ -115,7 +115,7 @@ export default function ProductMediaEdit({
         .filter((url) => url !== undefined);
 
       updatedMedia = media.map((m) => {
-        if (m.media_url.startsWith('blob:')) {
+        if (m.media_url?.startsWith('blob:')) {
           const index = blobs.indexOf(m.media_url);
           const newURL = urls[index] || m.media_url;
           return { ...m, media_url: newURL };

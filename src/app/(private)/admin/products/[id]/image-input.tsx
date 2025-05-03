@@ -8,7 +8,7 @@ import {
 } from '@/components/shadcn/tooltip';
 import SmoothImage from '@/components/wrapper/smooth-image';
 import Zoom from '@/components/wrapper/zoom';
-import { GripVertical, Plus, Trash2 } from 'lucide-react';
+import { Plus, Trash2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 export default function ImageInput({
@@ -16,11 +16,11 @@ export default function ImageInput({
   onChange,
   updateFileMap,
 }: {
-  value: string;
+  value: string | null;
   onChange: (blob: string) => void;
   updateFileMap: (blob: string, file: File) => void;
 }) {
-  const [image, setImage] = useState<string | null>(value);
+  const [image, setImage] = useState(value);
 
   useEffect(() => {
     setImage(value);

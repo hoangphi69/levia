@@ -109,7 +109,7 @@ export default function ProductReviewEdit({
     // Extract blob URLs from image
     const blobs = reviews
       .map((review) => review.image)
-      .filter((url) => url.startsWith('blob:'));
+      .filter((url) => url?.startsWith('blob:'));
 
     // Match blobs with files in fileMap
     const files = blobs
@@ -124,7 +124,7 @@ export default function ProductReviewEdit({
         .filter((url) => url !== undefined);
 
       updatedReviews = reviews.map((review) => {
-        if (review.image.startsWith('blob:')) {
+        if (review.image?.startsWith('blob:')) {
           const index = blobs.indexOf(review.image);
           const newURL = urls[index] || review.image;
           return { ...review, image: newURL };
