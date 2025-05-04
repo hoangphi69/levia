@@ -20,7 +20,9 @@ model User {
   email      String   @unique
   password   String // Hashed
   name       String?
-  role       Role     @default(viewer)
+  role       Role     @default(editor)
+  active     Boolean  @default(false)
+  prefences  Json?
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
@@ -28,27 +30,31 @@ model User {
 enum Role {
   admin
   editor
-  viewer
+  user
 }
 
 // MARK: HOME
 model Home {
   id                  String   @id @default(uuid())
+  active              Boolean  @default(false)
   profile             String   @unique
-  hero_image          String?  @default("/images/placeholder.png")
+  hero_image          String?
   featured_product    Product? @relation(fields: [featured_product_id], references: [id], onDelete: SetNull)
   featured_product_id String?  @unique
   featured_image      String?
   featured_features   Json[]
   quote               Json?
   partners            String[]
+  faqs                Faq[]
 }
 
 // MARK: FAQ
 model Faq {
-  id String  @id @default(uuid())
-  q  String
-  a  String?
+  id      String  @id @default(uuid())
+  q       String
+  a       String?
+  Home    Home?   @relation(fields: [home_id], references: [id], onDelete: SetNull)
+  home_id String?
 }
 
 // MARK: PRODUCTS
@@ -115,25 +121,24 @@ enum Style {
 }
 
 // MARK: ARTICLES
-model Topic {
+model Article {
+  id          String       @id @default(uuid())
+  title       String
+  author      String       @default("Ẩn danh")
+  banner      String?
+  description String?
+  content     Json?
+  tags        ArticleTag[]
+  created_at  DateTime     @default(now())
+  updated_at  DateTime     @updatedAt
+}
+
+model ArticleTag {
   id         String    @id @default(uuid())
   title      String    @unique
   articles   Article[]
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
-}
-
-model Article {
-  id          String   @id @default(uuid())
-  title       String
-  author      String   @default("Ẩn danh")
-  banner      String?
-  description String?
-  content     Json?
-  Topic       Topic?   @relation(fields: [topic_id], references: [id], onDelete: SetNull)
-  topic_id    String?
-  created_at  DateTime @default(now())
-  updated_at  DateTime @updatedAt
 }
 
 // MARK: AGENCIES

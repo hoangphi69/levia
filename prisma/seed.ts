@@ -6,6 +6,10 @@ const user: Prisma.UserCreateInput = {
   password: '123',
   name: 'based-banana',
   role: 'admin',
+  active: true,
+  prefences: {
+    theme: 'system',
+  },
 };
 
 const home: Prisma.HomeCreateInput = {
@@ -294,18 +298,15 @@ const products: Prisma.ProductCreateInput[] = [
   },
 ];
 
-const topics: Prisma.TopicCreateInput[] = [
+const tags: Prisma.ArticleTagCreateInput[] = [
   {
     title: 'Xu hướng',
   },
   {
-    title: 'Sự kiện',
+    title: 'Tips & Tricks',
   },
   {
     title: 'Nấu ăn',
-  },
-  {
-    title: 'Tips & Tricks',
   },
 ];
 
@@ -315,9 +316,9 @@ const articles: Prisma.ArticleCreateInput[] = [
     author: 'Trần Kwan',
     banner: 'https://picsum.photos/1280/350',
     created_at: new Date('12/12/2024'),
-    Topic: {
+    tags: {
       connect: {
-        title: topics[3].title,
+        title: tags[1].title,
       },
     },
     content: {
@@ -328,9 +329,9 @@ const articles: Prisma.ArticleCreateInput[] = [
   },
   {
     title: 'Levia Ra Mắt Sản Phẩm Bếp Điện Thế Hệ Mới - Hiệu Suất Vượt Trội',
-    Topic: {
-      connect: {
-        title: topics[1].title,
+    tags: {
+      create: {
+        title: 'Sự kiện',
       },
     },
   },
@@ -388,8 +389,8 @@ async function main() {
   await prisma.faq.deleteMany();
   await prisma.category.deleteMany();
   await prisma.product.deleteMany();
-  await prisma.topic.deleteMany();
   await prisma.article.deleteMany();
+  await prisma.articleTag.deleteMany();
   await prisma.agency.deleteMany();
 
   console.log('Start seeding...');
@@ -417,13 +418,13 @@ async function main() {
     console.log(`Created product with id: ${newProduct.id}`);
   }
 
-  for (const topic of topics) {
-    const newTopic = await prisma.topic.upsert({
-      where: { title: topic.title },
-      update: topic,
-      create: topic,
+  for (const tag of tags) {
+    const newTag = await prisma.articleTag.upsert({
+      where: { title: tag.title },
+      update: tag,
+      create: tag,
     });
-    console.log(`Created topic with id: ${newTopic.id}`);
+    console.log(`Created topic with id: ${newTag.id}`);
   }
 
   for (const article of articles) {
