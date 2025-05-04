@@ -2,6 +2,7 @@ import ThemeProvider from '@/app/(private)/admin/_components/theme/theme-provide
 import '@/app/globals.css';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
+import { shImogenAgnes } from '@/fonts';
 
 const monorale = localFont({
   variable: '--font-monorale',
