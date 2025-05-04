@@ -13,7 +13,7 @@ export default async function ArticleDetails({
   const article = await prisma.article.findUnique({
     where: { id },
     include: {
-      Topic: true,
+      tags: true,
     },
   });
 
@@ -32,9 +32,9 @@ export default async function ArticleDetails({
                 {article?.author}
               </span>
             </p>
-            <p className="font-light text-muted-foreground uppercase">
-              {article?.Topic?.title}
-            </p>
+            {/* <p className="font-light text-muted-foreground uppercase">
+              {article?.tags?.title}
+            </p> */}
             <p className="font-light text-muted-foreground uppercase">
               Ngày{' '}
               <span className="font-semibold text-foreground">

@@ -4,7 +4,7 @@ import ArticleCard from './article-card';
 import Banner from '@/app/(public)/_components/layout/banner';
 
 export default async function Articles() {
-  const articles = await prisma.article.findMany({ include: { Topic: true } });
+  const articles = await prisma.article.findMany({ include: { tags: true } });
 
   const banner = {
     breadcrumb: [
@@ -37,9 +37,9 @@ export default async function Articles() {
 
       {articles.length > 0 ? (
         <section className="gap-6 md:gap-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 p-6 md:px-16 md:py-12">
-          {articles.map(({ id, title, banner, Topic }) => (
+          {articles.map(({ id, title, banner, tags }) => (
             <Link key={id} href={`/articles/${id}`}>
-              <ArticleCard title={title} banner={banner} Topic={Topic} />
+              <ArticleCard title={title} banner={banner} tags={tags} />
             </Link>
           ))}
         </section>

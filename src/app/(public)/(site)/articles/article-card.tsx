@@ -1,15 +1,15 @@
 import SmoothImage from '@/components/wrapper/smooth-image';
 import type { Prisma } from '@prisma/client';
 
-type ArticleWithTopic = Prisma.ArticleGetPayload<{
+type ArticleWithTags = Prisma.ArticleGetPayload<{
   include: {
-    Topic: true;
+    tags: true;
   };
 }>;
 
-type ArticleCard = Pick<ArticleWithTopic, 'title' | 'banner' | 'Topic'>;
+type ArticleCard = Pick<ArticleWithTags, 'title' | 'banner' | 'tags'>;
 
-export default function ArticleCard({ banner, Topic, title }: ArticleCard) {
+export default function ArticleCard({ banner, tags, title }: ArticleCard) {
   return (
     <article className="flex flex-col w-full h-full">
       <SmoothImage
@@ -19,9 +19,9 @@ export default function ArticleCard({ banner, Topic, title }: ArticleCard) {
         src={banner!}
         alt=""
       />
-      <p className="font-light text-muted-foreground text-sm uppercase">
+      {/* <p className="font-light text-muted-foreground text-sm uppercase">
         {Topic?.title || 'Bài viết'}
-      </p>
+      </p> */}
       <p className="font-bold text-lg line-clamp-2">{title}</p>
     </article>
   );

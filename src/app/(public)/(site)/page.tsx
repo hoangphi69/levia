@@ -51,7 +51,7 @@ export default async function Home() {
       title: true,
       description: true,
       banner: true,
-      Topic: {
+      tags: {
         select: {
           title: true,
         },
@@ -554,7 +554,8 @@ export default async function Home() {
                 >
                   <article>
                     <span className="font-light text-muted-foreground text-xs lg:text-sm uppercase">
-                      {article?.Topic?.title || 'bài viết'}
+                      {/* {article?.tags?.title || } */}
+                      bài viết
                     </span>
                     <h3 className="font-bold text-foreground text-sm lg:text-base group-hover:underline">
                       {article.title}
