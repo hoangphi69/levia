@@ -1,9 +1,10 @@
+import { Role } from '@prisma/client';
 import { jwtVerify, SignJWT } from 'jose';
 import { cookies } from 'next/headers';
 import 'server-only';
 
 const key = new TextEncoder().encode(process.env.SESSION_SECRET);
-type userPayload = { id: string; role: 'admin' | 'editor' | 'viewer' };
+type userPayload = { id: string; role: Role };
 
 async function encrypt(payload: userPayload) {
   return new SignJWT(payload)

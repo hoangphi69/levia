@@ -3,7 +3,7 @@ const prisma = new PrismaClient();
 
 const user: Prisma.UserCreateInput = {
   email: 't@m.com',
-  password: '123',
+  password: '$2a$10$f3Pnyy42GipWfpSbSS5yUuXdAEhvogJY2hnFmx0CIJB9r05GsrbFS',
   name: 'based-banana',
   role: 'admin',
   active: true,

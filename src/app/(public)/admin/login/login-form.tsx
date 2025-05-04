@@ -10,46 +10,44 @@ import {
 } from '@/components/shadcn/card';
 import { Input } from '@/components/shadcn/input';
 import { Label } from '@/components/shadcn/label';
+import { useForm } from '@/hooks/use-form';
 import { login } from '@/lib/actions/auth';
+import { LoginFormSchema } from '@/lib/definitions';
 import { cn } from '@/lib/utils';
-import { useActionState } from 'react';
 
-export function LoginForm({
-  className,
-  ...props
-}: React.ComponentPropsWithoutRef<'div'>) {
-  const [state, action, pending] = useActionState(login, undefined);
+export function LoginForm({ ...props }: React.ComponentPropsWithoutRef<'div'>) {
+  const { errors, submit, pending } = useForm({
+    schema: LoginFormSchema,
+    action: login,
+  });
 
   return (
-    // TODO:
-    // Apply client-side validation
-    // Re-style the form
-    <div className={cn('flex flex-col gap-6', className)} {...props}>
+    // TODO: Re-style the form
+    <div className={cn('flex flex-col gap-6', props.className)} {...props}>
       <Card>
         <CardHeader>
-          <CardTitle className="text-2xl">Login</CardTitle>
+          <CardTitle className="text-2xl">Đăng nhập admin</CardTitle>
           <CardDescription>
-            Enter your email below to login to your account
+            Đăng nhập vào tài khoản của bạn để tiếp tục.
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form action={action}>
+          <form onSubmit={submit}>
             <div className="flex flex-col gap-6">
               <div className="gap-2 grid">
                 <Label htmlFor="email">Email</Label>
                 <Input
                   name="email"
                   id="email"
-                  type="email"
+                  type="text"
                   placeholder="m@example.com"
                   className={
-                    state?.email &&
+                    errors?.email &&
                     'border-destructive bg-destructive-foreground'
                   }
-                  required
                 />
-                {state?.email && (
-                  <small className="text-destructive">{state.email}</small>
+                {errors?.email && (
+                  <small className="text-destructive">{errors.email}</small>
                 )}
               </div>
 
@@ -60,12 +58,12 @@ export function LoginForm({
                   name="password"
                   type="password"
                   className={
-                    state?.password &&
+                    errors?.password &&
                     'border-destructive bg-destructive-foreground'
                   }
                 />
-                {state?.password && (
-                  <small className="text-destructive">{state.password}</small>
+                {errors?.password && (
+                  <small className="text-destructive">{errors.password}</small>
                 )}
               </div>
 

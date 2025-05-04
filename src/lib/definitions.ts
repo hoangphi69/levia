@@ -54,9 +54,12 @@ export const ProductMetadataFormSchema = z.object({
 export const LoginFormSchema = z.object({
   email: z
     .string({ required_error: 'Email không được để trống.' })
+    .nonempty('Email không được để trống.')
     .email('Không đúng định dạng email.')
     .trim(),
-  password: z.string({ required_error: 'Mật khẩu không được để trống' }).trim(),
+  password: z
+    .string({ required_error: 'Mật khẩu không được để trống' })
+    .nonempty('Mật khẩu không được để trống.'),
 });
 
 // export type LoginFormState =
