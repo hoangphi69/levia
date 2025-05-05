@@ -1,6 +1,6 @@
 'use client';
 
-import { removeUploadedImage, uploadFiles } from '@/lib/actions/uploadthing';
+import { removeUploadedImage, uploadFiles } from '@/actions/uploadthing';
 import { FileMap } from '@/lib/definitions';
 import { Button } from '@/components/shadcn/button';
 import {

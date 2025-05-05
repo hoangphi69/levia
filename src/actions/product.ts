@@ -1,8 +1,8 @@
 'use server';
 
 import { ProductMedia, ProductReview } from '@prisma/client';
-import { ProductMetadata } from '../definitions';
-import prisma from '../prisma';
+import { ProductMetadata } from '@/lib/definitions';
+import prisma from '@/lib/prisma';
 import { getCategoryByTitle } from './category';
 
 async function getAllProducts() {

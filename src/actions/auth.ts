@@ -2,10 +2,10 @@
 
 import bcrypt from 'bcrypt';
 import { redirect } from 'next/navigation';
-import { LoginFormSchema } from '../definitions';
-import prisma from '../prisma';
-import { createSession, deleteSession } from '../session';
-import { parseZodError } from '../utils/parse';
+import { LoginFormSchema } from '@/lib/definitions';
+import prisma from '@/lib/prisma';
+import { createSession, deleteSession } from '@/lib/session';
+import { parseZodError } from '@/lib/utils/parse';
 
 // TODO: Implement register function
 async function register(_state: any, formData: FormData) {}

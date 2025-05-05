@@ -1,5 +1,5 @@
 import { Button } from '@/components/shadcn/button';
-import { getAllProducts } from '@/lib/actions/product';
+import { getAllProducts } from '@/actions/product';
 import { Plus } from 'lucide-react';
 import Header from '../_components/layout/header';
 import { columns } from './columns';

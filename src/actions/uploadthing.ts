@@ -1,6 +1,6 @@
 'use server';
 
-import { utapi } from '../uploadthing';
+import { utapi } from '@/lib/uploadthing';
 
 export async function uploadFiles(files: File[]) {
   return await utapi.uploadFiles(files);

@@ -25,8 +25,8 @@ import {
   SelectValue,
 } from '@/components/shadcn/select';
 import { Textarea } from '@/components/shadcn/textarea';
-import { getCategoryTitles } from '@/lib/actions/category';
-import { checkProductExistedByModel } from '@/lib/actions/product';
+import { getCategoryTitles } from '@/actions/category';
+import { checkProductExistedByModel } from '@/actions/product';
 import { ProductMetadata, ProductMetadataFormSchema } from '@/lib/definitions';
 import { formattedPrice } from '@/lib/utils/format';
 import { zodResolver } from '@hookform/resolvers/zod';

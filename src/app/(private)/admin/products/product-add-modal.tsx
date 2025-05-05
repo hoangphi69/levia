@@ -27,8 +27,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/shadcn/select';
-import { getCategoryTitles } from '@/lib/actions/category';
-import { createProduct } from '@/lib/actions/product';
+import { getCategoryTitles } from '@/actions/category';
+import { createProduct } from '@/actions/product';
 import { ProductAddFormSchema } from '@/lib/definitions';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';

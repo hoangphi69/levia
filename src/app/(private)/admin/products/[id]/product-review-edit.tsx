@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/shadcn/card';
-import { uploadFiles } from '@/lib/actions/uploadthing';
+import { uploadFiles } from '@/actions/uploadthing';
 import { FileMap } from '@/lib/definitions';
 import { generateUUID } from '@/lib/utils/generators';
 import { ProductReview } from '@prisma/client';

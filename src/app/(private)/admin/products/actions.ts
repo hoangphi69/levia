@@ -1,6 +1,6 @@
 'use server';
 
-import { deleteProductByModel } from '@/lib/actions/product';
+import { deleteProductByModel } from '@/actions/product';
 import { toast } from 'sonner';
 import { Product } from './columns';
 

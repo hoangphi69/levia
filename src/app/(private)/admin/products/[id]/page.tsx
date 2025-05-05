@@ -6,7 +6,7 @@ import {
   updateProductMedia,
   updateProductMetadata,
   updateProductReview,
-} from '@/lib/actions/product';
+} from '@/actions/product';
 import { Params } from '@/lib/definitions';
 import ProductMediaEdit from './product-media-edit';
 import ProductMetadataEdit from './product-meta-edit';

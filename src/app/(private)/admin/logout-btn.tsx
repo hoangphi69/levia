@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/shadcn/button';
-import { logout } from '@/lib/actions/auth';
+import { logout } from '@/actions/auth';
 import React from 'react';
 
 export default function LogoutBtn() {
