@@ -51,6 +51,33 @@ export const ProductMetadataFormSchema = z.object({
     .transform((val) => (val === null ? undefined : val)),
 });
 
+export const RegisterFormSchema = z
+  .object({
+    name: z
+      .string({ required_error: 'Tên không được để trống.' })
+      .trim()
+      .min(2, 'Tên phải từ 2 ký tự trở lên.')
+      .max(50, 'Tên không được quá 50 ký tự'),
+    email: z
+      .string({ required_error: 'Email không được để trống.' })
+      .nonempty('Email không được để trống.')
+      .email('Không đúng định dạng email.')
+      .trim(),
+    password: z
+      .string({ required_error: 'Mật khẩu không được để trống' })
+      .nonempty('Mật khẩu không được để trống.')
+      .min(6, 'Mật khẩu phải từ 6 ký tự trở lên.')
+      .max(50, 'Mật khẩu không được quá 50 ký tự.')
+      .regex(/^\S+$/, 'Mật khẩu không được chứa khoảng trắng.'),
+    confirm_password: z
+      .string({ required_error: 'Nhập lại mật khẩu không được để trống' })
+      .nonempty('Nhập lại mật khẩu không được để trống.'),
+  })
+  .refine((data) => data.password === data.confirm_password, {
+    message: 'Mật khẩu không khớp.',
+    path: ['confirm_password'],
+  });
+
 export const LoginFormSchema = z.object({
   email: z
     .string({ required_error: 'Email không được để trống.' })
@@ -61,16 +88,6 @@ export const LoginFormSchema = z.object({
     .string({ required_error: 'Mật khẩu không được để trống' })
     .nonempty('Mật khẩu không được để trống.'),
 });
-
-// export type LoginFormState =
-//   | {
-//       errors?: {
-//         email?: string[];
-//         password?: string[];
-//       };
-//       message?: string;
-//     }
-//   | undefined;
 
 export type Params = Promise<{ id: string }>;
 

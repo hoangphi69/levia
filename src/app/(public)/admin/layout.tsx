@@ -2,6 +2,7 @@ import ThemeProvider from '@/app/(private)/admin/_components/theme/theme-provide
 import '@/app/globals.css';
 import { monorale } from '@/fonts';
 import type { Metadata } from 'next';
+import { Toaster } from 'sonner';
 
 export const metadata: Metadata = {
   title: 'Đăng nhập',
@@ -39,6 +40,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <main className="w-full">{children}</main>
+          <Toaster richColors />
         </ThemeProvider>
       </body>
     </html>

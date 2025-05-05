@@ -12,7 +12,11 @@ export default async function middleware(req: NextRequest) {
   if (!pathname.startsWith('/admin')) return NextResponse.next();
 
   // Exclude /admin/login route
-  if (pathname.startsWith('/admin/login')) return NextResponse.next();
+  if (
+    pathname.startsWith('/admin/login') ||
+    pathname.startsWith('/admin/register')
+  )
+    return NextResponse.next();
 
   // Verify session for authorization
   const cookie = cookies.get('session')?.value;

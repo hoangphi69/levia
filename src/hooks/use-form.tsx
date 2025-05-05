@@ -12,7 +12,10 @@ type FormErrors = ReturnType<typeof parseZodError>;
 
 type useFormProps = {
   schema: ZodSchema;
-  action: (state: any, formData: FormData) => Promise<FormErrors>;
+  action: (
+    state: any,
+    formData: FormData
+  ) => Promise<FormErrors | Record<string, any>>;
 };
 
 export function useForm({ schema, action }: useFormProps) {
