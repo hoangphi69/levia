@@ -4,16 +4,17 @@ import { Button } from '@/components/shadcn/button';
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from '@/components/shadcn/card';
 import { Input } from '@/components/shadcn/input';
 import { Label } from '@/components/shadcn/label';
 import { useForm } from '@/hooks/use-form';
-import { login } from '@/lib/actions/auth';
+import { login } from '@/actions/auth';
 import { LoginFormSchema } from '@/lib/definitions';
 import { cn } from '@/lib/utils';
+import Link from 'next/link';
+import PasswordInput from '../../_components/components/password-input';
 
 export function LoginForm({ ...props }: React.ComponentPropsWithoutRef<'div'>) {
   const { errors, submit, pending } = useForm({
@@ -22,14 +23,10 @@ export function LoginForm({ ...props }: React.ComponentPropsWithoutRef<'div'>) {
   });
 
   return (
-    // TODO: Re-style the form
     <div className={cn('flex flex-col gap-6', props.className)} {...props}>
       <Card>
         <CardHeader>
           <CardTitle className="text-2xl">Đăng nhập admin</CardTitle>
-          <CardDescription>
-            Đăng nhập vào tài khoản của bạn để tiếp tục.
-          </CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={submit}>
@@ -39,8 +36,7 @@ export function LoginForm({ ...props }: React.ComponentPropsWithoutRef<'div'>) {
                 <Input
                   name="email"
                   id="email"
-                  type="text"
-                  placeholder="m@example.com"
+                  type="email"
                   className={
                     errors?.email &&
                     'border-destructive bg-destructive-foreground'
@@ -53,7 +49,7 @@ export function LoginForm({ ...props }: React.ComponentPropsWithoutRef<'div'>) {
 
               <div className="gap-2 grid">
                 <Label htmlFor="password">Mật khẩu</Label>
-                <Input
+                <PasswordInput
                   id="password"
                   name="password"
                   type="password"
@@ -69,6 +65,10 @@ export function LoginForm({ ...props }: React.ComponentPropsWithoutRef<'div'>) {
 
               <Button type="submit" className="w-full" disabled={pending}>
                 Đăng nhập
+              </Button>
+
+              <Button variant={'outline'} className="w-full" asChild>
+                <Link href={'/admin/register'}>Đăng ký</Link>
               </Button>
             </div>
           </form>
