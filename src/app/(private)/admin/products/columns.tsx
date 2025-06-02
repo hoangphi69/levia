@@ -6,7 +6,7 @@ import { Checkbox } from '@/components/shadcn/checkbox';
 import { formattedPrice } from '@/lib/utils/format';
 import { ColumnDef } from '@tanstack/react-table';
 import { Trash } from 'lucide-react';
-import { DataTableHeader } from './data-table-header';
+import { DataTableHeader } from '../_components/data-table/data-table-header';
 import ProductRemoveModal from './product-remove-modal';
 
 export type Product = {

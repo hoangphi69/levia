@@ -3,7 +3,7 @@ import { getAllProducts } from '@/actions/product';
 import { Plus } from 'lucide-react';
 import Header from '../_components/layout/header';
 import { columns } from './columns';
-import DataTable from './data-table';
+import DataTable from '../_components/data-table/data-table';
 import ProductAddModal from './product-add-modal';
 
 const header = {

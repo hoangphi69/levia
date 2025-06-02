@@ -1,3 +1,4 @@
+import { deleteProductByModel } from '@/actions/product';
 import { Button } from '@/components/shadcn/button';
 import {
   Dialog,
@@ -15,7 +16,8 @@ import {
   TooltipTrigger,
 } from '@/components/shadcn/tooltip';
 import _ from 'lodash';
-import { removeProductAction } from './actions';
+import { useActionState, useEffect } from 'react';
+import { toast } from 'sonner';
 import { Product } from './columns';
 
 export default function ProductRemoveModal({
@@ -25,6 +27,17 @@ export default function ProductRemoveModal({
   product: Product;
   children: React.ReactNode;
 }) {
+  const [state, action] = useActionState(
+    async () => await deleteProductByModel(product.model),
+    null
+  );
+
+  useEffect(() => {
+    if (!state) return;
+    if (state.success) toast.success('Xoá sản phẩm thành công.');
+    else toast.error('Xoá sản phẩm không thành công.');
+  }, [state]);
+
   return (
     <Dialog>
       <Tooltip delayDuration={1500}>
@@ -53,12 +66,14 @@ export default function ProductRemoveModal({
           <DialogClose asChild>
             <Button variant={'outline'}>Huỷ</Button>
           </DialogClose>
-          <Button
-            className="bg-destructive-foreground hover:bg-destructive border border-destructive text-destructive hover:text-foreground"
-            onClick={() => removeProductAction(product)}
-          >
-            Xác nhận
-          </Button>
+          <form action={action}>
+            <Button
+              className="bg-destructive-foreground hover:bg-destructive border border-destructive text-destructive hover:text-foreground"
+              type="submit"
+            >
+              Xác nhận
+            </Button>
+          </form>
         </DialogFooter>
       </DialogContent>
     </Dialog>

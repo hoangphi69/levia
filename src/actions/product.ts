@@ -217,7 +217,9 @@ async function updateProductReview(
 }
 
 async function deleteProductByModel(model: string) {
-  return await prisma.product.delete({ where: { model } });
+  const result = await prisma.product.delete({ where: { model } });
+  if (result) return { success: true };
+  return { success: false };
 }
 
 export {

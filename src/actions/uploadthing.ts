@@ -1,5 +1,7 @@
 'use server';
 
+// TODO: Switch to other file upload provider.
+
 import { utapi } from '@/lib/uploadthing';
 
 export async function uploadFiles(files: File[]) {
