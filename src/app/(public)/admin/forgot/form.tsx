@@ -1,5 +1,6 @@
 'use client';
 
+import { sendEmailResetPassword } from '@/actions/auth';
 import { Button } from '@/components/shadcn/button';
 import {
   Card,
@@ -10,25 +11,34 @@ import {
 import { Input } from '@/components/shadcn/input';
 import { Label } from '@/components/shadcn/label';
 import { useForm } from '@/hooks/use-form';
-import { login } from '@/actions/auth';
-import { LoginFormSchema } from '@/lib/definitions';
+import { SendEmailResetPasswordFormSchema } from '@/lib/definitions';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
-import PasswordInput from '../../_components/components/password-input';
+import { useEffect } from 'react';
+import { toast } from 'sonner';
 
-export default function LoginForm({
+export default function SendEmailResetPasswordForm({
   ...props
 }: React.ComponentPropsWithoutRef<'div'>) {
   const { errors, submit, pending } = useForm({
-    schema: LoginFormSchema,
-    action: login,
+    schema: SendEmailResetPasswordFormSchema,
+    action: sendEmailResetPassword,
   });
+
+  useEffect(() => {
+    if (errors?.message && errors?.success) {
+      toast.success(errors.message);
+      document.querySelector('form')?.reset();
+    } else if (errors?.message && !errors.success) {
+      toast.error(errors.message);
+    }
+  }, [errors]);
 
   return (
     <div className={cn('flex flex-col gap-6', props.className)} {...props}>
       <Card>
         <CardHeader>
-          <CardTitle className="text-2xl">Đăng nhập admin</CardTitle>
+          <CardTitle className="text-2xl">Quên mật khẩu</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={submit}>
@@ -38,7 +48,7 @@ export default function LoginForm({
                 <Input
                   name="email"
                   id="email"
-                  type="email"
+                  type="text"
                   className={
                     errors?.email &&
                     'border-destructive bg-destructive-foreground'
@@ -49,31 +59,8 @@ export default function LoginForm({
                 )}
               </div>
 
-              <div className="gap-2 grid">
-                <Label htmlFor="password">Mật khẩu</Label>
-                <PasswordInput
-                  id="password"
-                  name="password"
-                  type="password"
-                  className={
-                    errors?.password &&
-                    'border-destructive bg-destructive-foreground'
-                  }
-                />
-                {errors?.password && (
-                  <small className="text-destructive">{errors.password}</small>
-                )}
-                <small className="text-muted-foreground">
-                  <Link href={'/admin/forgot'} className="hover:underline">
-                    Quên mật khẩu
-                  </Link>
-                </small>
-              </div>
-
-              <br />
-
               <Button type="submit" className="w-full" disabled={pending}>
-                Đăng nhập
+                Gửi email
               </Button>
 
               <Button
@@ -82,7 +69,7 @@ export default function LoginForm({
                 className="w-full"
                 asChild
               >
-                <Link href={'/admin/register'}>Đăng ký</Link>
+                <Link href={'/admin/login'}>Quay về đăng nhập</Link>
               </Button>
             </div>
           </form>

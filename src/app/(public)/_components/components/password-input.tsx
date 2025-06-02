@@ -21,12 +21,12 @@ export default function PasswordInput({
         {hidden ? (
           <>
             <span className="sr-only">Hiện mật khẩu</span>
-            <Eye />
+            <EyeOff />
           </>
         ) : (
           <>
             <span className="sr-only">Ẩn mật khẩu</span>
-            <EyeOff />
+            <Eye />
           </>
         )}
       </Button>

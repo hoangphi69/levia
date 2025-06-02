@@ -1,7 +1,7 @@
 'use server';
 
 import { ContactFormSchema } from '@/lib/definitions';
-import { Resend } from 'resend';
+import { sendContactEmail } from '@/lib/resend';
 
 export async function sendEmail(_state: any, formData: FormData) {
   const data = {
@@ -20,12 +20,9 @@ export async function sendEmail(_state: any, formData: FormData) {
   }
 
   // Send email
-  const resend = new Resend(process.env.RESEND_API_KEY);
-  await resend.emails.send({
-    from: 'Levia <onboarding@resend.dev>',
-    to: '69hoangphi69@gmail.com',
-    replyTo: validated.data.email,
-    subject: 'Levia liên hệ khách hàng',
-    text: `Họ tên: ${validated.data.fullname}\nNội dung: ${validated.data.message}`,
-  });
+  await sendContactEmail(
+    validated.data.email,
+    validated.data.fullname,
+    validated.data.message
+  );
 }

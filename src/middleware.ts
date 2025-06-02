@@ -14,7 +14,8 @@ export default async function middleware(req: NextRequest) {
   // Exclude /admin/login route
   if (
     pathname.startsWith('/admin/login') ||
-    pathname.startsWith('/admin/register')
+    pathname.startsWith('/admin/register') ||
+    pathname.startsWith('/admin/forgot')
   )
     return NextResponse.next();
 

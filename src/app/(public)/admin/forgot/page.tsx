@@ -1,5 +1,9 @@
-import React from 'react';
+import SendEmailResetPasswordForm from './form';
 
-export default function ForgotPasswordPage() {
-  return <div>ForgotPasswordPage</div>;
+export default function SendEmailResetPasswordPage() {
+  return (
+    <div className="place-content-center *:mx-auto min-h-dvh">
+      <SendEmailResetPasswordForm className="shadow-xl max-w-[400px]" />
+    </div>
+  );
 }

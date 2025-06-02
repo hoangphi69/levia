@@ -1,6 +1,6 @@
 'use client';
 
-import { register } from '@/actions/auth';
+import { resetPassword } from '@/actions/auth';
 import { Button } from '@/components/shadcn/button';
 import {
   Card,
@@ -8,23 +8,22 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/shadcn/card';
-import { Input } from '@/components/shadcn/input';
 import { Label } from '@/components/shadcn/label';
 import { useForm } from '@/hooks/use-form';
-import { RegisterFormSchema } from '@/lib/definitions';
+import { ResetPasswordFormSchema } from '@/lib/definitions';
 import { cn } from '@/lib/utils';
-import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { useEffect } from 'react';
 import { toast } from 'sonner';
-import PasswordInput from '../../_components/components/password-input';
+import PasswordInput from '../../../_components/components/password-input';
 
-export default function RegisterForm({
+export default function ResetPasswordForm({
+  token,
   ...props
-}: React.ComponentPropsWithoutRef<'div'>) {
+}: React.ComponentPropsWithoutRef<'div'> & { token: string }) {
   const { errors, submit, pending } = useForm({
-    schema: RegisterFormSchema,
-    action: register,
+    schema: ResetPasswordFormSchema,
+    action: resetPassword,
   });
 
   useEffect(() => {
@@ -40,45 +39,12 @@ export default function RegisterForm({
     <div className={cn('flex flex-col gap-6', props.className)} {...props}>
       <Card>
         <CardHeader>
-          <CardTitle className="text-2xl">Đăng ký admin</CardTitle>
+          <CardTitle className="text-2xl">Cập nhật mật khẩu</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={submit}>
             <div className="flex flex-col gap-6">
-              <div className="gap-2 grid">
-                <Label htmlFor="name">Tên</Label>
-                <Input
-                  name="name"
-                  id="name"
-                  type="name"
-                  placeholder="lavie"
-                  className={
-                    errors?.name &&
-                    'border-destructive bg-destructive-foreground'
-                  }
-                />
-                {errors?.name && (
-                  <small className="text-destructive">{errors.name}</small>
-                )}
-              </div>
-
-              <div className="gap-2 grid">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  name="email"
-                  id="email"
-                  type="email"
-                  placeholder="example@email.com"
-                  className={
-                    errors?.email &&
-                    'border-destructive bg-destructive-foreground'
-                  }
-                />
-                {errors?.email && (
-                  <small className="text-destructive">{errors.email}</small>
-                )}
-              </div>
-
+              <input type="hidden" name="token" value={token} />
               <div className="gap-2 grid">
                 <Label htmlFor="password">Mật khẩu</Label>
                 <PasswordInput
@@ -116,16 +82,7 @@ export default function RegisterForm({
               <br />
 
               <Button type="submit" className="w-full" disabled={pending}>
-                Tạo tài khoản
-              </Button>
-
-              <Button
-                type="button"
-                variant={'outline'}
-                className="w-full"
-                asChild
-              >
-                <Link href={'/admin/login'}>Đăng nhập</Link>
+                Cập nhật mật khẩu
               </Button>
             </div>
           </form>

@@ -7,7 +7,7 @@ const key = new TextEncoder().encode(process.env.SESSION_SECRET);
 type userPayload = { id: string; role: Role };
 
 async function encrypt(payload: userPayload) {
-  return new SignJWT(payload)
+  return await new SignJWT(payload)
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
     .setExpirationTime('7d')

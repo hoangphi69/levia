@@ -60,9 +60,9 @@ export const RegisterFormSchema = z
       .max(50, 'Tên không được quá 50 ký tự'),
     email: z
       .string({ required_error: 'Email không được để trống.' })
+      .trim()
       .nonempty('Email không được để trống.')
-      .email('Không đúng định dạng email.')
-      .trim(),
+      .email('Không đúng định dạng email.'),
     password: z
       .string({ required_error: 'Mật khẩu không được để trống' })
       .nonempty('Mật khẩu không được để trống.')
@@ -81,13 +81,39 @@ export const RegisterFormSchema = z
 export const LoginFormSchema = z.object({
   email: z
     .string({ required_error: 'Email không được để trống.' })
+    .trim()
     .nonempty('Email không được để trống.')
-    .email('Không đúng định dạng email.')
-    .trim(),
+    .email('Không đúng định dạng email.'),
   password: z
     .string({ required_error: 'Mật khẩu không được để trống' })
     .nonempty('Mật khẩu không được để trống.'),
 });
+
+export const SendEmailResetPasswordFormSchema = z.object({
+  email: z
+    .string({ required_error: 'Email không được để trống.' })
+    .trim()
+    .nonempty('Email không được để trống.')
+    .email('Không đúng định dạng email.'),
+});
+
+export const ResetPasswordFormSchema = z
+  .object({
+    token: z.string().nonempty(),
+    password: z
+      .string({ required_error: 'Mật khẩu không được để trống' })
+      .nonempty('Mật khẩu không được để trống.')
+      .min(6, 'Mật khẩu phải từ 6 ký tự trở lên.')
+      .max(50, 'Mật khẩu không được quá 50 ký tự.')
+      .regex(/^\S+$/, 'Mật khẩu không được chứa khoảng trắng.'),
+    confirm_password: z
+      .string({ required_error: 'Nhập lại mật khẩu không được để trống' })
+      .nonempty('Nhập lại mật khẩu không được để trống.'),
+  })
+  .refine((data) => data.password === data.confirm_password, {
+    message: 'Mật khẩu không khớp.',
+    path: ['confirm_password'],
+  });
 
 export type Params = Promise<{ id: string }>;
 
