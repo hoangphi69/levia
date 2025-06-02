@@ -8,14 +8,9 @@ import { ColumnDef } from '@tanstack/react-table';
 import { Trash } from 'lucide-react';
 import { DataTableHeader } from '../_components/data-table/data-table-header';
 import ProductRemoveModal from './product-remove-modal';
+import { getAllProducts } from '@/actions/product';
 
-export type Product = {
-  id: string;
-  model: string;
-  title: string;
-  price: number | null;
-  category_title: string | undefined;
-};
+export type Product = Awaited<ReturnType<typeof getAllProducts>>[number];
 
 export const columns: ColumnDef<Product>[] = [
   {
@@ -27,7 +22,7 @@ export const columns: ColumnDef<Product>[] = [
             table.getIsAllPageRowsSelected() ||
             (table.getIsSomePageRowsSelected() && 'indeterminate')
           }
-          onCheckedChange={(value) => table.toggleAllPageRowsSelected()}
+          onCheckedChange={() => table.toggleAllPageRowsSelected()}
           aria-label="Chọn tất cả"
           onClick={(e) => e.stopPropagation()}
         />

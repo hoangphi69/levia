@@ -8,7 +8,13 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/shadcn/sidebar';
-import { FlaskConical, Home, Search, Settings } from 'lucide-react';
+import {
+  FlaskConical,
+  LetterText,
+  Search,
+  Settings,
+  ShoppingCart,
+} from 'lucide-react';
 import Link from 'next/link';
 import ThemeLogo from '../theme/theme-logo';
 import ThemeSwitch from '../theme/theme-switch';
@@ -19,7 +25,12 @@ const items = [
   {
     title: 'Sản phẩm',
     url: '/admin/products',
-    icon: Home,
+    icon: ShoppingCart,
+  },
+  {
+    title: 'Bài viết',
+    url: '/admin/articles',
+    icon: LetterText,
   },
   {
     title: 'Experimental',
@@ -42,7 +53,7 @@ export function SideNavbar() {
   return (
     <Sidebar collapsible="icon" className="border-none">
       <SidebarHeader>
-        <div className="group-data-[collapsible=icon]:!p-[2px] flex items-center gap-4 p-4 overflow-hidden group-data-[collapsible=icon]:*:truncate transition-all">
+        <div className="flex items-center gap-4 p-4 group-data-[collapsible=icon]:!p-[2px] overflow-hidden group-data-[collapsible=icon]:*:truncate transition-all">
           <ThemeLogo
             src={''}
             alt={''}
@@ -60,7 +71,7 @@ export function SideNavbar() {
             {items.map((item, index) => (
               <SidebarMenuItem key={index}>
                 <SidebarMenuButton
-                  className="group-data-[collapsible=icon]:!p-2 gap-4 p-4"
+                  className="gap-4 p-4 group-data-[collapsible=icon]:!p-2"
                   size={'lg'}
                   tooltip={item.title}
                   asChild
@@ -78,7 +89,7 @@ export function SideNavbar() {
 
       <SidebarFooter>
         <SidebarMenu>
-          <div className="group-data-[collapsible=icon]:!p-[2px] flex items-center gap-4 p-4 overflow-hidden group-data-[collapsible=icon]:*:truncate transition-all">
+          <div className="flex items-center gap-4 p-4 group-data-[collapsible=icon]:!p-[2px] overflow-hidden group-data-[collapsible=icon]:*:truncate transition-all">
             {/* 
             TODO: Dropdown menu on clicking user avatar
               + Name and email

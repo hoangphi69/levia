@@ -10,7 +10,7 @@ import {
 import { ProductMedia, Style } from '@prisma/client';
 import { GripVertical, Trash2 } from 'lucide-react';
 import { Reorder, useDragControls } from 'motion/react';
-import ImageInput from './image-input';
+import ImageInput from '../../_components/form/image-input';
 import SelectInput from './select-input';
 import StylePreview from './style-preview';
 

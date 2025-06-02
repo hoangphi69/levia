@@ -20,11 +20,7 @@ const header = {
 };
 
 export default async function Products() {
-  const data = await getAllProducts();
-  const products = data.map(({ Category, ...rest }) => ({
-    ...rest,
-    category_title: Category?.title,
-  }));
+  const products = await getAllProducts();
 
   return (
     <>

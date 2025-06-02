@@ -10,9 +10,9 @@ import {
 import { ProductReview } from '@prisma/client';
 import { GripVertical, Trash2 } from 'lucide-react';
 import { Reorder, useDragControls } from 'motion/react';
-import { DateTimePicker } from './datetime-picker';
-import ImageInput from './image-input';
-import RatingSelect from './rating-select';
+import { DateTimePicker } from '../../_components/form/datetime-picker';
+import ImageInput from '../../_components/form/image-input';
+import RatingSelect from '../../_components/form/rating-select';
 
 export default function ProductReviewItem({
   index,

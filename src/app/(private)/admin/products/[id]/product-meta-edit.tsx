@@ -36,7 +36,7 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
-import CurrencyInput from './currency-input';
+import CurrencyInput from '../../_components/form/currency-input';
 
 export default function ProductMetadataEdit({
   title,

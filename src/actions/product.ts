@@ -6,7 +6,7 @@ import prisma from '@/lib/prisma';
 import { getCategoryByTitle } from './category';
 
 async function getAllProducts() {
-  return await prisma.product.findMany({
+  const data = await prisma.product.findMany({
     select: {
       id: true,
       model: true,
@@ -20,6 +20,11 @@ async function getAllProducts() {
     },
     orderBy: { created_at: 'desc' }, // Newest first
   });
+
+  return data.map(({ Category, ...rest }) => ({
+    ...rest,
+    category_title: Category?.title,
+  }));
 }
 
 async function getProductByID(id: string) {
