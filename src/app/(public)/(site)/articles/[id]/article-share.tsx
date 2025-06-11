@@ -1,15 +1,16 @@
 'use client';
 
+import { usePathname } from 'next/navigation';
 import { toast } from 'sonner';
 
 export default function ArticleShare({ title }: { title: string | undefined }) {
-  const currentURL = location.href;
+  const currentURL = process.env.NEXT_PUBLIC_BASE_URL + usePathname();
 
   return (
     <ul className="flex items-center gap-4">
       <li>
         <button
-          className="place-items-center grid transition-colors hover:fill-foreground"
+          className="place-items-center grid hover:fill-foreground transition-colors"
           onClick={() => {
             navigator.clipboard.writeText(currentURL);
             toast.success('Đã copy đường dẫn bài viết');
@@ -26,7 +27,7 @@ export default function ArticleShare({ title }: { title: string | undefined }) {
       </li>
       <li>
         <a
-          className="transition-colors hover:fill-foreground"
+          className="hover:fill-foreground transition-colors"
           href={`https://www.facebook.com/sharer.php?u=${currentURL}`}
           title="Chia sẻ trên Facebook"
           target="_blank"
@@ -44,7 +45,7 @@ export default function ArticleShare({ title }: { title: string | undefined }) {
       </li>
       <li>
         <a
-          className="transition-colors hover:fill-foreground"
+          className="hover:fill-foreground transition-colors"
           href={`https://twitter.com/intent/tweet?text=${title}&url=${currentURL}`}
           title="Chia sẻ trên X"
           target="_blank"

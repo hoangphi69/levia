@@ -223,3 +223,184 @@
     }
   }
 }
+
+/* Editorjs tool custom style */
+#editorjs {
+  .ce-popover,
+  .ce-popover-item,
+  .ce-popover-item__icon,
+  .ce-popover-items,
+  .ce-popover__container .ce-popover-item:hover {
+    --color-background-item-hover: hsl(var(--background));
+    border-color: hsl(var(--border));
+  }
+  .ce-popover__container {
+    background: hsl(var(--background));
+  }
+
+  .ce-popover--opened > .ce-popover__container {
+    border: 1px solid hsl(var(--border));
+  }
+
+  .ce-popover-item-separator__line {
+    border: 1px solid hsl(var(--border));
+  }
+
+  .ce-toolbar__plus,
+  .ce-toolbar__settings-btn,
+  .ce-popover-item__title,
+  .ce-inline-tool .ce-inline-tool--link .ce-popover-item__icon {
+    color: hsl(var(--foreground));
+  }
+
+  .cdx-search-field.ce-popover__search {
+    background-color: hsl(var(--muted) / 0.3);
+    border-color: hsl(var(--border));
+  }
+
+  .cdx-search-field__input {
+    color: hsl(var(--foreground));
+  }
+
+  .cdx-block,
+  .ce-block {
+    color: hsl(var(--foreground));
+  }
+
+  .cdx-block {
+    overflow-wrap: break-word;
+  }
+
+  .ce-inline-toolbar,
+  .ce-conversion-tool__icon,
+  .ce-popover-item__icon,
+  .tc-popover__item-icon {
+    color: hsl(var(--foreground));
+    border-color: hsl(var(--border));
+  }
+
+  .ce-popover,
+  .ce-conversion-toolbar,
+  .ce-inline-toolbar,
+  .tc-popover {
+    background-color: hsl(var(--popover));
+    border-color: hsl(var(--border));
+    box-shadow: 0 3px 15px -3px hsl(var(--border) / 0.2);
+  }
+
+  .ce-inline-tool {
+    color: hsl(var(--color-text-primary));
+  }
+
+  .ce-popover-item--active,
+  .ce-inline-tool--active {
+    background-color: hsl(var(--foreground) / 0.1) !important;
+  }
+
+  .ce-inline-tool-input {
+    background: hsl(var(--background));
+    outline: none;
+    border: none;
+  }
+
+  .ce-inline-tool:hover,
+  .ce-inline-toolbar__dropdown:hover,
+  .ce-toolbar__plus:hover,
+  .ce-toolbar__settings-btn:hover,
+  .ce-conversion-tool:hover,
+  .ce-popover-item:hover {
+    background-color: hsl(var(--foreground) / 0.1);
+  }
+
+  *::selection,
+  .ce-block.ce-block--selected .ce-block__content {
+    background-color: #0078d7;
+  }
+
+  .ce-popover__items {
+    scrollbar-color: hsl(var(--border)) hsl(var(--background));
+  }
+
+  .tc-wrap,
+  .tc-wrap * {
+    --color-border: hsl(var(--border));
+    --color-text-secondary: hsl(var(--foreground));
+    --color-background: hsl(var(--accent) / 0.2);
+    --toggler-dots-color: hsl(var(--accent) / 0.2);
+    --toggler-dots-color-hovered: hsl(var(--foreground));
+  }
+
+  @media (max-width: 650px) {
+    .ce-toolbar__settings-btn,
+    .ce-toolbar__plus {
+      background-color: hsl(var(--popover));
+      border-color: hsl(var(--border));
+      box-shadow: 0 3px 15px -3px hsl(var(--border) / 0.2);
+    }
+  }
+}
+
+/* Editorjs block styles */
+#editorjs,
+#editorjs-output {
+  /* Header styles */
+  h1 {
+    @apply text-4xl font-bold;
+  }
+
+  h2 {
+    @apply text-3xl font-bold;
+  }
+
+  h3 {
+    @apply text-2xl font-semibold;
+  }
+
+  h4 {
+    @apply text-xl font-semibold;
+  }
+
+  h5 {
+    @apply text-lg font-semibold;
+  }
+
+  h6 {
+    @apply text-base font-semibold;
+  }
+}
+
+#editorjs-output {
+  & > * {
+    @apply mb-4;
+  }
+}
+
+/* Custom styles for the tooltip */
+.ct {
+  --tooltip-border: 1px solid hsl(var(--border));
+
+  &::before {
+    background-color: hsl(var(--background));
+    border-radius: calc(var(--radius) - 2px);
+    border: var(--tooltip-border);
+  }
+
+  &::after {
+    border-color: hsl(var(--border));
+  }
+
+  &.ct--bottom::after {
+    border-top: var(--tooltip-border);
+    border-right: var(--tooltip-border);
+  }
+
+  &.ct--top::after {
+    border-bottom: var(--tooltip-border);
+    border-left: var(--tooltip-border);
+  }
+
+  .ct__content {
+    color: hsl(var(--foreground));
+    padding: 0.7rem;
+  }
+}

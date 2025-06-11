@@ -1,6 +1,6 @@
 import ArticleShare from '@/app/(public)/(site)/articles/[id]/article-share';
 import Banner from '@/app/(public)/_components/layout/banner';
-import EditorOutput from '@/lib/editor-output';
+import ArticleContentRender from '@/app/(public)/(site)/articles/[id]/article-content-render';
 import prisma from '@/lib/prisma';
 import { formattedDate } from '@/lib/utils/format';
 
@@ -44,8 +44,8 @@ export default async function ArticleDetails({
           </div>
 
           {article?.content && (
-            <div className="space-y-6 text-muted-foreground text-base">
-              <EditorOutput content={article.content} />
+            <div className="space-y-6">
+              <ArticleContentRender content={article.content} />
             </div>
           )}
 

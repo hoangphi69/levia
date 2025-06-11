@@ -9,12 +9,14 @@ interface DataTableSearchProps<TData> {
 }
 
 export default function DataTableSearch<TData>({
+  placeholder = '',
   table,
-}: DataTableSearchProps<TData>) {
+}: DataTableSearchProps<TData> & {
+  placeholder?: string;
+}) {
   return (
     <Input
-      placeholder="Tìm kiếm sản phẩm..."
-      // value={(table.getColumn('title')?.getFilterValue() as string) ?? ''}
+      placeholder={placeholder}
       onChange={useDebounce(
         (e) => table.getColumn('title')?.setFilterValue(e.target.value),
         300

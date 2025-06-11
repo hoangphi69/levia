@@ -6,7 +6,7 @@ import Header from '../_components/layout/header';
 import { columns } from './columns';
 
 const header = {
-  title: 'Sản phẩm',
+  title: 'Bài viết',
   breadcrumb: [
     {
       display: 'Trang chủ',

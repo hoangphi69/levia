@@ -9,6 +9,7 @@ import { Trash } from 'lucide-react';
 import { DataTableHeader } from '../_components/data-table/data-table-header';
 import ProductRemoveModal from './product-remove-modal';
 import { getAllProducts } from '@/actions/product';
+import Link from 'next/link';
 
 export type Product = Awaited<ReturnType<typeof getAllProducts>>[number];
 
@@ -51,6 +52,14 @@ export const columns: ColumnDef<Product>[] = [
     accessorKey: 'title',
     header: ({ column }) => (
       <DataTableHeader column={column} title="Sản phẩm" />
+    ),
+    cell: ({ row }) => (
+      <Link
+        href={`products/${row.original.id}`}
+        className="hover:underline line-clamp-1"
+      >
+        {row.original.title}
+      </Link>
     ),
   },
 

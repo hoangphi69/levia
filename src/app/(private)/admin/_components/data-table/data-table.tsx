@@ -19,7 +19,6 @@ import {
   SortingState,
   useReactTable,
 } from '@tanstack/react-table';
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { DataTablePagination } from './data-table-pagination';
 import DataTableSearch from './data-table-search';
@@ -37,7 +36,6 @@ export default function DataTable<TData extends { id: string }, TValue>({
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [rowSelection, setRowSelection] = useState({});
-  const router = useRouter();
 
   const table = useReactTable({
     data,
@@ -59,7 +57,7 @@ export default function DataTable<TData extends { id: string }, TValue>({
   return (
     <div className="space-y-4">
       <div className="flex justify-between gap-4">
-        <DataTableSearch table={table} />
+        <DataTableSearch table={table} placeholder="Tìm kiếm..." />
         <DataTableView table={table} />
       </div>
 
@@ -86,10 +84,8 @@ export default function DataTable<TData extends { id: string }, TValue>({
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
-                  onClick={() => router.push(`products/${row.original.id}`)}
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
-                  className="active:bg-secondary cursor-pointer"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>

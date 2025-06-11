@@ -39,10 +39,17 @@ function formattedRelativeTime(date: Date): string {
   return ''; // Fallback if no match (this is unlikely to occur).
 }
 
-function formattedDate(date: Date | undefined): string {
+function formattedDate(
+  date: Date | undefined,
+  separator: string = '.'
+): string {
   if (!date) return 'N/A';
 
-  return `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`;
+  const day = date.getDate().toString().padStart(2, '0');
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const year = date.getFullYear();
+
+  return `${day}${separator}${month}${separator}${year}`;
 }
 
 export { formattedPrice, formattedRelativeTime, formattedDate };
